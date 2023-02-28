@@ -1,3 +1,4 @@
+import { Header } from '@/components/Header'
 import { Metadata } from 'next'
 import { ReactNode } from 'react'
 
@@ -15,7 +16,10 @@ interface LayoutProps {
 export default function RootLayout({ children }: LayoutProps) {
   return (
     <html lang="en">
-      <body>{children}</body>
+      <body>
+        <Header />
+        {children}
+      </body>
     </html>
   )
 }
