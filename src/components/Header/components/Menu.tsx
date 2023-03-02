@@ -24,12 +24,12 @@ export const Menu = () => {
                 <CaretRight />
               </span>
             </DropDownMenu.SubTrigger>
-            <DropDownMenu.Portal className="z-20">
+            <DropDownMenu.Portal>
               <DropDownMenu.SubContent
-                alignOffset={15}
                 sideOffset={5}
-                className="bg-neutral-500 py-2 w-32 rounded-md border border-emerald-500"
+                className="bg-neutral-500 z-20 py-2 w-32 rounded-md border border-emerald-500"
               >
+                <DropDownMenu.Arrow className="fill-emerald-500" />
                 <DropDownMenu.Item className="p-2 outline-none cursor-pointer hover:bg-neutral-600 text-neutral-100 hover:text-emerald-500">
                   Popular
                 </DropDownMenu.Item>
@@ -54,10 +54,10 @@ export const Menu = () => {
             </DropDownMenu.SubTrigger>
             <DropDownMenu.Portal>
               <DropDownMenu.SubContent
-                alignOffset={15}
                 sideOffset={5}
-                className="bg-neutral-500 py-2 w-32 rounded-md border border-emerald-500"
+                className="bg-neutral-500 z-20 py-2 w-32 rounded-md border border-emerald-500"
               >
+                <DropDownMenu.Arrow className="fill-emerald-500" />
                 <DropDownMenu.Item className="p-2 outline-none cursor-pointer hover:bg-neutral-600 text-neutral-100 hover:text-emerald-500">
                   Popular
                 </DropDownMenu.Item>
