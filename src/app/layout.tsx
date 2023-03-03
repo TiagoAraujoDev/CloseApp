@@ -1,4 +1,5 @@
-import { Header } from '@/components/Header/Header'
+import { Header } from '@/components/Header'
+import { TrendingMoviesProvider } from '@/context/TredingMovies'
 import { Metadata } from 'next'
 import { ReactNode } from 'react'
 
@@ -16,9 +17,11 @@ interface LayoutProps {
 export default function RootLayout({ children }: LayoutProps) {
   return (
     <html lang="en">
-      <body>
-        <Header />
-        {children}
+      <body className="bg-neutral-900">
+        <TrendingMoviesProvider>
+          <Header />
+          {children}
+        </TrendingMoviesProvider>
       </body>
     </html>
   )
