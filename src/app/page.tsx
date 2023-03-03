@@ -1,20 +1,39 @@
 import axios from 'axios'
 
+import { OptionsMenu } from '@/components/ToogleGroup'
+import { CardsCarousel } from '@/components/CardsCarousel'
+
 const getData = async () => {
+  const apiKey = process.env.API_KEY
   const response = await axios.get(
-    'https://api.themoviedb.org/3/movie/latest?api_key=*api_key*&language=en-US',
+    `https://api.themoviedb.org/3/trending/movie/day?api_key=${apiKey}`,
   )
-  const movie = response.data
-  return movie
+  const movies = response.data.results
+  return movies
 }
 
 export default async function Home() {
-  // const movie = await getData()
+  const movies = await getData()
 
-  // console.log(movie)
+  movies.map((movie: any) => {
+    return {
+      id: movie.id,
+      title: movie.title,
+      original_title: movie.original_title,
+      backdrop_path: movie.backdrop_path,
+      poster_path: movie.poster_path,
+    }
+  })
+
   return (
-    <div className="bg-neutral-900 h-[2000px] flex items-center justify-center">
-      {/* <div className="text-neutral-50">{JSON.stringify(movie, null, 2)}</div> */}
-    </div>
+    <main className="max-w-screen-lg mx-auto px-6 py-4">
+      <section className="flex flex-col gap-3 relative">
+        <div className="flex items-center justify-between">
+          <span className="text-neutral-100 font-bold text-3xl">Trending</span>
+          <OptionsMenu labels={['Day', 'Week']} />
+        </div>
+        <CardsCarousel movies={movies} />
+      </section>
+    </main>
   )
 }
