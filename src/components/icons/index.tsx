@@ -1,6 +1,14 @@
 'use client'
 
-import { CaretRight, FilmStrip, MagnifyingGlass, SignIn } from 'phosphor-react'
+import {
+  CaretRight,
+  FilmStrip,
+  GithubLogo,
+  Link,
+  LinkedinLogo,
+  MagnifyingGlass,
+  SignIn,
+} from 'phosphor-react'
 
 export const FilmStripSVG = () => {
   return <FilmStrip />
@@ -16,4 +24,16 @@ export const LogginSVG = () => {
 
 export const CaretRightSVG = () => {
   return <CaretRight />
+}
+
+export const GithubSVG = () => {
+  return <GithubLogo size={20} color="#10b981" />
+}
+
+export const LinkedInSVG = () => {
+  return <LinkedinLogo size={20} color="#10b981" />
+}
+
+export const BlogSVG = () => {
+  return <Link size={20} color="#10b981" />
 }

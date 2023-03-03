@@ -1,9 +1,10 @@
-import { Header } from '@/components/Header'
-import { TrendingMoviesProvider } from '@/context/TredingMovies'
 import { Metadata } from 'next'
 import { ReactNode } from 'react'
 
+import { Header } from '@/components/Header'
+
 import './globals.css'
+import { Footer } from '@/components/Footer'
 
 export const metadata: Metadata = {
   title: 'Create Next App',
@@ -17,11 +18,10 @@ interface LayoutProps {
 export default function RootLayout({ children }: LayoutProps) {
   return (
     <html lang="en">
-      <body className="bg-neutral-900">
-        <TrendingMoviesProvider>
-          <Header />
-          {children}
-        </TrendingMoviesProvider>
+      <body className="bg-neutral-900 scrollbar-thin scrollbar-thumb-emerald-500 scrollbar-track-neutral-300">
+        <Header />
+        {children}
+        <Footer />
       </body>
     </html>
   )
