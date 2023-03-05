@@ -3,7 +3,7 @@ import { BlogSVG, GithubSVG, LinkedInSVG } from '../icons'
 
 export function Footer() {
   return (
-    <footer className="w-full h-16 bg-neutral-800 flex flex-col items-center justify-center">
+    <footer className="w-screen h-16 bg-neutral-800 flex flex-col items-center justify-center">
       <span className="text-neutral-400">Made by Tiago Araujo &copy; 2023</span>
       <span className="flex items-center gap-2">
         <Link target="_blank" href="https://github.com/TiagoAraujoDev">
