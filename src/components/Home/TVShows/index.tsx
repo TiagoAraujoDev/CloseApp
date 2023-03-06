@@ -1,37 +1,37 @@
-'use client'
+"use client";
 
-import { useState } from 'react'
-import * as ToogleGroup from '@radix-ui/react-toggle-group'
+import { useState } from "react";
+import * as ToogleGroup from "@radix-ui/react-toggle-group";
 
-import { CardsCarousel } from '@/components/CardsCarousel'
+import { Carousel } from "@/components/Carousel";
 
 export interface TVProps {
   onTheAir?: {
-    id: number
-    original_name: string
-    first_air_date: string
-    backdrop_path: string
-    poster_path: string
-  }[]
+    id: number;
+    original_name: string;
+    first_air_date: string;
+    backdrop_path: string;
+    poster_path: string;
+  }[];
   popular?: {
-    id: number
-    original_name: string
-    first_air_date: string
-    backdrop_path: string
-    poster_path: string
-  }[]
+    id: number;
+    original_name: string;
+    first_air_date: string;
+    backdrop_path: string;
+    poster_path: string;
+  }[];
   topRated?: {
-    id: number
-    original_name: string
-    first_air_date: string
-    backdrop_path: string
-    poster_path: string
-  }[]
-  labels: string[]
+    id: number;
+    original_name: string;
+    first_air_date: string;
+    backdrop_path: string;
+    poster_path: string;
+  }[];
+  labels: string[];
 }
 
 export function TVSection({ popular, topRated, onTheAir, labels }: TVProps) {
-  const [label, setLabel] = useState(labels[0])
+  const [label, setLabel] = useState(labels[0]);
 
   return (
     <section className="flex flex-col gap-3 mb-6 last:mb-0">
@@ -44,7 +44,7 @@ export function TVSection({ popular, topRated, onTheAir, labels }: TVProps) {
           type="single"
           defaultValue={label}
           onValueChange={(value) => {
-            if (value) setLabel(value)
+            if (value) setLabel(value);
           }}
         >
           {labels.map((label, index) => {
@@ -56,13 +56,13 @@ export function TVSection({ popular, topRated, onTheAir, labels }: TVProps) {
               >
                 {label}
               </ToogleGroup.Item>
-            )
+            );
           })}
         </ToogleGroup.Root>
       </div>
-      {label === 'popular' && <CardsCarousel tvshows={popular} />}
-      {label === 'top_rated' && <CardsCarousel tvshows={topRated} />}
-      {label === 'on_the_air' && <CardsCarousel tvshows={onTheAir} />}
+      {label === "popular" && <Carousel tvshows={popular} />}
+      {label === "top_rated" && <Carousel tvshows={topRated} />}
+      {label === "on_the_air" && <Carousel tvshows={onTheAir} />}
     </section>
-  )
+  );
 }

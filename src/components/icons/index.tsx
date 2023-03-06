@@ -1,4 +1,4 @@
-'use client'
+"use client";
 
 import {
   CaretRight,
@@ -8,32 +8,32 @@ import {
   LinkedinLogo,
   MagnifyingGlass,
   SignIn,
-} from 'phosphor-react'
+} from "phosphor-react";
 
 export const FilmStripSVG = () => {
-  return <FilmStrip />
-}
+  return <FilmStrip />;
+};
 
 export const MagnifyingGlassSVG = () => {
-  return <MagnifyingGlass size={20} color="#10b981" />
-}
+  return <MagnifyingGlass size={20} color="#10b981" />;
+};
 
 export const LogginSVG = () => {
-  return <SignIn size={24} color="#10b981" />
-}
+  return <SignIn size={24} color="#10b981" />;
+};
 
 export const CaretRightSVG = () => {
-  return <CaretRight />
-}
+  return <CaretRight />;
+};
 
 export const GithubSVG = () => {
-  return <GithubLogo size={20} color="#10b981" />
-}
+  return <GithubLogo size={20} color="#10b981" />;
+};
 
 export const LinkedInSVG = () => {
-  return <LinkedinLogo size={20} color="#10b981" />
-}
+  return <LinkedinLogo size={20} color="#10b981" />;
+};
 
 export const BlogSVG = () => {
-  return <Link size={20} color="#10b981" />
-}
+  return <Link size={20} color="#10b981" />;
+};

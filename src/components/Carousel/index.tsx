@@ -1,24 +1,27 @@
-import Image from 'next/image'
-import Link from 'next/link'
+import Image from "next/image";
+import Link from "next/link";
 
-interface CardsCarouselProps {
+interface CarouselProps {
   movies?: {
-    id: number
-    original_title: string
-    release_date: string
-    backdrop_path: string
-    poster_path: string
-  }[]
+    id: number;
+    original_title: string;
+    release_date: string;
+    backdrop_path: string;
+    poster_path: string;
+  }[];
   tvshows?: {
-    id: number
-    original_name: string
-    first_air_date: string
-    backdrop_path: string
-    poster_path: string
-  }[]
+    id: number;
+    original_name: string;
+    first_air_date: string;
+    backdrop_path: string;
+    poster_path: string;
+  }[];
 }
 
-export function CardsCarousel({ movies, tvshows }: CardsCarouselProps) {
+export function Carousel({ movies, tvshows }: CarouselProps) {
+  if (movies) console.log("Render - Carousel movies");
+  if (tvshows) console.log("Render - Carousel tv");
+
   return (
     <div className="flex justify-between gap-2 w-full pb-3 overflow-auto scrollbar-thin scrollbar-thumb-emerald-500 scrollbar-track-neutral-300">
       {movies &&
@@ -44,7 +47,7 @@ export function CardsCarousel({ movies, tvshows }: CardsCarouselProps) {
                 </div>
               </Link>
             </div>
-          )
+          );
         })}
       {tvshows &&
         tvshows.map((tvshow) => {
@@ -69,8 +72,8 @@ export function CardsCarousel({ movies, tvshows }: CardsCarouselProps) {
                 </div>
               </Link>
             </div>
-          )
+          );
         })}
     </div>
-  )
+  );
 }

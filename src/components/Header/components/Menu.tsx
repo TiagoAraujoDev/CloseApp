@@ -1,7 +1,7 @@
-'use client'
+"use client";
 
-import * as DropDownMenu from '@radix-ui/react-dropdown-menu'
-import { CaretRight, List } from 'phosphor-react'
+import * as DropDownMenu from "@radix-ui/react-dropdown-menu";
+import { CaretRight, List } from "phosphor-react";
 
 export const Menu = () => {
   return (
@@ -76,5 +76,5 @@ export const Menu = () => {
         </DropDownMenu.Content>
       </DropDownMenu.Portal>
     </DropDownMenu.Root>
-  )
-}
+  );
+};

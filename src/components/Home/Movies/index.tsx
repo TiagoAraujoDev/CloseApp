@@ -1,33 +1,33 @@
-'use client'
+"use client";
 
-import { useState } from 'react'
-import * as ToogleGroup from '@radix-ui/react-toggle-group'
+import { useState } from "react";
+import * as ToogleGroup from "@radix-ui/react-toggle-group";
 
-import { CardsCarousel } from '@/components/CardsCarousel'
+import { Carousel } from "@/components/Carousel";
 
 export interface MoviesProps {
   popular?: {
-    id: number
-    original_title: string
-    release_date: string
-    backdrop_path: string
-    poster_path: string
-  }[]
+    id: number;
+    original_title: string;
+    release_date: string;
+    backdrop_path: string;
+    poster_path: string;
+  }[];
   topRated?: {
-    id: number
-    original_title: string
-    release_date: string
-    backdrop_path: string
-    poster_path: string
-  }[]
+    id: number;
+    original_title: string;
+    release_date: string;
+    backdrop_path: string;
+    poster_path: string;
+  }[];
   upcoming?: {
-    id: number
-    original_title: string
-    release_date: string
-    backdrop_path: string
-    poster_path: string
-  }[]
-  labels: string[]
+    id: number;
+    original_title: string;
+    release_date: string;
+    backdrop_path: string;
+    poster_path: string;
+  }[];
+  labels: string[];
 }
 
 export function MovieSection({
@@ -36,7 +36,7 @@ export function MovieSection({
   upcoming,
   labels,
 }: MoviesProps) {
-  const [label, setLabel] = useState(labels[0])
+  const [label, setLabel] = useState(labels[0]);
 
   return (
     <section className="flex flex-col gap-3 mb-6 last:mb-0">
@@ -49,7 +49,7 @@ export function MovieSection({
           type="single"
           defaultValue={label}
           onValueChange={(value) => {
-            if (value) setLabel(value)
+            if (value) setLabel(value);
           }}
         >
           {labels.map((label, index) => {
@@ -61,13 +61,13 @@ export function MovieSection({
               >
                 {label}
               </ToogleGroup.Item>
-            )
+            );
           })}
         </ToogleGroup.Root>
       </div>
-      {label === 'popular' && <CardsCarousel movies={popular} />}
-      {label === 'top_rated' && <CardsCarousel movies={topRated} />}
-      {label === 'upcoming' && <CardsCarousel movies={upcoming} />}
+      {label === "popular" && <Carousel movies={popular} />}
+      {label === "top_rated" && <Carousel movies={topRated} />}
+      {label === "upcoming" && <Carousel movies={upcoming} />}
     </section>
-  )
+  );
 }

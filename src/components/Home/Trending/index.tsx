@@ -1,75 +1,83 @@
-'use client'
+"use client";
 
-import { useState } from 'react'
-import * as ToogleGroup from '@radix-ui/react-toggle-group'
+import { useContext, useState } from "react";
+import { useQuery } from "react-query";
+import * as ToogleGroup from "@radix-ui/react-toggle-group";
 
-import { CardsCarousel } from '@/components/CardsCarousel'
+import { Carousel } from "@/components/Carousel";
+import { MovieType, TrendingContext, TVType } from "@/context/TrendingContext";
 
-export interface TrendingProps {
-  moviesDay?: {
-    id: number
-    original_title: string
-    release_date: string
-    backdrop_path: string
-    poster_path: string
-  }[]
-  moviesWeek?: {
-    id: number
-    original_title: string
-    release_date: string
-    backdrop_path: string
-    poster_path: string
-  }[]
-  tvshowsDay?: {
-    id: number
-    original_name: string
-    first_air_date: string
-    backdrop_path: string
-    poster_path: string
-  }[]
-  tvshowsWeek?: {
-    id: number
-    original_name: string
-    first_air_date: string
-    backdrop_path: string
-    poster_path: string
-  }[]
-  periods: string[]
+interface TrendingProps {
+  type: string;
 }
 
-export function Trending({
-  moviesDay,
-  moviesWeek,
-  tvshowsDay,
-  tvshowsWeek,
-  periods,
-}: TrendingProps) {
-  const [period, setPeriod] = useState(periods[0])
-  let shouldRenderMovie = false
-  let shouldRenderTV = false
-  let headerTitle = ''
+export function Trending({ type }: TrendingProps) {
+  const { getTrending } = useContext(TrendingContext);
+  console.log("Render - Trending ", type);
 
-  if (moviesDay || moviesWeek) {
-    shouldRenderMovie = true
-    headerTitle = 'Trending Movies'
-  } else {
-    shouldRenderTV = true
-    headerTitle = 'Trending TV shows'
+  const periods = ["day", "week"];
+  const [period, setPeriod] = useState(periods[0]);
+
+  const queryKey = `${type}-${period}`;
+
+  const { data, isLoading } = useQuery(
+    queryKey,
+    async () => {
+      const response = await getTrending(type, period);
+      if (type === "movie") {
+        const movieResponse = response?.data.results.map((item: MovieType) => {
+          return {
+            id: item.id,
+            original_title: item.original_title,
+            release_date: item.release_date,
+            backdrop_path: item.backdrop_path,
+            poster_path: item.poster_path,
+          };
+        });
+        return movieResponse;
+      } else {
+        const tvResponse = response?.data.results.map((item: TVType) => {
+          return {
+            id: item.id,
+            original_name: item.original_name,
+            first_air_date: item.first_air_date,
+            backdrop_path: item.backdrop_path,
+            poster_path: item.poster_path,
+          };
+        });
+        return tvResponse;
+      }
+    },
+    {
+      refetchOnMount: false,
+      staleTime: Infinity,
+      retryOnMount: false,
+      notifyOnChangePropsExclusions: ["data", "error"],
+    },
+  );
+
+  if (isLoading) {
+    return (
+      <>
+        <div className="flex items-center justify-center">
+          <span className="text-4xl text-white">Loding...</span>
+        </div>
+      </>
+    );
   }
-  console.log('movie', shouldRenderMovie)
-  console.log('tv', shouldRenderTV)
+
   return (
     <section className="flex flex-col gap-3 mb-6 last:mb-0">
       <div className="flex items-center justify-between">
         <span className="text-neutral-100 font-bold text-xl md:text-2xl">
-          {headerTitle}
+          Trending
         </span>
         <ToogleGroup.Root
           className="flex items-center w-fit"
           type="single"
           defaultValue={period}
           onValueChange={(value) => {
-            if (value) setPeriod(value)
+            if (value) setPeriod(value);
           }}
         >
           {periods.map((period, index) => {
@@ -81,22 +89,15 @@ export function Trending({
               >
                 {period}
               </ToogleGroup.Item>
-            )
+            );
           })}
         </ToogleGroup.Root>
       </div>
-      {period === 'day' && shouldRenderMovie && (
-        <CardsCarousel movies={moviesDay} />
-      )}
-      {period === 'week' && shouldRenderMovie && (
-        <CardsCarousel movies={moviesWeek} />
-      )}
-      {period === 'day' && shouldRenderTV && (
-        <CardsCarousel tvshows={tvshowsDay} />
-      )}
-      {period === 'week' && shouldRenderTV && (
-        <CardsCarousel tvshows={tvshowsWeek} />
+      {type === "movie" ? (
+        <Carousel movies={data} />
+      ) : (
+        <Carousel tvshows={data} />
       )}
     </section>
-  )
+  );
 }

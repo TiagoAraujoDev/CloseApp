@@ -1,5 +1,5 @@
-import Link from 'next/link'
-import { BlogSVG, GithubSVG, LinkedInSVG } from '../icons'
+import Link from "next/link";
+import { BlogSVG, GithubSVG, LinkedInSVG } from "../icons";
 
 export function Footer() {
   return (
@@ -20,5 +20,5 @@ export function Footer() {
         </Link>
       </span>
     </footer>
-  )
+  );
 }

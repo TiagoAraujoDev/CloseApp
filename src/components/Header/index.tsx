@@ -1,7 +1,7 @@
-import Link from 'next/link'
+import Link from "next/link";
 
-import { FilmStripSVG, LogginSVG, MagnifyingGlassSVG } from '../icons'
-import { Menu } from './components/Menu'
+import { FilmStripSVG, LogginSVG, MagnifyingGlassSVG } from "../icons";
+import { Menu } from "./components/Menu";
 
 export function Header() {
   return (
@@ -30,5 +30,5 @@ export function Header() {
         </nav>
       </div>
     </header>
-  )
+  );
 }
