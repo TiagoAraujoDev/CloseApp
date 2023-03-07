@@ -6,6 +6,7 @@ import * as ToogleGroup from "@radix-ui/react-toggle-group";
 
 import { Carousel } from "@/components/Carousel";
 import { MovieType, TrendingContext, TVType } from "@/context/TrendingContext";
+import { CarouselSkeleton } from "@/components/Loding/CarouselSkeleton";
 
 interface TrendingProps {
   type: string;
@@ -13,7 +14,8 @@ interface TrendingProps {
 
 export function Trending({ type }: TrendingProps) {
   const { getTrending } = useContext(TrendingContext);
-  console.log("Render - Trending ", type);
+  // console.log("Render - Trending ", type);
+  const sectionTitle = `Trending ${type}`;
 
   const periods = ["day", "week"];
   const [period, setPeriod] = useState(periods[0]);
@@ -50,27 +52,19 @@ export function Trending({ type }: TrendingProps) {
     },
     {
       refetchOnMount: false,
-      staleTime: Infinity,
-      retryOnMount: false,
-      notifyOnChangePropsExclusions: ["data", "error"],
+      staleTime: 60 * 60 * 2, // 2 hours
     },
   );
 
   if (isLoading) {
-    return (
-      <>
-        <div className="flex items-center justify-center">
-          <span className="text-4xl text-white">Loding...</span>
-        </div>
-      </>
-    );
+    return <CarouselSkeleton labels={periods} label={period} />;
   }
 
   return (
     <section className="flex flex-col gap-3 mb-6 last:mb-0">
       <div className="flex items-center justify-between">
         <span className="text-neutral-100 font-bold text-xl md:text-2xl">
-          Trending
+          {sectionTitle}
         </span>
         <ToogleGroup.Root
           className="flex items-center w-fit"
