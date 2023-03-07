@@ -14,7 +14,7 @@ interface TrendingProps {
 
 export function Trending({ type }: TrendingProps) {
   const { getTrending } = useContext(TrendingContext);
-  const sectionTitle = `Trending ${type}`;
+  const sectionTitle = type === "movie" ? "Trending movies" : "Trending TV";
 
   const periods = ["day", "week"];
   const [period, setPeriod] = useState(periods[0]);
