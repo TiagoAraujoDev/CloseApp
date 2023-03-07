@@ -1,6 +1,8 @@
 import Image from "next/image";
 import Link from "next/link";
 
+import { formatDate } from "@/utils/FormatDate";
+
 interface CarouselProps {
   movies?: {
     id: number;
@@ -39,7 +41,7 @@ export function Carousel({ movies, tvshows }: CarouselProps) {
                 <div className="flex flex-col justify-center gap-2 h-20 bg-neutral-500 rounded-bl rounded-br p-2 text-sm font-medium">
                   <h2 className="text-neutral-100">{movie.original_title}</h2>
                   <span className="text-xs italic text-neutral-700">
-                    {movie.release_date}
+                    {formatDate(movie.release_date)}
                   </span>
                 </div>
               </Link>
@@ -64,7 +66,7 @@ export function Carousel({ movies, tvshows }: CarouselProps) {
                 <div className="flex flex-col justify-center gap-2 h-20 bg-neutral-500 rounded-bl rounded-br p-2 text-sm font-medium">
                   <h2 className="text-neutral-100">{tvshow.original_name}</h2>
                   <span className="text-xs italic text-neutral-700">
-                    {tvshow.first_air_date}
+                    {formatDate(tvshow.first_air_date)}
                   </span>
                 </div>
               </Link>
