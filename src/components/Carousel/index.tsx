@@ -19,9 +19,6 @@ interface CarouselProps {
 }
 
 export function Carousel({ movies, tvshows }: CarouselProps) {
-  if (movies) console.log("Render - Carousel movies");
-  if (tvshows) console.log("Render - Carousel tv");
-
   return (
     <div className="flex justify-between gap-2 w-full pb-3 overflow-auto scrollbar-thin scrollbar-thumb-emerald-500 scrollbar-track-neutral-300">
       {movies &&

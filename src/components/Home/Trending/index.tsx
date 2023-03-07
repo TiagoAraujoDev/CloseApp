@@ -14,7 +14,6 @@ interface TrendingProps {
 
 export function Trending({ type }: TrendingProps) {
   const { getTrending } = useContext(TrendingContext);
-  // console.log("Render - Trending ", type);
   const sectionTitle = `Trending ${type}`;
 
   const periods = ["day", "week"];
