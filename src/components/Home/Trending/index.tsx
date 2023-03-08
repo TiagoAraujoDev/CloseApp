@@ -1,11 +1,11 @@
 "use client";
 
-import { useContext, useState } from "react";
+import { useState } from "react";
 import { useQuery } from "react-query";
 import * as ToogleGroup from "@radix-ui/react-toggle-group";
 
 import { Carousel } from "@/components/Carousel";
-import { MovieType, TrendingContext, TVType } from "@/context/TrendingContext";
+import { MovieType, TVType, getTrending } from "@/utils/requests/trending";
 import { CarouselSkeleton } from "@/components/Loding/CarouselSkeleton";
 
 interface TrendingProps {
@@ -13,7 +13,6 @@ interface TrendingProps {
 }
 
 export function Trending({ type }: TrendingProps) {
-  const { getTrending } = useContext(TrendingContext);
   const sectionTitle = type === "movie" ? "Trending movies" : "Trending TV";
 
   const periods = ["day", "week"];

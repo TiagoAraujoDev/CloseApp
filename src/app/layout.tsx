@@ -21,11 +21,9 @@ export default function RootLayout({ children }: LayoutProps) {
     <html lang="en">
       <body className="bg-neutral-900 scrollbar-thin scrollbar-thumb-emerald-500 scrollbar-track-neutral-300">
         <Providers>
-          <>
-            <Header />
-            {children}
-            <Footer />
-          </>
+          <Header />
+          {children}
+          <Footer />
         </Providers>
       </body>
     </html>

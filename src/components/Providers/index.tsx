@@ -4,7 +4,6 @@ import { ReactNode } from "react";
 import { QueryClientProvider } from "react-query";
 
 import { queryClient } from "@/lib/ReactQuery";
-import { TrendingProvider } from "@/context/TrendingContext";
 
 interface ProvidersProps {
   children: ReactNode;
@@ -12,8 +11,6 @@ interface ProvidersProps {
 
 export function Providers({ children }: ProvidersProps) {
   return (
-    <QueryClientProvider client={queryClient}>
-      <TrendingProvider>{children}</TrendingProvider>
-    </QueryClientProvider>
+    <QueryClientProvider client={queryClient}>{children}</QueryClientProvider>
   );
 }
