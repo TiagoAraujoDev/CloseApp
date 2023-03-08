@@ -1,23 +1,12 @@
 import Image from "next/image";
 import Link from "next/link";
+import { Movie, Tv } from "types";
 
 import { formatDate } from "@/utils/FormatDate";
 
 interface CarouselProps {
-  movies?: {
-    id: number;
-    original_title: string;
-    release_date: string;
-    backdrop_path: string;
-    poster_path: string;
-  }[];
-  tvshows?: {
-    id: number;
-    original_name: string;
-    first_air_date: string;
-    backdrop_path: string;
-    poster_path: string;
-  }[];
+  movies?: Movie[];
+  tvshows?: Tv[];
 }
 
 export function Carousel({ movies, tvshows }: CarouselProps) {

@@ -4,22 +4,6 @@ import { api } from "@/lib/axios";
 
 const apiKey = process.env.NEXT_PUBLIC_API_KEY;
 
-export interface MovieType {
-  id: number;
-  original_title: string;
-  release_date: string;
-  backdrop_path: string;
-  poster_path: string;
-}
-
-export interface TVType {
-  id: number;
-  original_name: string;
-  first_air_date: string;
-  backdrop_path: string;
-  poster_path: string;
-}
-
 export const getTrending = async (
   type: string,
   period: string,

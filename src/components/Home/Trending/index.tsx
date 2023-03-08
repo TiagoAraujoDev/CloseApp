@@ -5,7 +5,7 @@ import { useQuery } from "react-query";
 import * as ToogleGroup from "@radix-ui/react-toggle-group";
 
 import { Carousel } from "@/components/Carousel";
-import { MovieType, TVType, getTrending } from "@/utils/requests/trending";
+import { getTrending } from "@/utils/requests/trending";
 import { CarouselSkeleton } from "@/components/Loding/CarouselSkeleton";
 
 interface TrendingProps {
@@ -25,27 +25,13 @@ export function Trending({ type }: TrendingProps) {
     async () => {
       const response = await getTrending(type, period);
       if (type === "movie") {
-        const movieResponse = response?.data.results.map((item: MovieType) => {
-          return {
-            id: item.id,
-            original_title: item.original_title,
-            release_date: item.release_date,
-            backdrop_path: item.backdrop_path,
-            poster_path: item.poster_path,
-          };
-        });
-        return movieResponse;
+        const movies = response?.data.results;
+
+        return movies;
       } else {
-        const tvResponse = response?.data.results.map((item: TVType) => {
-          return {
-            id: item.id,
-            original_name: item.original_name,
-            first_air_date: item.first_air_date,
-            backdrop_path: item.backdrop_path,
-            poster_path: item.poster_path,
-          };
-        });
-        return tvResponse;
+        const tvshows = response?.data.results;
+
+        return tvshows;
       }
     },
     {
