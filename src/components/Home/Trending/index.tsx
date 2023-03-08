@@ -9,22 +9,22 @@ import { getTrending } from "@/utils/requests/trending";
 import { CarouselSkeleton } from "@/components/Loding/CarouselSkeleton";
 
 interface TrendingProps {
-  type: string;
+  variant: string;
 }
 
-export function Trending({ type }: TrendingProps) {
-  const sectionTitle = type === "movie" ? "Trending movies" : "Trending TV";
+export function Trending({ variant }: TrendingProps) {
+  const sectionTitle = variant === "movie" ? "Trending movies" : "Trending TV";
 
   const periods = ["day", "week"];
   const [period, setPeriod] = useState(periods[0]);
 
-  const queryKey = `${type}-${period}`;
+  const queryKey = `${variant}-${period}`;
 
   const { data, isLoading } = useQuery(
     queryKey,
     async () => {
-      const response = await getTrending(type, period);
-      if (type === "movie") {
+      const response = await getTrending(variant, period);
+      if (variant === "movie") {
         const movies = response?.data.results;
 
         return movies;
@@ -73,7 +73,7 @@ export function Trending({ type }: TrendingProps) {
           })}
         </ToogleGroup.Root>
       </div>
-      {type === "movie" ? (
+      {variant === "movie" ? (
         <Carousel movies={data} />
       ) : (
         <Carousel tvshows={data} />

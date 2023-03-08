@@ -83,8 +83,8 @@ import { Trending } from "@/components/Home/Trending";
 export default async function Home() {
   return (
     <main className="max-w-screen-lg mx-auto px-6 py-4">
-      <Trending type="movie" />
-      <Trending type="tv" />
+      <Trending variant="movie" />
+      <Trending variant="tv" />
     </main>
   );
 }
