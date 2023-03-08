@@ -56,7 +56,9 @@ export function Trending({ type }: TrendingProps) {
   );
 
   if (isLoading) {
-    return <CarouselSkeleton labels={periods} label={period} />;
+    return (
+      <CarouselSkeleton labels={periods} label={period} title={sectionTitle} />
+    );
   }
 
   return (

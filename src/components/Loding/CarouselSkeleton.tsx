@@ -3,14 +3,20 @@ import * as ToogleGroup from "@radix-ui/react-toggle-group";
 interface CarouselSkeletonProps {
   labels: string[];
   label: string;
+  title: string;
 }
 
-export function CarouselSkeleton({ labels, label }: CarouselSkeletonProps) {
+export function CarouselSkeleton({
+  labels,
+  label,
+  title,
+}: CarouselSkeletonProps) {
+  const arr = [1, 2, 3, 4, 5, 6, 7, 8]; // Quantity of cards
   return (
-    <div className="flex flex-col gap-3 w-full mb-6">
+    <div className="flex flex-col gap-3 w-full mb-6 last:mb-0">
       <div className="flex items-center justify-between">
         <span className="text-neutral-100 font-bold text-xl md:text-2xl">
-          Trending
+          {title}
         </span>
         <ToogleGroup.Root
           className="flex items-center w-fit"
@@ -32,14 +38,20 @@ export function CarouselSkeleton({ labels, label }: CarouselSkeletonProps) {
         </ToogleGroup.Root>
       </div>
       <div className="animate-pulse flex justify-between gap-2 w-full pb-3 overflow-auto scrollbar-thin scrollbar-thumb-emerald-500 scrollbar-track-neutral-300">
-        <div className="h-[420px] min-w-[230px] bg-neutral-700 rounded"></div>
-        <div className="h-[420px] min-w-[230px] bg-neutral-700 rounded"></div>
-        <div className="h-[420px] min-w-[230px] bg-neutral-700 rounded"></div>
-        <div className="h-[420px] min-w-[230px] bg-neutral-700 rounded"></div>
-        <div className="h-[420px] min-w-[230px] bg-neutral-700 rounded"></div>
-        <div className="h-[420px] min-w-[230px] bg-neutral-700 rounded"></div>
-        <div className="h-[420px] min-w-[230px] bg-neutral-700 rounded"></div>
-        <div className="h-[420px] min-w-[230px] bg-neutral-700 rounded"></div>
+        {arr.map((_, i) => {
+          return (
+            <div
+              key={i}
+              className="flex flex-col justify-end min-w-[230px] min-h-[420px] bg-neutral-700 rounded"
+            >
+              <div className="min-w-[230px] min-h-[180px] rounded-tl rounded-tr"></div>
+              <div className="flex flex-col justify-center gap-2 min-h-[90px] bg-neutral-500 rounded-bl rounded-br p-2 text-sm font-medium">
+                <span className="w-4/5 h-5 bg-neutral-600 rounded"></span>
+                <span className="w-2/3 h-5 bg-neutral-600 rounded"></span>
+              </div>
+            </div>
+          );
+        })}
       </div>
     </div>
   );
