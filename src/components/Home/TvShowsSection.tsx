@@ -4,17 +4,17 @@ import { useState } from "react";
 import { useQuery } from "react-query";
 import * as ToogleGroup from "@radix-ui/react-toggle-group";
 
-import { getTVShows } from "@/utils/requests/tvshows";
+import { getTvShows } from "@/utils/requests/tvshows";
 import { formatLabel } from "@/utils/formatLabel";
 
 import { Carousel } from "@/components/Home/Carousel";
 import { CarouselSkeleton } from "@/components/Loading/CarouselSkeleton";
 
-export interface TVProps {
+interface TvShowsProps {
   labels: string[];
 }
 
-export function TVSection({ labels }: TVProps) {
+export function TvShowsSection({ labels }: TvShowsProps) {
   const [label, setLabel] = useState(labels[0]);
 
   const queryKey = `${label}_tvshows`;
@@ -22,7 +22,7 @@ export function TVSection({ labels }: TVProps) {
   const { data, isLoading } = useQuery(
     queryKey,
     async () => {
-      const response = await getTVShows(label);
+      const response = await getTvShows(label);
       const tvshows = response?.data.results;
 
       return tvshows;

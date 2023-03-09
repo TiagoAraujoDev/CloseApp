@@ -4,7 +4,7 @@ import { api } from "@/lib/axios";
 
 const apiKey = process.env.NEXT_PUBLIC_API_KEY;
 
-export const getTVShows = async (label: string) => {
+export const getTvShows = async (label: string) => {
   try {
     const response = await api.get(`tv/${label}?api_key=${apiKey}`);
 

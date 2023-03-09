@@ -16,7 +16,7 @@ export type Movie = {
   vote_count: number;
 };
 
-export type Tv = {
+export type TvShow = {
   adult: boolean;
   backdrop_path: string;
   id: number;

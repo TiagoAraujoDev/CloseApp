@@ -2,13 +2,13 @@ import Image from "next/image";
 import Link from "next/link";
 
 import { formatDate } from "@/utils/formatDate";
-import { Movie, Tv } from "types";
+import { Movie, TvShow } from "types";
 
 import placeholderPoster from "../../public/placeholderPoster.jpg";
 
 interface CardProps {
   movie?: Movie;
-  tvshow?: Tv;
+  tvshow?: TvShow;
 }
 
 export function Card({ movie, tvshow }: CardProps) {

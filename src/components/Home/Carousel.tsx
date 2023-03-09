@@ -1,10 +1,10 @@
-import { Movie, Tv } from "types";
+import { Movie, TvShow } from "types";
 
 import { Card } from "../Card";
 
 interface CarouselProps {
   movies?: Movie[];
-  tvshows?: Tv[];
+  tvshows?: TvShow[];
 }
 
 export function Carousel({ movies, tvshows }: CarouselProps) {
