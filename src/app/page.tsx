@@ -1,5 +1,3 @@
-import { Trending } from "@/components/Home/Trending";
-
 // const getTrending = async (type: string, period: string) => {
 //   try {
 //     const response = await api.get(
@@ -80,13 +78,14 @@ import { Trending } from "@/components/Home/Trending";
 //   }
 // }
 import { MovieSection } from "@/components/Home/MoviesSection";
+import { TrendingSection } from "@/components/Home/TrendingSection";
 import { TVSection } from "@/components/Home/TvShowsSection";
 
 export default async function Home() {
   return (
-      <Trending variant="movie" />
-      <Trending variant="tv" />
     <main className="max-w-screen-lg mx-auto px-6 py-16">
+      <TrendingSection variant="movie" />
+      <TrendingSection variant="tv" />
       <MovieSection labels={["popular", "upcoming", "top_rated"]} />
       <TVSection labels={["popular", "on_the_air", "top_rated"]} />
     </main>

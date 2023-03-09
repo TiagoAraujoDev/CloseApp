@@ -12,13 +12,13 @@ interface TrendingProps {
   variant: string;
 }
 
-export function Trending({ variant }: TrendingProps) {
+export function TrendingSection({ variant }: TrendingProps) {
   const sectionTitle = variant === "movie" ? "Trending movies" : "Trending TV";
 
   const periods = ["day", "week"];
   const [period, setPeriod] = useState(periods[0]);
 
-  const queryKey = `${variant}-${period}`;
+  const queryKey = `${variant}_${period}`;
 
   const { data, isLoading } = useQuery(
     queryKey,
@@ -47,7 +47,7 @@ export function Trending({ variant }: TrendingProps) {
   }
 
   return (
-    <section className="flex flex-col gap-3 mb-6 last:mb-0">
+    <section className="flex flex-col gap-3 mb-8 last:mb-0">
       <div className="flex items-center justify-between">
         <span className="text-neutral-100 font-bold text-xl md:text-2xl">
           {sectionTitle}
@@ -67,7 +67,6 @@ export function Trending({ variant }: TrendingProps) {
                 key={index}
                 value={period}
               >
-                {period}
               </ToogleGroup.Item>
             );
           })}
