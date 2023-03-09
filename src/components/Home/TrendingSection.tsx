@@ -6,7 +6,7 @@ import * as ToogleGroup from "@radix-ui/react-toggle-group";
 
 import { Carousel } from "@/components/Carousel";
 import { getTrending } from "@/utils/requests/trending";
-import { CarouselSkeleton } from "@/components/Loding/CarouselSkeleton";
+import { CarouselSkeleton } from "@/components/Loading/CarouselSkeleton";
 import { formatLabel } from "@/utils/formatLabel";
 
 interface TrendingProps {

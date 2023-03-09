@@ -6,7 +6,7 @@ import * as ToogleGroup from "@radix-ui/react-toggle-group";
 import { Carousel } from "@/components/Carousel";
 import { useQuery } from "react-query";
 import { getMovies } from "@/utils/requests/movies";
-import { CarouselSkeleton } from "@/components/Loding/CarouselSkeleton";
+import { CarouselSkeleton } from "@/components/Loading/CarouselSkeleton";
 import { formatLabel } from "@/utils/formatLabel";
 
 export interface MoviesProps {
