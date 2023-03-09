@@ -2,10 +2,10 @@ import { Metadata } from "next";
 import { ReactNode } from "react";
 
 import { Header } from "@/components/Header";
+import { Footer } from "@/components/Footer";
+import { Providers } from "@/Providers";
 
 import "./globals.css";
-import { Footer } from "@/components/Footer";
-import { Providers } from "@/components/Providers";
 
 export const metadata: Metadata = {
   title: "Create Next App",

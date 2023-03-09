@@ -1,6 +1,6 @@
 import Link from "next/link";
 
-import { FilmStripSVG, LogginSVG, MagnifyingGlassSVG } from "../icons";
+import { FilmStripSVG, LogginSVG, MagnifyingGlassSVG } from "../Icons";
 import { Menu } from "./components/Menu";
 
 export function Header() {

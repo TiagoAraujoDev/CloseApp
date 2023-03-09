@@ -4,10 +4,11 @@ import { useState } from "react";
 import { useQuery } from "react-query";
 import * as ToogleGroup from "@radix-ui/react-toggle-group";
 
-import { Carousel } from "@/components/Carousel";
 import { getTrending } from "@/utils/requests/trending";
-import { CarouselSkeleton } from "@/components/Loading/CarouselSkeleton";
 import { formatLabel } from "@/utils/formatLabel";
+
+import { Carousel } from "@/components/Home/Carousel";
+import { CarouselSkeleton } from "@/components/Loading/CarouselSkeleton";
 
 interface TrendingProps {
   variant: string;
@@ -48,7 +49,7 @@ export function TrendingSection({ variant }: TrendingProps) {
   }
 
   return (
-    <section className="flex flex-col gap-3 mb-8 last:mb-0">
+    <section className="flex flex-col gap-3 mb-10 last:mb-0">
       <div className="flex items-center justify-between">
         <span className="text-neutral-100 font-bold text-xl md:text-2xl">
           {sectionTitle}

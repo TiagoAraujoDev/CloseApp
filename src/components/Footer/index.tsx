@@ -1,5 +1,5 @@
 import Link from "next/link";
-import { BlogSVG, GithubSVG, LinkedInSVG } from "../icons";
+import { BlogSVG, GithubSVG, LinkedInSVG } from "../Icons";
 
 export function Footer() {
   return (

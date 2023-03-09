@@ -1,13 +1,14 @@
 "use client";
 
 import { useState } from "react";
+import { useQuery } from "react-query";
 import * as ToogleGroup from "@radix-ui/react-toggle-group";
 
-import { Carousel } from "@/components/Carousel";
-import { useQuery } from "react-query";
 import { getTVShows } from "@/utils/requests/tvshows";
-import { CarouselSkeleton } from "../Loading/CarouselSkeleton";
 import { formatLabel } from "@/utils/formatLabel";
+
+import { Carousel } from "@/components/Home/Carousel";
+import { CarouselSkeleton } from "@/components/Loading/CarouselSkeleton";
 
 export interface TVProps {
   labels: string[];
@@ -37,7 +38,7 @@ export function TVSection({ labels }: TVProps) {
   }
 
   return (
-    <section className="flex flex-col gap-3 mb-8 last:mb-0">
+    <section className="flex flex-col gap-3 mb-10 last:mb-0">
       <div className="flex items-center justify-between">
         <span className="text-neutral-100 font-bold text-xl md:text-2xl">
           TV Shows
