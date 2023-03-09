@@ -57,6 +57,7 @@ export function MovieSection({ labels }: MoviesProps) {
                 key={index}
                 value={label}
               >
+                {formatLabel(label)}
               </ToogleGroup.Item>
             );
           })}

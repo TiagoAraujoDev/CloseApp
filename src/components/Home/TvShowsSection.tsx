@@ -57,6 +57,7 @@ export function TVSection({ labels }: TVProps) {
                 key={index}
                 value={label}
               >
+                {formatLabel(label)}
               </ToogleGroup.Item>
             );
           })}

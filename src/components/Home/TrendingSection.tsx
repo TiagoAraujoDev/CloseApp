@@ -7,6 +7,7 @@ import * as ToogleGroup from "@radix-ui/react-toggle-group";
 import { Carousel } from "@/components/Carousel";
 import { getTrending } from "@/utils/requests/trending";
 import { CarouselSkeleton } from "@/components/Loding/CarouselSkeleton";
+import { formatLabel } from "@/utils/formatLabel";
 
 interface TrendingProps {
   variant: string;
@@ -67,6 +68,7 @@ export function TrendingSection({ variant }: TrendingProps) {
                 key={index}
                 value={period}
               >
+                {formatLabel(period)}
               </ToogleGroup.Item>
             );
           })}

@@ -2,7 +2,7 @@ import Image from "next/image";
 import Link from "next/link";
 import { Movie, Tv } from "types";
 
-import { formatDate } from "@/utils/FormatDate";
+import { formatDate } from "@/utils/formatDate";
 
 interface CarouselProps {
   movies?: Movie[];
