@@ -79,12 +79,16 @@ import { Trending } from "@/components/Home/Trending";
 //     }
 //   }
 // }
+import { MovieSection } from "@/components/Home/MoviesSection";
+import { TVSection } from "@/components/Home/TvShowsSection";
 
 export default async function Home() {
   return (
-    <main className="max-w-screen-lg mx-auto px-6 py-4">
       <Trending variant="movie" />
       <Trending variant="tv" />
+    <main className="max-w-screen-lg mx-auto px-6 py-16">
+      <MovieSection labels={["popular", "upcoming", "top_rated"]} />
+      <TVSection labels={["popular", "on_the_air", "top_rated"]} />
     </main>
   );
 }

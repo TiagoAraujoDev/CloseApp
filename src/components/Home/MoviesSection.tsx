@@ -4,40 +4,43 @@ import { useState } from "react";
 import * as ToogleGroup from "@radix-ui/react-toggle-group";
 
 import { Carousel } from "@/components/Carousel";
+import { useQuery } from "react-query";
+import { getMovies } from "@/utils/requests/movies";
+import { CarouselSkeleton } from "@/components/Loding/CarouselSkeleton";
+import { formatLabel } from "@/utils/formatLabel";
 
-export interface TVProps {
-  onTheAir?: {
-    id: number;
-    original_name: string;
-    first_air_date: string;
-    backdrop_path: string;
-    poster_path: string;
-  }[];
-  popular?: {
-    id: number;
-    original_name: string;
-    first_air_date: string;
-    backdrop_path: string;
-    poster_path: string;
-  }[];
-  topRated?: {
-    id: number;
-    original_name: string;
-    first_air_date: string;
-    backdrop_path: string;
-    poster_path: string;
-  }[];
+export interface MoviesProps {
   labels: string[];
 }
 
-export function TVSection({ popular, topRated, onTheAir, labels }: TVProps) {
+export function MovieSection({ labels }: MoviesProps) {
   const [label, setLabel] = useState(labels[0]);
 
+  const queryKey = `${label}_movies`;
+
+  const { data, isLoading } = useQuery(
+    queryKey,
+    async () => {
+      const response = await getMovies(label);
+      const movies = response?.data.results;
+
+      return movies;
+    },
+    {
+      refetchOnMount: false,
+      staleTime: 60 * 60 * 2, // 2 hours
+    },
+  );
+
+  if (isLoading) {
+    return <CarouselSkeleton labels={labels} label={label} title="Movies" />;
+  }
+
   return (
-    <section className="flex flex-col gap-3 mb-6 last:mb-0">
+    <section className="flex flex-col gap-3 mb-8 last:mb-0">
       <div className="flex items-center justify-between">
         <span className="text-neutral-100 font-bold text-xl md:text-2xl">
-          TV Shows
+          Movies
         </span>
         <ToogleGroup.Root
           className="flex items-center w-fit"
@@ -54,15 +57,12 @@ export function TVSection({ popular, topRated, onTheAir, labels }: TVProps) {
                 key={index}
                 value={label}
               >
-                {label}
               </ToogleGroup.Item>
             );
           })}
         </ToogleGroup.Root>
       </div>
-      {label === "popular" && <Carousel tvshows={popular} />}
-      {label === "top_rated" && <Carousel tvshows={topRated} />}
-      {label === "on_the_air" && <Carousel tvshows={onTheAir} />}
+      {data && <Carousel movies={data} />}
     </section>
   );
 }
