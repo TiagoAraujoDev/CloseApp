@@ -21,7 +21,7 @@ export function Card({ movie, tvshow }: CardProps) {
         >
           <Link href={`/${movie.id}`}>
             <Image
-              src={`https://www.themoviedb.org/t/p/w220_and_h330_face/${movie.backdrop_path}`}
+              src={`https://www.themoviedb.org/t/p/w220_and_h330_face/${movie.poster_path}`}
               alt="Cover"
               width={230}
               height={180}
@@ -42,7 +42,7 @@ export function Card({ movie, tvshow }: CardProps) {
         >
           <Link href={`/${tvshow.id}`}>
             <Image
-              src={`https://www.themoviedb.org/t/p/w220_and_h330_face/${tvshow.backdrop_path}`}
+              src={`https://www.themoviedb.org/t/p/w220_and_h330_face${tvshow.poster_path}`}
               alt="Cover"
               width={230}
               height={180}
