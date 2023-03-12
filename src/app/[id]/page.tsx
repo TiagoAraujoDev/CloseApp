@@ -1,7 +1,7 @@
 import Image from "next/image";
-import { MovieDetails } from "types";
+import { Actor, Crew, MovieDetails } from "types";
 
-import { getMovieDetails } from "@/utils/requests/movies";
+import { getMovieCredits, getMovieDetails } from "@/utils/requests/movies";
 import {
   BookmarkSVG,
   HeartSVG,
@@ -16,14 +16,20 @@ interface ShowDetailsProps {
 }
 
 export default async function ShowDetails({ params }: ShowDetailsProps) {
-  const response = await getMovieDetails(params.id);
-  const movieDetails: MovieDetails = response?.data;
+  const movieDetailsResponse = await getMovieDetails(params.id);
+  const movieDetails: MovieDetails = movieDetailsResponse?.data;
 
-  console.log(JSON.stringify(movieDetails, null, 2));
+  const movieCreditsResponse = await getMovieCredits(params.id);
+  const cast: Actor[] = movieCreditsResponse?.data.cast;
+  const crew: Crew[] = movieCreditsResponse?.data.crew;
+  crew.length = 5;
+
+  console.log("cast", JSON.stringify(cast, null, 2));
 
   return (
     <main className="text-neutral-100 max-w-screen-xl mx-auto">
       <section className="min-w-full relative">
+        {/** Background */}
         <div className="">
           <Image
             src={`https://www.themoviedb.org/t/p/w1280${movieDetails.backdrop_path}`}
@@ -35,21 +41,21 @@ export default async function ShowDetails({ params }: ShowDetailsProps) {
         </div>
         <div className="w-full h-full bg-transparent absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 py-8 px-4 sm:py-10 sm:px-5 md:py-16 md:px-6">
           {/** Container flex */}
-          <div className="w-full h-full bg-transparent flex items-start gap-4">
+          <div className="w-full h-full bg-transparent flex items-center gap-4">
             <div className="flex w-[100px] sm:w-[150px] md:w-[210px] lg:w-[295px]">
               <Image
                 src={`https://www.themoviedb.org/t/p/w780${movieDetails.poster_path}`}
                 alt=""
                 width={780}
                 height={1170}
-                className="object-contain flex-1 border border-neutral-400 shadow-lg rounded overflow-hidden"
+                className="object-contain flex-1 border border-neutral-400 shadow-2xl rounded overflow-hidden"
               />
             </div>
             {/** Infos */}
             <div className="flex-1">
               {/** Header */}
               <div className="flex items-center gap-1">
-                <h1 className="text-neutral-100 text-base sm:text-lg md:text-2xl font-medium">
+                <h1 className="text-neutral-100 text-sm sm:text-lg md:text-2xl font-medium">
                   {movieDetails.original_title}
                 </h1>
                 <span className="text-neutral-400 text-base sm:text-lg md:text-2xl hidden sm:block">
@@ -57,60 +63,79 @@ export default async function ShowDetails({ params }: ShowDetailsProps) {
                 </span>
               </div>
               {/** Infos */}
-              <div className="flex items-center">
-                <span className="text-neutral-300 text-xs mr-1">
+              <div className="flex items-center gap-1 sm:mb-1">
+                <span className="text-neutral-300 text-xs sm:text-base">
                   {movieDetails.release_date}
                 </span>
                 <span className="text-lg">&middot;</span>
-                <span className="text-neutral-300 text-xs ml-1 flex gap-1 items-center">
-                  {movieDetails.genres.map((genre) => (
-                    <span key={genre.id}>{genre.name}</span>
+                <span className="text-neutral-300 text-xs sm:text-base flex gap-1 items-center">
+                  {movieDetails.genres.map((genre, index) => (
+                    <span key={index}>{genre.name}</span>
                   ))}
                 </span>
                 <span className="hidden text-lg sm:inline-block">&middot;</span>
-                <span className="hidden sm:inline-block text-neutral-300 text-xs mr-1">
-                  {movieDetails.runtime}
+                <span className="hidden sm:inline-block text-neutral-300 text-xs sm:text-base">
+                  {movieDetails.runtime} min
                 </span>
               </div>
               {/** Intaractive */}
-              <div className="flex items-center gap-2">
+              <div className="flex items-center gap-2 sm:mb-2">
                 <div className="flex items-center gap-1">
-                  <StarFilledSVG />
-                  <span className="text-xs">{movieDetails.vote_average}</span>
+                  <div className="text-xs sm:text-base md:text-lg">
+                    <StarFilledSVG />
+                  </div>
+                  <span className="text-xs sm:text-base">
+                    {movieDetails.vote_average.toFixed(2)}
+                  </span>
                   <span className="text-lg">&middot;</span>
-                  <span className="text-xs">
+                  <span className="text-xs sm:text-base">
                     {movieDetails.vote_count} votes
                   </span>
                 </div>
                 <div className="flex items-center gap-2">
-                  <div className="bg-neutral-700 w-4 h-4 rounded-full flex items-center justify-center cursor-pointer">
+                  <div className="bg-neutral-700 text-xs w-4 h-4 sm:text-base sm:w-6 sm:h-6 md:text-xl md:w-8 md:h-8 rounded-full flex items-center justify-center cursor-pointer">
                     <BookmarkSVG />
                   </div>
-                  <div className="bg-neutral-700 w-4 h-4 rounded-full flex items-center justify-center cursor-pointer">
+                  <div className="bg-neutral-700 text-xs w-4 h-4 sm:text-base sm:w-6 sm:h-6 md:text-xl md:w-8 md:h-8 rounded-full flex items-center justify-center cursor-pointer">
                     <HeartSVG />
                   </div>
-                  <div className="bg-neutral-700 w-4 h-4 rounded-full flex items-center justify-center cursor-pointer">
+                  <div className="bg-neutral-700 text-xs w-4 h-4 sm:text-base sm:w-6 sm:h-6 md:text-xl md:w-8 md:h-8 rounded-full flex items-center justify-center cursor-pointer">
                     <StarSVG />
                   </div>
                 </div>
               </div>
               {/** Tagline */}
-              <div className="hidden sm:block text-neutral-400 text-sm italic">
+              <div className="hidden sm:block text-neutral-400 text-base italic mb-2">
                 {movieDetails.tagline}
               </div>
               {/** Sinopse */}
-              <div className="flex flex-col w-56">
-                <h2 className="text-sm text-neutral-200 font-medium">
+              <div className="flex flex-col w-56 sm:w-full sm:mb-2">
+                <h2 className="text-sm sm:text-base text-neutral-200 font-medium">
                   Sinopse
                 </h2>
                 {movieDetails.overview && (
                   <p
                     title={movieDetails.overview}
-                    className="text-xs text-neutral-200 whitespace-nowrap text-ellipsis overflow-hidden "
+                    className="text-xs sm:text-sm text-neutral-200 whitespace-nowrap sm:whitespace-normal text-ellipsis overflow-hidden "
                   >
                     {movieDetails.overview}
                   </p>
                 )}
+              </div>
+              {/** Crew */}
+              <div className="hidden md:grid grid-cols-3">
+                {crew.map((item, index) => {
+                  return (
+                    <div key={index} className="flex flex-col items-start">
+                      <span className="text-sm text-neutral-100">
+                        {item.original_name}
+                      </span>
+                      <span className="text-sm text-neutral-400 font-medium">
+                        {item.job}
+                      </span>
+                    </div>
+                  );
+                })}
               </div>
             </div>
           </div>
