@@ -15,7 +15,7 @@ interface BannerInfoProps {
 
 export function BannerInfo({ movieDetails, crew }: BannerInfoProps) {
   return (
-    <section className="min-w-full relative">
+    <section className="min-w-full relative mb-4">
       {/** Background */}
       <div className="">
         <Image
