@@ -9,7 +9,7 @@ import { Menu } from "@/components/Header/components/Menu";
 
 export function Header() {
   return (
-    <header className="bg-neutral-700 sticky top-0 z-10 shadow-2xl p-4">
+    <header className="bg-neutral-700 sticky top-0 z-10 p-4">
       <div className="max-w-5xl mx-auto flex items-center justify-around sm:justify-between gap-4">
         <Link
           href="/"
@@ -18,7 +18,7 @@ export function Header() {
           <span>CloseApp</span>
           <FilmStripSVG />
         </Link>
-        <div className="hidden sm:flex items-center justify-between flex-grow focus:border focus:border-emerald-500 rounded-full bg-neutral-800 px-4 py-2 sm:max-w-xs md:max-w-xl h-9 shadow-2xl">
+        <div className="hidden shadow-lg shadow-neutral-900 sm:flex items-center justify-between flex-grow focus:border focus:border-emerald-500 rounded-full bg-neutral-800 px-4 py-2 sm:max-w-xs md:max-w-xl h-9">
           <input
             type="text"
             className="bg-transparent outline-none w-full placeholder:text-zinc-400 text-neutral-100"
