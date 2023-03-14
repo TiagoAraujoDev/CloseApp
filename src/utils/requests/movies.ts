@@ -43,6 +43,34 @@ export const getMovieCredits = async (id: number) => {
   }
 };
 
+export const getMovieReviews = async (id: number) => {
+  try {
+    const response = await api.get(`movie/${id}/reviews?api_key=${apiKey}`);
+
+    return response;
+  } catch (error) {
+    if (error instanceof AxiosError && error.response?.status === 401) {
+      console.log("Status: ", error.response.status);
+      console.log("Info: ", error.response.data);
+    }
+  }
+};
+
+export const getMovieExternalIds = async (id: number) => {
+  try {
+    const response = await api.get(
+      `movie/${id}/external_ids?api_key=${apiKey}`,
+    );
+
+    return response;
+  } catch (error) {
+    if (error instanceof AxiosError && error.response?.status === 401) {
+      console.log("Status: ", error.response.status);
+      console.log("Info: ", error.response.data);
+    }
+  }
+};
+
 export const getConfig = async () => {
   try {
     const response = await api.get(`configuration?api_key=${apiKey}`);

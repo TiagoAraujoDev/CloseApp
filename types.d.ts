@@ -58,6 +58,29 @@ export type MovieDetails = {
   vote_count: number;
 };
 
+export type Review = {
+  author: string;
+  author_details: {
+    name: string;
+    username: string;
+    avatar_path: string;
+    rating: number | null;
+  };
+  content: string;
+  created_at: string;
+  id: string;
+  updated_at: string;
+  url: string;
+};
+
+export type ExternalIds = {
+  imdb_id: string | null;
+  facebook_id: string | null;
+  instagram_id: string | null;
+  twitter_id: string | null;
+  id: number;
+};
+
 export type TvShow = {
   adult: boolean;
   backdrop_path: string | null;
