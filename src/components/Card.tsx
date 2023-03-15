@@ -4,7 +4,7 @@ import Link from "next/link";
 import { formatDate } from "@/utils/formatDate";
 import { Movie, TvShow } from "types";
 
-import placeholderPoster from "../../public/placeholderPoster.jpg";
+import placeholderPoster from "../../public/placeholderPoster.png";
 
 interface CardProps {
   movie?: Movie;
@@ -19,14 +19,24 @@ export function Card({ movie, tvshow }: CardProps) {
           key={movie.id}
           className="min-w-[230px] border border-transparent hover:border hover:border-emerald-500 hover:rounded"
         >
-          <Link href={`/${movie.id}`}>
-            <Image
-              src={`https://www.themoviedb.org/t/p/w220_and_h330_face/${movie.poster_path}`}
-              alt="Cover"
-              width={230}
-              height={180}
-              className="rounded-tl rounded-tr"
-            />
+          <Link href={`/movie/${movie.id}`}>
+            {movie.poster_path ? (
+              <Image
+                src={`https://www.themoviedb.org/t/p/w220_and_h330_face/${movie.poster_path}`}
+                alt="Cover"
+                width={230}
+                height={180}
+                className="rounded-tl rounded-tr"
+              />
+            ) : (
+              <Image
+                src={placeholderPoster}
+                alt=""
+                width={230}
+                height={180}
+                className="rounded-tl rounded-tr"
+              />
+            )}
             <div className="flex flex-col justify-center gap-2 h-20 bg-neutral-500 rounded-bl rounded-br p-2 text-sm font-medium">
               <h2 className="text-neutral-100">{movie.original_title}</h2>
               <span className="text-xs italic text-neutral-700">
@@ -40,14 +50,24 @@ export function Card({ movie, tvshow }: CardProps) {
           key={tvshow.id}
           className="min-w-[230px] border border-transparent hover:border hover:border-emerald-500 hover:rounded"
         >
-          <Link href={`/${tvshow.id}`}>
-            <Image
-              src={`https://www.themoviedb.org/t/p/w220_and_h330_face${tvshow.poster_path}`}
-              alt="Cover"
-              width={230}
-              height={180}
-              className="rounded-tl rounded-tr"
-            />
+          <Link href={`/tvshow/${tvshow.id}`}>
+            {tvshow.poster_path ? (
+              <Image
+                src={`https://www.themoviedb.org/t/p/w220_and_h330_face${tvshow.poster_path}`}
+                alt=""
+                width={230}
+                height={180}
+                className="rounded-tl rounded-tr"
+              />
+            ) : (
+              <Image
+                src={placeholderPoster}
+                alt=""
+                width={230}
+                height={180}
+                className="rounded-tl rounded-tr"
+              />
+            )}
             <div className="flex flex-col justify-center gap-2 h-20 bg-neutral-500 rounded-bl rounded-br p-2 text-sm font-medium">
               <h2 className="text-neutral-100">{tvshow.original_name}</h2>
               <span className="text-xs italic text-neutral-700">
@@ -60,7 +80,7 @@ export function Card({ movie, tvshow }: CardProps) {
         <div className="min-w-[230px] border border-transparent hover:border hover:border-emerald-500 hover:rounded">
           <Image
             src={placeholderPoster}
-            alt="Fallback"
+            alt=""
             width={230}
             height={180}
             className="rounded-tl rounded-tr min-h-[342px]"
