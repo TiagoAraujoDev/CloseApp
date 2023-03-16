@@ -22,11 +22,11 @@ export function Card({ movie, tvshow }: CardProps) {
           <Link href={`/movie/${movie.id}`}>
             {movie.poster_path ? (
               <Image
-                src={`https://www.themoviedb.org/t/p/w220_and_h330_face/${movie.poster_path}`}
+                src={`https://www.themoviedb.org/t/p/w185${movie.poster_path}`}
                 alt="Cover"
                 width={230}
                 height={180}
-                className="rounded-tl rounded-tr"
+                className="object-contain krounded-tl rounded-tr"
               />
             ) : (
               <Image
@@ -53,11 +53,11 @@ export function Card({ movie, tvshow }: CardProps) {
           <Link href={`/tvshow/${tvshow.id}`}>
             {tvshow.poster_path ? (
               <Image
-                src={`https://www.themoviedb.org/t/p/w220_and_h330_face${tvshow.poster_path}`}
+                src={`https://www.themoviedb.org/t/p/w185${tvshow.poster_path}`}
                 alt=""
                 width={230}
                 height={180}
-                className="rounded-tl rounded-tr"
+                className="object-contain rounded-tl rounded-tr"
               />
             ) : (
               <Image
