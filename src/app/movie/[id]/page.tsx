@@ -10,12 +10,15 @@ import {
 import { ImSpinner2 } from "react-icons/im";
 
 import {
+  getConfig,
   getMovieCredits,
   getMovieDetails,
   getMovieExternalIds,
   getMovieReviews,
 } from "@/utils/requests/movies";
 import { formatDate } from "@/utils/formatDate";
+
+import { Interactable } from "@/components/MovieDetails/Interactable";
 
 import placeholderBackdrop from "../../../../public/placeholderBackdrop.png";
 import placeholderPoster from "../../../../public/placeholderPoster.png";
@@ -48,6 +51,9 @@ export default async function MovieDetailsPage({ params }: MovieDetailsProps) {
       </div>
     );
   }
+
+  const config = await getConfig();
+  console.log(config?.data);
 
   return (
     <main className="text-neutral-100 max-w-screen-xl min-h-full mx-auto">
@@ -118,39 +124,18 @@ export default async function MovieDetailsPage({ params }: MovieDetailsProps) {
                   {movieDetails.runtime} min
                 </span>
               </div>
-              {/** Intaractive */}
-              <div className="flex items-center gap-2 sm:mb-2">
-                <div className="flex items-center gap-1">
-                  <div className="text-xs sm:text-base md:text-lg flex items-center justify-center animate-pulse">
-                    <StarFilledSVG />
-                  </div>
-                  <span className="text-xs sm:text-base md:text-lg flex items-center justify-center">
-                    {movieDetails.vote_average.toFixed(2)}
-                  </span>
-                  <span className="text-lg">&middot;</span>
-                  <span className="text-xs sm:text-base md:text-lg flex items-center justify-center">
-                    {movieDetails.vote_count} votes
-                  </span>
-                </div>
-                <div className="flex items-center gap-2">
-                  <div className="bg-neutral-700 text-xs w-4 h-4 sm:text-base sm:w-6 sm:h-6 md:text-xl md:w-8 md:h-8 rounded-full flex items-center justify-center cursor-pointer">
-                    <BookmarkSVG />
-                  </div>
-                  <div className="bg-neutral-700 text-xs w-4 h-4 sm:text-base sm:w-6 sm:h-6 md:text-xl md:w-8 md:h-8 rounded-full flex items-center justify-center cursor-pointer">
-                    <HeartSVG />
-                  </div>
-                  <div className="bg-neutral-700 text-xs w-4 h-4 sm:text-base sm:w-6 sm:h-6 md:text-xl md:w-8 md:h-8 rounded-full flex items-center justify-center cursor-pointer">
-                    <StarSVG />
-                  </div>
-                </div>
-              </div>
+              {/** Intaractive: ClientComponent */}
+              <Interactable
+                voteAverage={movieDetails.vote_average}
+                voteCount={movieDetails.vote_count}
+              />
               {/** Tagline */}
               <p className="hidden sm:block text-neutral-400 text-base lg:text-lg italic mb-2">
                 {movieDetails.tagline}
               </p>
               {/** Sinopse */}
               <div className="flex flex-col w-56 sm:w-full sm:mb-2">
-                <h2 className="text-sm sm:text-base lg:text-2xl text-neutral-200 font-medium">
+                <h2 className="text-xs sm:text-base lg:text-2xl text-neutral-200 font-medium">
                   Sinopse
                 </h2>
                 {movieDetails.overview && (
@@ -194,15 +179,13 @@ export default async function MovieDetailsPage({ params }: MovieDetailsProps) {
                   key={actor.id}
                   className="min-w-[75px] sm:min-w-[125px] border rounded border-transparent overflow-hidden"
                 >
-                  <div>
-                    <Image
-                      src={`https://image.tmdb.org/t/p/w185${actor.profile_path}`}
-                      alt=""
-                      width={185}
-                      height={278}
-                      className="object-contain min-h-fit"
-                    />
-                  </div>
+                  <Image
+                    src={`https://image.tmdb.org/t/p/w185${actor.profile_path}`}
+                    alt=""
+                    width={185}
+                    height={278}
+                    className="object-contain min-h-fit"
+                  />
                   <div className="min-h-fit py-2 px-1 flex flex-col bg-neutral-400">
                     <span className="text-xs sm:text-base whitespace-nowrap text-ellipsis overflow-hidden text-neutral-200">
                       {actor.original_name}
