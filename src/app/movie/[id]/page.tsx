@@ -7,6 +7,7 @@ import {
   AiFillTwitterSquare,
   AiFillStar,
 } from "react-icons/ai";
+import { ImSpinner2 } from "react-icons/im";
 
 import {
   getMovieCredits,
@@ -16,12 +17,6 @@ import {
 } from "@/utils/requests/movies";
 import { formatDate } from "@/utils/formatDate";
 
-import {
-  BookmarkSVG,
-  HeartSVG,
-  StarFilledSVG,
-  StarSVG,
-} from "@/components/Icons";
 import placeholderBackdrop from "../../../../public/placeholderBackdrop.png";
 import placeholderPoster from "../../../../public/placeholderPoster.png";
 
@@ -46,8 +41,12 @@ export default async function MovieDetailsPage({ params }: MovieDetailsProps) {
   if (crew) crew.length = 5;
   if (cast) cast.length = 10;
 
-  if (!movieDetails) {
-    return <h1>loading...</h1>;
+  if (!movieDetails || !movieReviews || !externalIds || !cast || !crew) {
+    return (
+      <div className="h-screen w-screen flex items-center justify-center">
+        <ImSpinner2 className="animate-spin text-neutral-100 text-xl" />
+      </div>
+    );
   }
 
   return (
