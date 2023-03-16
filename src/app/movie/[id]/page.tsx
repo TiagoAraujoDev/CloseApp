@@ -8,6 +8,7 @@ import {
   AiFillStar,
 } from "react-icons/ai";
 import { ImSpinner2 } from "react-icons/im";
+import { MdRateReview } from "react-icons/md";
 
 import {
   getConfig,
@@ -226,7 +227,7 @@ export default async function MovieDetailsPage({ params }: MovieDetailsProps) {
               Budget
             </h3>
             <span className="text-xs md:text-base text-neutral-300">
-              ${movieDetails.budget}
+              {movieDetails.budget !== 0 ? `$${movieDetails.budget}` : "-"}
             </span>
           </div>
           <div>
@@ -234,13 +235,13 @@ export default async function MovieDetailsPage({ params }: MovieDetailsProps) {
               Revenue
             </h3>
             <span className="text-xs md:text-base text-neutral-300">
-              ${movieDetails.revenue}
+              {movieDetails.revenue !== 0 ? `$${movieDetails.revenue}` : "-"}
             </span>
           </div>
         </div>
       </section>
       {/* External links */}
-      <section className="px-6 mb-6">
+      <section className="px-6 mb-8">
         <h2 className="text-lg md:text-2xl text-neutral-100 font-semibold mb-1">
           External Links
         </h2>
@@ -250,83 +251,88 @@ export default async function MovieDetailsPage({ params }: MovieDetailsProps) {
               target={"_blank"}
               href={`https://www.facebook.com/${externalIds.facebook_id}`}
             >
-              <AiFillFacebook size={24} />
+              <AiFillFacebook size={24} className="cursor-pointer" />
             </Link>
           ) : (
-            <Link target={"_blank"} href={""}>
-              <AiFillFacebook size={24} />
-            </Link>
+            <AiFillFacebook size={24} className="cursor-not-allowed" />
           )}
           {externalIds.instagram_id ? (
             <Link
               target={"_blank"}
               href={`https://www.instagram.com/${externalIds.instagram_id}`}
             >
-              <AiFillInstagram size={24} />
+              <AiFillInstagram size={24} className="cursor-pointer" />
             </Link>
           ) : (
-            <Link target={"_blank"} href={""}>
-              <AiFillInstagram size={24} />
-            </Link>
+            <AiFillInstagram size={24} className="cursor-not-allowed" />
           )}
           {externalIds.twitter_id ? (
             <Link
               target={"_blank"}
               href={`https://www.twitter.com/${externalIds.twitter_id}`}
             >
-              <AiFillTwitterSquare size={24} />
+              <AiFillTwitterSquare size={24} className="cursor-pointer" />
             </Link>
           ) : (
-            <Link target={"_blank"} href={""}>
-              <AiFillTwitterSquare size={24} />
-            </Link>
+            <AiFillTwitterSquare size={24} className="cursor-not-allowed" />
           )}
         </div>
       </section>
+      {/* Separator  */}
+      <div className="w-11/12 h-[1px] bg-neutral-500 mb-6 mx-auto"></div>
       {/* Reviews */}
       <section className="px-6 mb-6">
-        <h2 className="text-lg md:text-2xl text-neutral-100 font-semibold mb-1">
+        <h2 className="text-center text-lg md:text-2xl text-neutral-100 font-semibold mb-1">
           Reviews
           <span className="text-sm sm:text-base md:text-lg text-neutral-300 ml-1">
             ({movieReviews.length})
           </span>
         </h2>
         <div>
-          {movieReviews.map((review) => (
-            <div
-              key={review.id}
-              className="mb-3 last:mb-0 bg-neutral-600 shadow shadow-neutral-700 rounded py-4 px-3 space-y-2"
-            >
-              {/** Header */}
-              <div className="flex items-center justify-between">
-                <div className="flex items-center gap-1">
-                  <Image
-                    src={`https://www.themoviedb.org/t/p/w185${review.author_details.avatar_path}`}
-                    width={80}
-                    height={80}
-                    alt=""
-                    className="w-7 h-7 rounded-full"
-                  />
-                  <span className="text-sm text-neutral-200 font-semibold">
-                    {review.author}
-                  </span>
+          {movieReviews.length > 0 ? (
+            movieReviews.map((review) => (
+              <div
+                key={review.id}
+                className="mb-3 last:mb-0 bg-neutral-600 shadow shadow-neutral-700 rounded py-4 px-3 space-y-2"
+              >
+                {/** Header */}
+                <div className="flex items-center justify-between">
+                  <div className="flex items-center gap-1">
+                    <Image
+                      src={`https://www.themoviedb.org/t/p/w185${review.author_details.avatar_path}`}
+                      width={80}
+                      height={80}
+                      alt=""
+                      className="w-7 h-7 rounded-full"
+                    />
+                    <span className="text-sm text-neutral-200 font-semibold">
+                      {review.author}
+                    </span>
+                  </div>
+                  <div className="bg-neutral-700 shadow-neutral-800 shadow-md py-0 px-1 flex items-center gap-1 rounded">
+                    <AiFillStar color="yellow" />
+                    <span className="text-neutral-300">
+                      {review.author_details.rating}
+                    </span>
+                  </div>
                 </div>
-                <div className="bg-neutral-700 shadow-neutral-800 shadow-md py-0 px-1 flex items-center gap-1 rounded">
-                  <AiFillStar color="yellow" />
-                  <span className="text-neutral-300">
-                    {review.author_details.rating}
-                  </span>
+                {/** Content */}
+                <p className="text-neutral-200 text-justify text-base">
+                  {review.content}
+                </p>
+                <div className="text-sm text-right italic text-neutral-400">
+                  {formatDate(review.created_at.slice(0, 10))}
                 </div>
               </div>
-              {/** Content */}
-              <p className="text-neutral-200 text-justify text-base">
-                {review.content}
+            ))
+          ) : (
+            <div className="flex flex-col items-center justify-center space-y-4">
+              <MdRateReview className="text-neutral-500 text-5xl" />
+              <p className="text-base text-neutral-200 font-bold">
+                There isn&apos;t no review yet!
               </p>
-              <div className="text-sm text-right italic text-neutral-400">
-                {formatDate(review.created_at.slice(0, 10))}
-              </div>
             </div>
-          ))}
+          )}
         </div>
       </section>
     </main>
