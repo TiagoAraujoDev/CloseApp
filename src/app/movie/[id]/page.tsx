@@ -186,15 +186,25 @@ export default async function MovieDetailsPage({ params }: MovieDetailsProps) {
               return (
                 <div
                   key={actor.id}
-                  className="min-w-[75px] sm:min-w-[125px] border rounded border-transparent overflow-hidden"
+                  className="min-w-[75px] sm:min-w-[125px] flex flex-col border rounded border-transparent overflow-hidden"
                 >
-                  <Image
-                    src={`https://image.tmdb.org/t/p/w185${actor.profile_path}`}
-                    alt=""
-                    width={185}
-                    height={278}
-                    className="object-contain min-h-fit"
-                  />
+                  {actor.profile_path ? (
+                    <Image
+                      src={`https://image.tmdb.org/t/p/w185${actor.profile_path}`}
+                      alt=""
+                      width={185}
+                      height={278}
+                      className="object-contain"
+                    />
+                  ) : (
+                    <Image
+                      src={placeholderPoster}
+                      alt=""
+                      width={185}
+                      height={278}
+                      className="object-contain flex-1"
+                    />
+                  )}
                   <div className="min-h-fit py-2 px-1 flex flex-col bg-neutral-400">
                     <span className="text-xs sm:text-base whitespace-nowrap text-ellipsis overflow-hidden text-neutral-200">
                       {actor.original_name}
