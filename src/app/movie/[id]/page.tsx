@@ -32,10 +32,17 @@ interface MovieDetailsProps {
 }
 
 export default async function MovieDetailsPage({ params }: MovieDetailsProps) {
-  const movieDetailsResponse = await getMovieDetails(params.id);
-  const movieCreditsResponse = await getMovieCredits(params.id);
-  const movieExternalIdsResponse = await getMovieExternalIds(params.id);
-  const movieReviewsResponse = await getMovieReviews(params.id);
+  const [
+    movieDetailsResponse,
+    movieCreditsResponse,
+    movieExternalIdsResponse,
+    movieReviewsResponse,
+  ] = await Promise.all([
+    getMovieDetails(params.id),
+    getMovieCredits(params.id),
+    getMovieExternalIds(params.id),
+    getMovieReviews(params.id),
+  ]);
 
   const movieDetails: MovieDetails = movieDetailsResponse?.data;
   const externalIds: ExternalIds = movieExternalIdsResponse?.data;
