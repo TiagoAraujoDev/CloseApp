@@ -18,6 +18,7 @@ import {
   getMovieReviews,
 } from "@/utils/requests/movies";
 import { formatDate } from "@/utils/formatDate";
+import { treatAvatarPath } from "@/utils/treatReviewAuthorAvatarPath";
 
 import { Interactable } from "@/components/MovieDetails/Interactable";
 
@@ -279,10 +280,12 @@ export default async function MovieDetailsPage({ params }: MovieDetailsProps) {
         </div>
       </section>
       {/* Separator  */}
-      <div className="w-11/12 h-[1px] bg-neutral-500 mb-6 mx-auto"></div>
+      <section className="mb-6 px-6">
+        <div className="h-2 border-t border-emerald-500 rounded-t mx-auto"></div>
+      </section>
       {/* Reviews */}
       <section className="px-6 mb-6">
-        <h2 className="text-center text-lg md:text-2xl text-neutral-100 font-semibold mb-1">
+        <h2 className="text-center text-lg md:text-2xl text-neutral-100 font-semibold mb-4">
           Reviews
           <span className="text-sm sm:text-base md:text-lg text-neutral-300 ml-1">
             ({movieReviews.length})
@@ -330,7 +333,7 @@ export default async function MovieDetailsPage({ params }: MovieDetailsProps) {
           ) : (
             <div className="flex flex-col items-center justify-center space-y-4">
               <MdRateReview className="text-neutral-500 text-5xl" />
-              <p className="text-base text-neutral-200 font-bold">
+              <p className="text-base text-neutral-300 font-bold">
                 There isn&apos;t no review yet!
               </p>
             </div>
