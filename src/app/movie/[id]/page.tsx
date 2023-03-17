@@ -299,7 +299,9 @@ export default async function MovieDetailsPage({ params }: MovieDetailsProps) {
                 <div className="flex items-center justify-between">
                   <div className="flex items-center gap-1">
                     <Image
-                      src={`https://www.themoviedb.org/t/p/w185${review.author_details.avatar_path}`}
+                      src={`http://www.gravatar.com/avatar${treatAvatarPath(
+                        review.author_details.avatar_path,
+                      )}`}
                       width={80}
                       height={80}
                       alt=""
