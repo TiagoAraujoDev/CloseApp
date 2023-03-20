@@ -206,10 +206,16 @@ export default async function MovieDetailsPage({ params }: MovieDetailsProps) {
                     />
                   )}
                   <div className="min-h-fit py-2 px-1 flex flex-col bg-neutral-400">
-                    <span className="text-xs sm:text-base whitespace-nowrap text-ellipsis overflow-hidden text-neutral-200">
+                    <span
+                      title={actor.original_name}
+                      className="text-xs sm:text-base whitespace-nowrap text-ellipsis overflow-hidden text-neutral-200"
+                    >
                       {actor.original_name}
                     </span>
-                    <span className="text-xs sm:text-base whitespace-nowrap text-ellipsis overflow-hidden text-neutral-700 font-semibold">
+                    <span
+                      title={actor.character}
+                      className="text-xs sm:text-base whitespace-nowrap text-ellipsis overflow-hidden text-neutral-700 font-semibold"
+                    >
                       {actor.character}
                     </span>
                   </div>
@@ -334,7 +340,9 @@ export default async function MovieDetailsPage({ params }: MovieDetailsProps) {
                   <div className="bg-neutral-700 shadow-neutral-800 shadow-md py-0 px-1 flex items-center gap-1 rounded">
                     <AiFillStar color="yellow" />
                     <span className="text-neutral-300">
-                      {review.author_details.rating}
+                      {review.author_details.rating
+                        ? review.author_details.rating
+                        : "-"}
                     </span>
                   </div>
                 </div>

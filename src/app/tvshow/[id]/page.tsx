@@ -61,6 +61,7 @@ export default async function TvShowDetailsPage({ params }: MovieDetailsProps) {
 
   // const config = await getConfig();
   // console.log(config?.data);
+  console.log(tvShowDetails.episode_run_time);
 
   return (
     <main className="text-neutral-100 max-w-screen-xl min-h-full mx-auto">
@@ -128,7 +129,9 @@ export default async function TvShowDetailsPage({ params }: MovieDetailsProps) {
                 </span>
                 <span className="hidden text-lg sm:block">&middot;</span>
                 <span className="hidden sm:inline-block text-neutral-300 text-xs sm:text-base">
-                  {tvShowDetails.episode_run_time} min
+                  {tvShowDetails.episode_run_time.length > 0
+                    ? `${tvShowDetails.episode_run_time[0]} min`
+                    : ""}
                 </span>
               </div>
               {/** Intaractive: ClientComponent */}
@@ -204,10 +207,16 @@ export default async function TvShowDetailsPage({ params }: MovieDetailsProps) {
                     />
                   )}
                   <div className="min-h-fit py-2 px-1 flex flex-col bg-neutral-400">
-                    <span className="text-xs sm:text-base whitespace-nowrap text-ellipsis overflow-hidden text-neutral-200">
+                    <span
+                      title={actor.original_name}
+                      className="text-xs sm:text-base whitespace-nowrap text-ellipsis overflow-hidden text-neutral-200"
+                    >
                       {actor.original_name}
                     </span>
-                    <span className="text-xs sm:text-base whitespace-nowrap text-ellipsis overflow-hidden text-neutral-700 font-semibold">
+                    <span
+                      title={actor.character}
+                      className="text-xs sm:text-base whitespace-nowrap text-ellipsis overflow-hidden text-neutral-700 font-semibold"
+                    >
                       {actor.character}
                     </span>
                   </div>
@@ -250,7 +259,7 @@ export default async function TvShowDetailsPage({ params }: MovieDetailsProps) {
           </div>
           <div>
             <h3 className="text-sm md:text-lg text-neutral-100 font-medium">
-              Next episode
+              Last episode
             </h3>
             <span className="text-xs md:text-base text-neutral-300">
               {tvShowDetails.last_episode_to_air.id
@@ -336,7 +345,9 @@ export default async function TvShowDetailsPage({ params }: MovieDetailsProps) {
                   <div className="bg-neutral-700 shadow-neutral-800 shadow-md py-0 px-1 flex items-center gap-1 rounded">
                     <AiFillStar color="yellow" />
                     <span className="text-neutral-300">
-                      {review.author_details.rating}
+                      {review.author_details.rating
+                        ? review.author_details.rating
+                        : "-"}
                     </span>
                   </div>
                 </div>
