@@ -61,7 +61,6 @@ export default async function TvShowDetailsPage({ params }: MovieDetailsProps) {
 
   // const config = await getConfig();
   // console.log(config?.data);
-  console.log(tvShowDetails.episode_run_time);
 
   return (
     <main className="text-neutral-100 max-w-screen-xl min-h-full mx-auto">
@@ -195,7 +194,7 @@ export default async function TvShowDetailsPage({ params }: MovieDetailsProps) {
                       alt=""
                       width={185}
                       height={278}
-                      className="object-contain"
+                      className="object-contain flex-1"
                     />
                   ) : (
                     <Image

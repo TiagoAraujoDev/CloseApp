@@ -1,11 +1,9 @@
 import Link from "next/link";
+import { CiLogin } from "react-icons/ci";
+import { MdLocalMovies } from "react-icons/md";
 
-import {
-  FilmStripSVG,
-  LogginSVG,
-  MagnifyingGlassSVG,
-} from "@/components/Icons";
 import { Menu } from "@/components/Header/components/Menu";
+import { SearchInput } from "./components/SearchInput";
 
 export function Header() {
   return (
@@ -13,22 +11,16 @@ export function Header() {
       <div className="max-w-5xl mx-auto flex items-center justify-around sm:justify-between gap-4">
         <Link
           href="/"
+          title="Home"
           className="text-emerald-500 font-bold text-xl flex items-center justify-center gap-1"
         >
           <span>CloseApp</span>
-          <FilmStripSVG />
+          <MdLocalMovies />
         </Link>
-        <div className="hidden shadow-lg shadow-neutral-900 sm:flex items-center justify-between flex-grow focus:border focus:border-emerald-500 rounded-full bg-neutral-800 px-4 py-2 sm:max-w-xs md:max-w-xl h-9">
-          <input
-            type="text"
-            className="bg-transparent outline-none w-full placeholder:text-zinc-400 text-neutral-100"
-            placeholder="Search for movies and TV shows..."
-          />
-          <MagnifyingGlassSVG />
-        </div>
+        <SearchInput />
         <nav className="flex items-center justify-between gap-2">
           <button>
-            <LogginSVG />
+            <CiLogin title="Loggin" className="text-2xl text-emerald-500" />
           </button>
           <Menu />
         </nav>
