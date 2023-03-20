@@ -4,7 +4,7 @@ import Link from "next/link";
 import { formatDate } from "@/utils/formatDate";
 import { Movie, TvShow } from "types";
 
-import placeholderPoster from "../../public/placeholderPoster.png";
+import placeholderPoster from "../../../public/placeholderPoster.png";
 
 interface CardProps {
   movie?: Movie;
