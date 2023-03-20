@@ -1,6 +1,6 @@
 import { Movie, TvShow } from "types";
 
-import { Card } from "../Card";
+import { Card } from "./Card";
 
 interface CarouselProps {
   movies?: Movie[];

@@ -12,7 +12,6 @@ interface CardProps {
 }
 
 export function Card({ movie, tvshow }: CardProps) {
-  console.log(movie?.poster_path);
   return (
     <>
       {movie ? (
