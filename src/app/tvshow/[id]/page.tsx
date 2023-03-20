@@ -1,23 +1,22 @@
-import Image from "next/image";
 import Link from "next/link";
+import Image from "next/image";
+import { Actor, Crew, ExternalIds, Review, TvShowDetails } from "types";
 import {
   AiFillFacebook,
   AiFillInstagram,
-  AiFillStar,
   AiFillTwitterSquare,
+  AiFillStar,
 } from "react-icons/ai";
 import { ImSpinner2 } from "react-icons/im";
 import { MdRateReview } from "react-icons/md";
-import { Actor, Crew, ExternalIds, MovieDetails, Review } from "types";
 
-import { formatDate } from "@/utils/formatDate";
 import {
-  getConfig,
-  getMovieCredits,
-  getMovieDetails,
-  getMovieExternalIds,
-  getMovieReviews,
-} from "@/utils/requests/movies";
+  getTvShowCredits,
+  getTvShowExternalIds,
+  getTvShowReviews,
+  getTvShowsDetails,
+} from "@/utils/requests/tvshows";
+import { formatDate } from "@/utils/formatDate";
 import { treatAvatarPath } from "@/utils/treatReviewAuthorAvatarPath";
 
 import { Interactable } from "@/components/MovieDetails/Interactable";
@@ -31,29 +30,28 @@ interface MovieDetailsProps {
   };
 }
 
-export default async function MovieDetailsPage({ params }: MovieDetailsProps) {
+export default async function TvShowDetailsPage({ params }: MovieDetailsProps) {
   const [
-    movieDetailsResponse,
-    movieCreditsResponse,
-    movieExternalIdsResponse,
-    movieReviewsResponse,
+    tvShowDetailsResponse,
+    tvShowCreditsResponse,
+    tvShowExternalIdsResponse,
+    tvShowReviewsResponse,
   ] = await Promise.all([
-    getMovieDetails(params.id),
-    getMovieCredits(params.id),
-    getMovieExternalIds(params.id),
-    getMovieReviews(params.id),
+    getTvShowsDetails(params.id),
+    getTvShowCredits(params.id),
+    getTvShowExternalIds(params.id),
+    getTvShowReviews(params.id),
   ]);
 
-  const movieDetails: MovieDetails = movieDetailsResponse?.data;
-  const externalIds: ExternalIds = movieExternalIdsResponse?.data;
-  const movieReviews: Review[] = movieReviewsResponse?.data.results;
-  const cast: Actor[] = movieCreditsResponse?.data.cast;
-  const crew: Crew[] = movieCreditsResponse?.data.crew;
+  const tvShowDetails: TvShowDetails = tvShowDetailsResponse?.data;
+  const tvShowExternalIds: ExternalIds = tvShowExternalIdsResponse?.data;
+  const tvShowReviews: Review[] = tvShowReviewsResponse?.data.results;
+  const crew: Crew[] = tvShowCreditsResponse?.data.crew;
+  const cast: Actor[] = tvShowCreditsResponse?.data.cast;
 
-  if (crew) crew.length = 5;
-  if (cast) cast.length = 10;
+  if (crew) crew.length = 6;
 
-  if (!movieDetails || !movieReviews || !externalIds || !cast || !crew) {
+  if (!tvShowDetails) {
     return (
       <div className="h-screen w-screen flex items-center justify-center">
         <ImSpinner2 className="animate-spin text-neutral-100 text-xl" />
@@ -61,17 +59,17 @@ export default async function MovieDetailsPage({ params }: MovieDetailsProps) {
     );
   }
 
-  const config = await getConfig();
-  console.log(config?.data);
+  // const config = await getConfig();
+  // console.log(config?.data);
 
   return (
     <main className="text-neutral-100 max-w-screen-xl min-h-full mx-auto">
       {/** Banner */}
       <section className="min-w-full relative mb-4">
         {/** Background */}
-        {movieDetails.backdrop_path ? (
+        {tvShowDetails.backdrop_path ? (
           <Image
-            src={`https://www.themoviedb.org/t/p/w1280${movieDetails.backdrop_path}`}
+            src={`https://www.themoviedb.org/t/p/w1280${tvShowDetails.backdrop_path}`}
             alt=""
             width={1280}
             height={720}
@@ -83,10 +81,10 @@ export default async function MovieDetailsPage({ params }: MovieDetailsProps) {
         <div className="w-full h-full bg-transparent absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 py-8 px-4 sm:py-10 sm:px-5 md:py-16 md:px-6">
           {/** Container flex */}
           <div className="w-full h-full bg-transparent flex items-center gap-4">
-            {movieDetails.poster_path ? (
+            {tvShowDetails.poster_path ? (
               <div className="flex w-[100px] sm:w-[150px] md:w-[210px] lg:w-[295px]">
                 <Image
-                  src={`https://www.themoviedb.org/t/p/w780${movieDetails.poster_path}`}
+                  src={`https://www.themoviedb.org/t/p/w780${tvShowDetails.poster_path}`}
                   alt=""
                   width={780}
                   height={1170}
@@ -109,20 +107,20 @@ export default async function MovieDetailsPage({ params }: MovieDetailsProps) {
               {/** Header */}
               <div className="flex items-center gap-1">
                 <h1 className="text-neutral-100 text-sm sm:text-lg md:text-2xl lg:text-3xl font-medium">
-                  {movieDetails.original_title}
+                  {tvShowDetails.original_name}
                 </h1>
                 <span className="text-neutral-400 text-base sm:text-lg md:text-2xl hidden sm:block">
-                  ({movieDetails.release_date.slice(0, 4)})
+                  ({tvShowDetails.first_air_date.slice(0, 4)})
                 </span>
               </div>
               {/** Infos */}
               <div className="flex flex-col sm:flex-row sm:items-center sm:gap-1 sm:mb-1">
                 <span className="text-neutral-300 text-xs sm:text-base">
-                  {movieDetails.release_date}
+                  {tvShowDetails.first_air_date}
                 </span>
                 <span className="text-lg hidden sm:block">&middot;</span>
                 <span className="text-neutral-300 text-xs sm:text-base flex gap-1 items-center">
-                  {movieDetails.genres.map((genre, index) => (
+                  {tvShowDetails.genres.map((genre, index) => (
                     <span className="underline" key={index}>
                       {genre.name}
                     </span>
@@ -130,29 +128,29 @@ export default async function MovieDetailsPage({ params }: MovieDetailsProps) {
                 </span>
                 <span className="hidden text-lg sm:block">&middot;</span>
                 <span className="hidden sm:inline-block text-neutral-300 text-xs sm:text-base">
-                  {movieDetails.runtime} min
+                  {tvShowDetails.episode_run_time} min
                 </span>
               </div>
               {/** Intaractive: ClientComponent */}
               <Interactable
-                voteAverage={movieDetails.vote_average}
-                voteCount={movieDetails.vote_count}
+                voteAverage={tvShowDetails.vote_average}
+                voteCount={tvShowDetails.vote_count}
               />
               {/** Tagline */}
               <p className="hidden sm:block text-neutral-400 text-base lg:text-lg italic mb-2">
-                {movieDetails.tagline}
+                {tvShowDetails.tagline}
               </p>
               {/** Sinopse */}
               <div className="flex flex-col w-56 sm:w-full sm:mb-2">
                 <h2 className="text-xs sm:text-base lg:text-2xl text-neutral-200 font-medium">
                   Sinopse
                 </h2>
-                {movieDetails.overview && (
+                {tvShowDetails.overview && (
                   <p
-                    title={movieDetails.overview}
+                    title={tvShowDetails.overview}
                     className="text-xs sm:text-sm lg:text-lg text-neutral-200 whitespace-nowrap sm:whitespace-normal text-ellipsis overflow-hidden"
                   >
-                    {movieDetails.overview}
+                    {tvShowDetails.overview}
                   </p>
                 )}
               </div>
@@ -229,7 +227,7 @@ export default async function MovieDetailsPage({ params }: MovieDetailsProps) {
               Status
             </h3>
             <span className="text-xs md:text-base text-neutral-300">
-              {movieDetails.status}
+              {tvShowDetails.status}
             </span>
           </div>
           <div>
@@ -237,23 +235,27 @@ export default async function MovieDetailsPage({ params }: MovieDetailsProps) {
               Original Language
             </h3>
             <span className="text-xs md:text-base text-neutral-300">
-              {movieDetails.original_language}
+              {tvShowDetails.original_language}
             </span>
           </div>
           <div>
             <h3 className="text-sm md:text-lg text-neutral-100 font-medium">
-              Budget
+              Number of Seasons
             </h3>
             <span className="text-xs md:text-base text-neutral-300">
-              {movieDetails.budget !== 0 ? `$${movieDetails.budget}` : "-"}
+              {tvShowDetails.number_of_seasons !== 0
+                ? tvShowDetails.number_of_seasons
+                : "-"}
             </span>
           </div>
           <div>
             <h3 className="text-sm md:text-lg text-neutral-100 font-medium">
-              Revenue
+              Next episode
             </h3>
             <span className="text-xs md:text-base text-neutral-300">
-              {movieDetails.revenue !== 0 ? `$${movieDetails.revenue}` : "-"}
+              {tvShowDetails.last_episode_to_air.id
+                ? tvShowDetails.last_episode_to_air.name
+                : "-"}
             </span>
           </div>
         </div>
@@ -264,30 +266,30 @@ export default async function MovieDetailsPage({ params }: MovieDetailsProps) {
           External Links
         </h2>
         <div className="flex items-center">
-          {externalIds.facebook_id ? (
+          {tvShowExternalIds.facebook_id ? (
             <Link
               target={"_blank"}
-              href={`https://www.facebook.com/${externalIds.facebook_id}`}
+              href={`https://www.facebook.com/${tvShowExternalIds.facebook_id}`}
             >
               <AiFillFacebook size={24} className="cursor-pointer" />
             </Link>
           ) : (
             <AiFillFacebook size={24} className="cursor-not-allowed" />
           )}
-          {externalIds.instagram_id ? (
+          {tvShowExternalIds.instagram_id ? (
             <Link
               target={"_blank"}
-              href={`https://www.instagram.com/${externalIds.instagram_id}`}
+              href={`https://www.instagram.com/${tvShowExternalIds.instagram_id}`}
             >
               <AiFillInstagram size={24} className="cursor-pointer" />
             </Link>
           ) : (
             <AiFillInstagram size={24} className="cursor-not-allowed" />
           )}
-          {externalIds.twitter_id ? (
+          {tvShowExternalIds.twitter_id ? (
             <Link
               target={"_blank"}
-              href={`https://www.twitter.com/${externalIds.twitter_id}`}
+              href={`https://www.twitter.com/${tvShowExternalIds.twitter_id}`}
             >
               <AiFillTwitterSquare size={24} className="cursor-pointer" />
             </Link>
@@ -305,12 +307,12 @@ export default async function MovieDetailsPage({ params }: MovieDetailsProps) {
         <h2 className="text-center text-lg md:text-2xl text-neutral-100 font-semibold mb-4">
           Reviews
           <span className="text-sm sm:text-base md:text-lg text-neutral-300 ml-1">
-            ({movieReviews.length})
+            ({tvShowReviews.length})
           </span>
         </h2>
         <div>
-          {movieReviews.length > 0 ? (
-            movieReviews.map((review) => (
+          {tvShowReviews.length > 0 ? (
+            tvShowReviews.map((review) => (
               <div
                 key={review.id}
                 className="mb-3 last:mb-0 bg-neutral-600 shadow shadow-neutral-700 rounded py-4 px-3 space-y-2"
