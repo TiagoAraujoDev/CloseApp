@@ -1,23 +1,13 @@
-import { api } from "@/lib/axios";
-
-const apiKey = process.env.NEXT_PUBLIC_API_KEY;
+import { SearchDisplay } from "@/components/Search/SearchDisplay";
 
 export default async function SearchPage({
   searchParams,
 }: {
   searchParams?: { [key: string]: string | string[] | undefined };
 }) {
-  const response = await api.get(
-    `search/multi?api_key=${apiKey}&query=${searchParams?.terms}&page=1`,
-  );
-
-  const shows = response?.data.results;
-
   return (
-    <div className="flex items-center justify-center">
-      <h1 className="text-2xl text-white">
-        {shows.length ? JSON.stringify(shows, null, 2) : "no movie find"}
-      </h1>
-    </div>
+    <main className="flex flex-col items-center justify-center max-w-5xl px-16 mx-auto">
+      <SearchDisplay query={searchParams?.terms} />
+    </main>
   );
 }

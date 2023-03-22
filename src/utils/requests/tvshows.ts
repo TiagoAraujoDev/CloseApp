@@ -76,3 +76,21 @@ export const getTvShowReviews = async (
     }
   }
 };
+
+export const searchTvShows = async (
+  query: string | string[] | undefined,
+  page: number = 1,
+): Promise<AxiosResponse | undefined> => {
+  try {
+    const response = await api.get(
+      `search/tv?api_key=${apiKey}&query=${query}&page=${page}`,
+    );
+
+    return response;
+  } catch (error) {
+    if (error instanceof AxiosError && error.response?.status === 401) {
+      console.log("Status: ", error.response.status);
+      console.log("Info: ", error.response.data);
+    }
+  }
+};
