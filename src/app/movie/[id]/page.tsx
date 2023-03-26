@@ -17,7 +17,7 @@ import {
   getMovieDetails,
   getMovieExternalIds,
   getMovieReviews,
-} from "@/utils/requests/movies";
+} from "@/lib/axios/requests/movies";
 import { treatAvatarPath } from "@/utils/treatReviewAuthorAvatarPath";
 
 import { Interactable } from "@/components/MovieDetails/Interactable";

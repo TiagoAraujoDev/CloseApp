@@ -15,7 +15,7 @@ import {
   getTvShowExternalIds,
   getTvShowReviews,
   getTvShowsDetails,
-} from "@/utils/requests/tvshows";
+} from "@/lib/axios/requests/tvshows";
 import { formatDate } from "@/utils/formatDate";
 import { treatAvatarPath } from "@/utils/treatReviewAuthorAvatarPath";
 
