@@ -8,7 +8,7 @@ interface TvShowCardProps {
 export function TvShowCard({ tvshow }: TvShowCardProps) {
   return (
     <div>
-      <h1>{tvshow.original_name}</h1>
+      <h1 className="text-neutral-100">{tvshow.original_name}</h1>
     </div>
   );
 }

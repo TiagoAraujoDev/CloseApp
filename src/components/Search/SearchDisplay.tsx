@@ -1,9 +1,9 @@
 "use client";
 
+import React, { useEffect, useState } from "react";
 import { Movie, TvShow } from "types";
+import { useInfiniteQuery } from "react-query";
 import { useSearchParams } from "next/navigation";
-import { useEffect, useState } from "react";
-import { useInfiniteQuery, useQuery } from "react-query";
 
 import { search } from "@/lib/axios/requests/search";
 
@@ -14,10 +14,8 @@ export function SearchDisplay() {
   const searchParams = useSearchParams();
 
   const [mediaType, setMediaType] = useState("movie");
-  const [movies, setMovies] = useState<Movie[]>();
   const [movieResultCount, setMovieResultCount] = useState(0);
   const [tvshowResultCount, setTvshowResultCount] = useState(0);
-  const [tvshows, setTvshows] = useState<TvShow[]>();
   const [query, setQuery] = useState<string | null>("");
 
   const searchQuery = searchParams ? searchParams.get("terms") : null;
@@ -25,8 +23,6 @@ export function SearchDisplay() {
   useEffect(() => {
     setQuery(searchQuery);
   }, [searchQuery]);
-
-  console.log("render");
 
   const moviesQuery = useInfiniteQuery(
     "movies_search_" + query,
@@ -43,7 +39,6 @@ export function SearchDisplay() {
   const tvshowsQuery = useInfiniteQuery(
     "tvshows_search_" + query,
     async ({ pageParam = 1 }) => {
-      console.log(pageParam);
       const response = await search(query, "tv", pageParam);
 
       return response;
@@ -53,41 +48,16 @@ export function SearchDisplay() {
     },
   );
 
-  // return (
-  //   <div>
-  //     {moviesQuery.data &&
-  //       moviesQuery.data.pages.map((page, i) => {
-  //         return (
-  //           <div key={i}>
-  //             {page &&
-  //               page.data.results.map((item: any, i: number) => {
-  //                 return (
-  //                   <div className={`text-white`} key={i}>
-  //                     {item.title}
-  //                   </div>
-  //                 );
-  //               })}
-  //           </div>
-  //         );
-  //       })}
-  //     <div>
-  //       <button
-  //         className="bg-emerald-500 text-neutral-100 px-2 rounded"
-  //         onClick={() => moviesQuery.fetchNextPage()}
-  //         type="button"
-  //       >
-  //         {moviesQuery.isFetchingNextPage
-  //           ? "Loading more..."
-  //           : moviesQuery.hasNextPage
-  //             ? "Load More"
-  //             : "Nothing more to load"}
-  //       </button>
-  //     </div>
-  //   </div>
-  // );
+  useEffect(() => {
+    if (moviesQuery.isSuccess && tvshowsQuery.isSuccess) {
+      setMovieResultCount(moviesQuery.data?.pages[0]?.data.total_results);
+      setTvshowResultCount(tvshowsQuery.data?.pages[0]?.data.total_results);
+    }
+    // eslint-disable-next-line
+  }, [moviesQuery, tvshowsQuery]);
 
   if (moviesQuery.status === "loading" || tvshowsQuery.status === "loading") {
-    return <div>loading</div>;
+    return <div className="text-neutral-100 text-5xl">loading...</div>;
   } else if (
     moviesQuery.status === "error" ||
     tvshowsQuery.status === "error"
@@ -110,10 +80,11 @@ export function SearchDisplay() {
         <div className="flex flex-col py-2">
           <button
             className={`flex items-center justify-between p-2 text-white border-gray-300 
-             ${mediaType === "movie"
-                ? "bg-emerald-500 font-semibold"
-                : "hover:bg-neutral-600"
-              }`}
+             ${
+               mediaType === "movie"
+                 ? "bg-emerald-500 font-semibold"
+                 : "hover:bg-neutral-600"
+             }`}
             onClick={() => setMediaType("movie")}
           >
             Movie
@@ -121,15 +92,16 @@ export function SearchDisplay() {
               className={`text-[10px] text-neutral-800 rounded bg-neutral-200 px-2 py-1 font-medium  
                flex items-center justify-center leading-none`}
             >
-              {movies ? movieResultCount : "0"}
+              {movieResultCount || "0"}
             </span>
           </button>
           <button
             className={`flex items-center justify-between p-2 text-white border-gray-300 
-             ${mediaType === "tv"
-                ? "bg-emerald-500 font-semibold"
-                : "hover:bg-neutral-600"
-              }`}
+             ${
+               mediaType === "tv"
+                 ? "bg-emerald-500 font-semibold"
+                 : "hover:bg-neutral-600"
+             }`}
             onClick={() => setMediaType("tv")}
           >
             Tv
@@ -137,10 +109,71 @@ export function SearchDisplay() {
               className={`text-[10px] text-neutral-800 rounded bg-neutral-200 px-2 py-1 font-medium  
                flex items-center justify-center leading-none`}
             >
-              {tvshows ? tvshowResultCount : "0"}
+              {tvshowResultCount || "0"}
             </span>
           </button>
         </div>
+      </div>
+      <div>
+        {mediaType === "movie" ? (
+          <>
+            {moviesQuery.data?.pages.map((group, i) => (
+              <div key={i}>
+                {group?.data.results.map((movie: Movie, index: number) => (
+                  <MovieCard key={index} movie={movie} />
+                ))}
+              </div>
+            ))}
+            <div>
+              <button
+                onClick={() => moviesQuery.fetchNextPage()}
+                disabled={
+                  !moviesQuery.hasNextPage || moviesQuery.isFetchingNextPage
+                }
+              >
+                {moviesQuery.isFetchingNextPage
+                  ? "Loading more..."
+                  : moviesQuery.hasNextPage
+                  ? "Load More"
+                  : "Nothing more to load"}
+              </button>
+            </div>
+            <div>
+              {moviesQuery.isFetching && !moviesQuery.isFetchingNextPage
+                ? "Fetching..."
+                : null}
+            </div>
+          </>
+        ) : (
+          <>
+            {tvshowsQuery.data?.pages.map((group, i) => (
+              <div key={i}>
+                {group?.data.results.map((tvshow: TvShow, index: number) => (
+                  <TvShowCard key={index} tvshow={tvshow} />
+                ))}
+              </div>
+            ))}
+            <div>
+              <button
+                onClick={() => tvshowsQuery.fetchNextPage()}
+                disabled={
+                  !tvshowsQuery.hasNextPage || tvshowsQuery.isFetchingNextPage
+                }
+              >
+                {tvshowsQuery.isFetchingNextPage
+                  ? "Loading more..."
+                  : tvshowsQuery.hasNextPage
+                  ? "Load More"
+                  : "Nothing more to load"}
+              </button>
+            </div>
+            <div>
+              {tvshowsQuery.isFetching && !tvshowsQuery.isFetchingNextPage
+                ? "Fetching..."
+                : null}
+            </div>
+          </>
+        )}
       </div>
     </>
   );
