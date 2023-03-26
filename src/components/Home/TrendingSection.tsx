@@ -4,7 +4,7 @@ import { useState } from "react";
 import { useQuery } from "react-query";
 import * as ToogleGroup from "@radix-ui/react-toggle-group";
 
-import { getTrending } from "@/utils/requests/trending";
+import { getTrending } from "@/lib/axios/requests/trending";
 import { formatLabel } from "@/utils/formatLabel";
 
 import { Carousel } from "@/components/Home/Carousel";

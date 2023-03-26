@@ -4,7 +4,7 @@ import { useState } from "react";
 import { useQuery } from "react-query";
 import * as ToogleGroup from "@radix-ui/react-toggle-group";
 
-import { getMovies } from "@/utils/requests/movies";
+import { getMovies } from "@/lib/axios/requests/movies";
 import { formatLabel } from "@/utils/formatLabel";
 
 import { Carousel } from "@/components/Home/Carousel";
