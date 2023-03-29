@@ -4,11 +4,14 @@ import React, { useEffect, useState } from "react";
 import { Movie, TvShow } from "types";
 import { useInfiniteQuery } from "react-query";
 import { useSearchParams } from "next/navigation";
+import { ImSpinner2 } from "react-icons/im";
+import { BsArrowDownCircle } from "react-icons/bs";
 
 import { search } from "@/lib/axios/requests/search";
 
 import { MovieCard } from "@/components/Search/MovieCard";
 import { TvShowCard } from "@/components/Search/TvShowCard";
+import { SearchSkeleton } from "../Loading/SearchSkeleton";
 
 export function SearchDisplay() {
   const searchParams = useSearchParams();
@@ -32,7 +35,10 @@ export function SearchDisplay() {
       return response;
     },
     {
-      getNextPageParam: (lastPage, _pages) => lastPage?.data.page + 1,
+      getNextPageParam: (lastPage, _pages) =>
+        lastPage?.data.page < lastPage?.data.total_pages
+          ? lastPage?.data.page + 1
+          : null,
     },
   );
 
@@ -44,7 +50,10 @@ export function SearchDisplay() {
       return response;
     },
     {
-      getNextPageParam: (lastPage, _pages) => lastPage?.data.page + 1,
+      getNextPageParam: (lastPage, _pages) =>
+        lastPage?.data.page < lastPage?.data.total_pages
+          ? lastPage?.data.page + 1
+          : null,
     },
   );
 
@@ -57,7 +66,7 @@ export function SearchDisplay() {
   }, [moviesQuery, tvshowsQuery]);
 
   if (moviesQuery.status === "loading" || tvshowsQuery.status === "loading") {
-    return <div className="text-neutral-100 text-5xl">loading...</div>;
+    return <SearchSkeleton />;
   } else if (
     moviesQuery.status === "error" ||
     tvshowsQuery.status === "error"
@@ -71,15 +80,13 @@ export function SearchDisplay() {
 
   return (
     <>
-      <div className="flex flex-col rounded bg-neutral-500 my-4 overflow-hidden">
-        <div className="bg-emerald-500 p-4 flex items-center justify-center">
-          <h2 className="text-base font-semibold text-neutral-50">
-            Search results
-          </h2>
-        </div>
+      <div className="w-full md:w-80 mx-auto rounded bg-neutral-500 my-4 overflow-hidden">
+        <h2 className="bg-emerald-500 p-4 text-center text-base md:text-xl font-semibold text-white">
+          Search results
+        </h2>
         <div className="flex flex-col py-2">
           <button
-            className={`flex items-center justify-between p-2 text-white border-gray-300 
+            className={`flex items-center justify-between p-2 text-sm md:text-base text-white border-gray-300 
              ${
                mediaType === "movie"
                  ? "bg-emerald-500 font-semibold"
@@ -89,14 +96,14 @@ export function SearchDisplay() {
           >
             Movie
             <span
-              className={`text-[10px] text-neutral-800 rounded bg-neutral-200 px-2 py-1 font-medium  
-               flex items-center justify-center leading-none`}
+              className={`text-[10px] md:text-sm text-neutral-600 rounded bg-neutral-200 px-2 py-1 font-normal  
+               flex items-center justify-center leading-none shadow-neutral-800 shadow`}
             >
               {movieResultCount || "0"}
             </span>
           </button>
           <button
-            className={`flex items-center justify-between p-2 text-white border-gray-300 
+            className={`flex items-center justify-between p-2 text-sm md:text-base text-white border-gray-300 
              ${
                mediaType === "tv"
                  ? "bg-emerald-500 font-semibold"
@@ -106,75 +113,75 @@ export function SearchDisplay() {
           >
             Tv
             <span
-              className={`text-[10px] text-neutral-800 rounded bg-neutral-200 px-2 py-1 font-medium  
-               flex items-center justify-center leading-none`}
+              className={`text-[10px] md:text-sm text-neutral-600 rounded bg-neutral-200 px-2 py-1 font-normal  
+               flex items-center justify-center leading-none shadow-neutral-800 shadow`}
             >
               {tvshowResultCount || "0"}
             </span>
           </button>
         </div>
       </div>
-      <div>
+      <>
         {mediaType === "movie" ? (
           <>
             {moviesQuery.data?.pages.map((group, i) => (
-              <div key={i}>
+              <div className="w-full" key={i}>
                 {group?.data.results.map((movie: Movie, index: number) => (
                   <MovieCard key={index} movie={movie} />
                 ))}
               </div>
             ))}
-            <div>
+            <div className="w-fit mx-auto">
               <button
+                className="my-4"
                 onClick={() => moviesQuery.fetchNextPage()}
                 disabled={
                   !moviesQuery.hasNextPage || moviesQuery.isFetchingNextPage
                 }
               >
-                {moviesQuery.isFetchingNextPage
-                  ? "Loading more..."
-                  : moviesQuery.hasNextPage
-                  ? "Load More"
-                  : "Nothing more to load"}
+                {moviesQuery.isFetchingNextPage ? (
+                  <ImSpinner2 className="text-emerald-500 text-3xl animate-spin" />
+                ) : moviesQuery.hasNextPage ? (
+                  <BsArrowDownCircle className="text-emerald-500 text-3xl animate-bounce" />
+                ) : (
+                  <span className="text-red-500 text-base">
+                    No more results
+                  </span>
+                )}
               </button>
-            </div>
-            <div>
-              {moviesQuery.isFetching && !moviesQuery.isFetchingNextPage
-                ? "Fetching..."
-                : null}
             </div>
           </>
         ) : (
           <>
             {tvshowsQuery.data?.pages.map((group, i) => (
-              <div key={i}>
+              <div className="w-full" key={i}>
                 {group?.data.results.map((tvshow: TvShow, index: number) => (
                   <TvShowCard key={index} tvshow={tvshow} />
                 ))}
               </div>
             ))}
-            <div>
+            <div className="w-fit mx-auto">
               <button
+                className="my-4"
                 onClick={() => tvshowsQuery.fetchNextPage()}
                 disabled={
                   !tvshowsQuery.hasNextPage || tvshowsQuery.isFetchingNextPage
                 }
               >
-                {tvshowsQuery.isFetchingNextPage
-                  ? "Loading more..."
-                  : tvshowsQuery.hasNextPage
-                  ? "Load More"
-                  : "Nothing more to load"}
+                {tvshowsQuery.isFetchingNextPage ? (
+                  <ImSpinner2 className="text-emerald-500 text-3xl animate-spin" />
+                ) : tvshowsQuery.hasNextPage ? (
+                  <BsArrowDownCircle className="text-emerald-500 text-3xl animate-bounce" />
+                ) : (
+                  <span className="text-red-500 text-base">
+                    No more results
+                  </span>
+                )}
               </button>
-            </div>
-            <div>
-              {tvshowsQuery.isFetching && !tvshowsQuery.isFetchingNextPage
-                ? "Fetching..."
-                : null}
             </div>
           </>
         )}
-      </div>
+      </>
     </>
   );
 }

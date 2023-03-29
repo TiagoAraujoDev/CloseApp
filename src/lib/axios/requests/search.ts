@@ -11,7 +11,7 @@ export const search = async (
 ): Promise<AxiosResponse | undefined> => {
   try {
     const response = await api.get(
-      `search/${mediaType}?api_key=${apiKey}&query=${query}&page=${page}`,
+      `search/${mediaType}?api_key=${apiKey}&query=${query}&page=${page}&include_adult=false`,
     );
 
     return response;
