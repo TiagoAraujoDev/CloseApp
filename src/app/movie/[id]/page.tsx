@@ -12,7 +12,6 @@ import { Actor, Crew, ExternalIds, MovieDetails, Review } from "types";
 
 import { formatDate } from "@/utils/formatDate";
 import {
-  getConfig,
   getMovieCredits,
   getMovieDetails,
   getMovieExternalIds,
@@ -60,9 +59,6 @@ export default async function MovieDetailsPage({ params }: MovieDetailsProps) {
       </div>
     );
   }
-
-  const config = await getConfig();
-  console.log(config?.data);
 
   return (
     <main className="text-neutral-100 max-w-screen-xl min-h-full mx-auto">

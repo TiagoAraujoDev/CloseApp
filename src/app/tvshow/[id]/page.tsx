@@ -59,9 +59,6 @@ export default async function TvShowDetailsPage({ params }: MovieDetailsProps) {
     );
   }
 
-  // const config = await getConfig();
-  // console.log(config?.data);
-
   return (
     <main className="text-neutral-100 max-w-screen-xl min-h-full mx-auto">
       {/** Banner */}
