@@ -17,7 +17,9 @@ export function Header() {
           <span>CloseApp</span>
           <MdLocalMovies />
         </Link>
-        <SearchInput />
+        <div className="hidden sm:block flex-1">
+          <SearchInput />
+        </div>
         <nav className="flex items-center justify-between gap-2">
           <button>
             <CiLogin title="Loggin" className="text-2xl text-emerald-500" />
