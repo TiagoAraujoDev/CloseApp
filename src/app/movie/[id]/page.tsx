@@ -343,7 +343,7 @@ export default async function MovieDetailsPage({ params }: MovieDetailsProps) {
                   </div>
                 </div>
                 {/** Content */}
-                <p className="text-neutral-200 text-justify text-base">
+                <p className="text-neutral-200 text-base overflow-hidden">
                   {review.content}
                 </p>
                 <div className="text-sm text-right italic text-neutral-400">
