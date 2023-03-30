@@ -9,8 +9,8 @@ import { BsArrowDownCircle } from "react-icons/bs";
 
 import { search } from "@/lib/axios/requests/search";
 
-import { MovieCard } from "@/components/Search/MovieCard";
-import { TvShowCard } from "@/components/Search/TvShowCard";
+import { MovieCard } from "@/components/MovieCard";
+import { TvShowCard } from "@/components/TvShowCard";
 import { SearchSkeleton } from "../Loading/SearchSkeleton";
 
 export function SearchDisplay() {
