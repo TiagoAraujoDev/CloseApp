@@ -6,9 +6,12 @@ const apiKey = process.env.NEXT_PUBLIC_API_KEY;
 
 export const getMovies = async (
   label: string,
+  pageParams: number = 1,
 ): Promise<AxiosResponse | undefined> => {
   try {
-    const response = await api.get(`movie/${label}?api_key=${apiKey}`);
+    const response = await api.get(
+      `movie/${label}?api_key=${apiKey}&page=${pageParams}`,
+    );
 
     return response;
   } catch (error: any) {

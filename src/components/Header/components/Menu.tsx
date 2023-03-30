@@ -41,9 +41,9 @@ export const Menu = () => {
                     Now playing
                   </DropDownMenu.Item>
                 </Link>
-                <Link href={"/movies/up_comming"}>
+                <Link href={"/movies/upcoming"}>
                   <DropDownMenu.Item className="p-2 outline-none cursor-pointer hover:bg-neutral-600 text-neutral-100 hover:text-emerald-500">
-                    Up comming
+                    Upcoming
                   </DropDownMenu.Item>
                 </Link>
                 <Link href={"/movies/top_rated"}>
