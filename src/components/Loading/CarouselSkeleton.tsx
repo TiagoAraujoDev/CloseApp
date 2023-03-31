@@ -1,5 +1,7 @@
 import * as ToogleGroup from "@radix-ui/react-toggle-group";
 
+import { formatLabel } from "@/utils/formatLabel";
+
 interface CarouselSkeletonProps {
   labels: string[];
   label: string;
@@ -12,6 +14,7 @@ export function CarouselSkeleton({
   title,
 }: CarouselSkeletonProps) {
   const arr = [1, 2, 3, 4, 5, 6, 7, 8]; // Quantity of cards
+
   return (
     <div className="flex flex-col gap-3 w-full mb-6 last:mb-0">
       <div className="flex items-center justify-between">
@@ -27,11 +30,11 @@ export function CarouselSkeleton({
           {labels.map((label, index) => {
             return (
               <ToogleGroup.Item
-                className="bg-neutral-200 text-neutral-800 border border-neutral-800 first:rounded-tl first:rounded-bl last:rounded-br last:rounded-tr py-1 px-3 overflow-hidden radix-state-on:bg-emerald-500 radix-state-on:text-neutral-50"
+                className="text-sm sm:text-base lg:text-xl bg-neutral-200 text-neutral-800 border border-neutral-800 first:rounded-tl first:rounded-bl last:rounded-br last:rounded-tr py-1 px-3 overflow-hidden radix-state-on:bg-emerald-500 radix-state-on:text-neutral-50"
                 key={index}
                 value={label}
               >
-                {label}
+                {formatLabel(label)}
               </ToogleGroup.Item>
             );
           })}

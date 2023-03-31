@@ -34,7 +34,7 @@ export function TvShowsSection({ labels }: TvShowsProps) {
   );
 
   if (isLoading) {
-    return <CarouselSkeleton labels={labels} label={label} title="Movies" />;
+    return <CarouselSkeleton labels={labels} label={label} title="TV Shows" />;
   }
 
   return (
