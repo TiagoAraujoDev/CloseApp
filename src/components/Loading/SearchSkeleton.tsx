@@ -1,5 +1,6 @@
 export function SearchSkeleton() {
   const arr = [1, 2, 3, 4, 5, 6, 7, 8]; // Quantity of cards
+
   return (
     <>
       <div className="w-full md:w-80 mx-auto rounded bg-neutral-500 my-4 overflow-hidden">

@@ -10,6 +10,7 @@ import { BsArrowDownCircle } from "react-icons/bs";
 import { getTvShows } from "@/lib/axios/requests/tvshows";
 
 import { TvShowCard } from "../TvShowCard";
+import { CardsSkeleton } from "../Loading/CardsSkeleton";
 
 export function TopRatedTvshowsContainer() {
   const tvshowsQuery = useInfiniteQuery(
@@ -28,7 +29,7 @@ export function TopRatedTvshowsContainer() {
   );
 
   if (tvshowsQuery.status === "loading") {
-    return <h1 className="text-white text-xl">loading</h1>;
+    return <CardsSkeleton />;
   } else if (tvshowsQuery.status === "error") {
     return (
       <div>

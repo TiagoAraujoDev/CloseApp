@@ -10,6 +10,7 @@ import { BsArrowDownCircle } from "react-icons/bs";
 import { getMovies } from "@/lib/axios/requests/movies";
 
 import { MovieCard } from "@/components/MovieCard";
+import { CardsSkeleton } from "../Loading/CardsSkeleton";
 
 export function NowPlayingMoviesContainer() {
   const moviesQuery = useInfiniteQuery(
@@ -28,7 +29,7 @@ export function NowPlayingMoviesContainer() {
   );
 
   if (moviesQuery.status === "loading") {
-    return <h1 className="text-white text-xl">loading</h1>;
+    return <CardsSkeleton />;
   } else if (moviesQuery.status === "error") {
     return (
       <div>
