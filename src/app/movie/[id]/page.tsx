@@ -73,7 +73,7 @@ export default async function MovieDetailsPage({ params }: MovieDetailsProps) {
             alt=""
             width={1280}
             height={720}
-            className="object-contain opacity-50"
+            className="object-contain opacity-30"
           />
         ) : (
           <Image src={placeholderBackdrop} alt="" width={1280} height={720} />
