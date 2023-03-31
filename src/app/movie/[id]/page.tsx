@@ -19,6 +19,7 @@ import {
 } from "@/lib/axios/requests/movies";
 import { treatAvatarPath } from "@/utils/treatReviewAuthorAvatarPath";
 import { convertCodeToLang } from "@/utils/convertCodeToLang";
+import { formatCurrency } from "@/utils/formatCurrency";
 
 import { Interactable } from "@/components/MovieDetails/Interactable";
 
@@ -248,7 +249,9 @@ export default async function MovieDetailsPage({ params }: MovieDetailsProps) {
               Budget
             </h3>
             <span className="text-xs md:text-base text-neutral-300">
-              {movieDetails.budget !== 0 ? `$${movieDetails.budget}` : "-"}
+              {movieDetails.budget !== 0
+                ? `${formatCurrency(movieDetails.budget)}`
+                : "-"}
             </span>
           </div>
           <div>
@@ -256,7 +259,9 @@ export default async function MovieDetailsPage({ params }: MovieDetailsProps) {
               Revenue
             </h3>
             <span className="text-xs md:text-base text-neutral-300">
-              {movieDetails.revenue !== 0 ? `$${movieDetails.revenue}` : "-"}
+              {movieDetails.revenue !== 0
+                ? `${formatCurrency(movieDetails.revenue)}`
+                : "-"}
             </span>
           </div>
         </div>

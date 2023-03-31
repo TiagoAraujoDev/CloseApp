@@ -19,13 +19,13 @@ export function Interactable({ voteAverage, voteCount }: InteractableProps) {
         </span>
       </div>
       <div className="flex items-center gap-2">
-        <div className="bg-neutral-700 text-xs w-4 h-4 sm:text-base sm:w-6 sm:h-6 md:text-xl md:w-8 md:h-8 rounded-full flex items-center justify-center hover:animate-pulse cursor-pointer">
+        <div className="bg-neutral-700 text-xs w-4 h-4 sm:text-base sm:w-6 sm:h-6 md:text-xl md:w-8 md:h-8 rounded-full flex items-center justify-center hover:scale-110 cursor-pointer">
           <IoMdBookmark className="text-xs sm:text-base text-emerald-500" />
         </div>
-        <div className="bg-neutral-700 text-xs w-4 h-4 sm:text-base sm:w-6 sm:h-6 md:text-xl md:w-8 md:h-8 rounded-full flex items-center justify-center cursor-pointer">
+        <div className="bg-neutral-700 text-xs w-4 h-4 sm:text-base sm:w-6 sm:h-6 md:text-xl md:w-8 md:h-8 rounded-full flex items-center justify-center hover:scale-110  cursor-pointer">
           <AiFillHeart className="text-xs sm:text-base text-emerald-500" />
         </div>
-        <div className="bg-neutral-700 text-xs w-4 h-4 sm:text-base sm:w-6 sm:h-6 md:text-xl md:w-8 md:h-8 rounded-full flex items-center justify-center cursor-pointer">
+        <div className="bg-neutral-700 text-xs w-4 h-4 sm:text-base sm:w-6 sm:h-6 md:text-xl md:w-8 md:h-8 rounded-full flex items-center justify-center hover:scale-110 cursor-pointer">
           <AiFillStar className="text-xs sm:text-base text-emerald-500" />
         </div>
       </div>
