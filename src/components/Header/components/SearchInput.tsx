@@ -26,6 +26,8 @@ export function SearchInput() {
       isClickEvent: boolean,
       event?: React.KeyboardEvent,
     ) => {
+      if (!searchValue) return;
+
       if (event?.key === "Enter") {
         router.push("/search" + "?" + createQueryString("terms", searchValue));
       } else if (isClickEvent) {
@@ -44,7 +46,11 @@ export function SearchInput() {
         className="bg-transparent outline-none w-full placeholder:text-zinc-400 text-neutral-100"
         placeholder="Search for movies and TV shows..."
       />
-      <button onClick={() => handleSearch(searchValue, true)}>
+      <button
+        className="disabled:cursor-not-allowed"
+        disabled={!searchValue}
+        onClick={() => handleSearch(searchValue, true)}
+      >
         <RxMagnifyingGlass className="text-2xl text-emerald-500" />
       </button>
     </div>
