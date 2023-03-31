@@ -19,6 +19,7 @@
     "dotenv": "^16.0.3",
     "eslint": "8.35.0",
     "eslint-config-next": "13.2.1",
+    "langs": "^2.0.0",
     "next": "13.2.1",
     "phosphor-react": "^1.4.1",
     "react": "18.2.0",
@@ -30,6 +31,7 @@
   },
   "devDependencies": {
     "@rocketseat/eslint-config": "^1.2.0",
+    "@types/langs": "^2.0.1",
     "autoprefixer": "^10.4.13",
     "eslint-config-prettier": "^8.6.0",
     "postcss": "^8.4.21",

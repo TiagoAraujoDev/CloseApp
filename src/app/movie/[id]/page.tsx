@@ -18,6 +18,7 @@ import {
   getMovieReviews,
 } from "@/lib/axios/requests/movies";
 import { treatAvatarPath } from "@/utils/treatReviewAuthorAvatarPath";
+import { convertCodeToLang } from "@/utils/convertCodeToLang";
 
 import { Interactable } from "@/components/MovieDetails/Interactable";
 
@@ -239,7 +240,7 @@ export default async function MovieDetailsPage({ params }: MovieDetailsProps) {
               Original Language
             </h3>
             <span className="text-xs md:text-base text-neutral-300">
-              {movieDetails.original_language}
+              {convertCodeToLang(movieDetails.original_language)}
             </span>
           </div>
           <div>

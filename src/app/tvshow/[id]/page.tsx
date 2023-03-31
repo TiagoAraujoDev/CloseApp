@@ -17,6 +17,7 @@ import {
   getTvShowsDetails,
 } from "@/lib/axios/requests/tvshows";
 import { formatDate } from "@/utils/formatDate";
+import { convertCodeToLang } from "@/utils/convertCodeToLang";
 import { treatAvatarPath } from "@/utils/treatReviewAuthorAvatarPath";
 
 import { Interactable } from "@/components/MovieDetails/Interactable";
@@ -240,7 +241,7 @@ export default async function TvShowDetailsPage({ params }: MovieDetailsProps) {
               Original Language
             </h3>
             <span className="text-xs md:text-base text-neutral-300">
-              {tvShowDetails.original_language}
+              {convertCodeToLang(tvShowDetails.original_language)}
             </span>
           </div>
           <div>
