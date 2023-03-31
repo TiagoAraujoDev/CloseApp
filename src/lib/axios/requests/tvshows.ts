@@ -6,9 +6,12 @@ const apiKey = process.env.NEXT_PUBLIC_API_KEY;
 
 export const getTvShows = async (
   label: string,
+  pageParam: number,
 ): Promise<AxiosResponse | undefined> => {
   try {
-    const response = await api.get(`tv/${label}?api_key=${apiKey}`);
+    const response = await api.get(
+      `tv/${label}?api_key=${apiKey}&page=${pageParam}`,
+    );
 
     return response;
   } catch (error: any) {
