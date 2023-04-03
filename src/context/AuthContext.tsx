@@ -1,10 +1,11 @@
-import { authToken } from '@/lib/axios/requests/authentication'
-import { createContext, ReactNode, useState } from 'react'
+import { createContext, ReactNode, useEffect, useState } from 'react'
+
+import { authToken, getSessionId } from '@/lib/axios/requests/authentication'
 
 interface AuthContextType {
-  requestToken: string | undefined
-  getRequestToken: () => Promise<void>
-  createSessionId: () => Promise<void>
+  sessionId: string | undefined
+  getRequestToken: () => Promise<string>
+  createSessionId: (requestToken: string) => Promise<void>
 }
 
 export const AuthContext = createContext({} as AuthContextType)
@@ -14,22 +15,38 @@ interface AuthContextProviderProps {
 }
 
 export const AuthContextProvider = ({ children }: AuthContextProviderProps) => {
-  const [requestToken, setRequestToken] = useState<string>()
+  const [sessionId, setSessionId] = useState<string>()
+
+  useEffect(() => {
+    const sessionIdFromStorage = localStorage.getItem('@close_app:session_id')
+
+    console.log(sessionIdFromStorage)
+    if (sessionIdFromStorage && !sessionId) {
+      setSessionId(sessionIdFromStorage)
+    } else if (sessionIdFromStorage && sessionId) {
+      localStorage.setItem('@close_app:session_id', sessionId)
+    }
+  }, [sessionId])
 
   const getRequestToken = async () => {
     const response = await authToken()
     const token = response?.data.request_token
-    setRequestToken(token)
+    return token
   }
 
-  const createSessionId = async () => {
-    //  TODO: make a request to https://api.themoviedb.org/3/authentication/session/new?api_key=<<api_key>>
-    //  NOTE: Send { request_token: "" } in the body
+  const createSessionId = async (requestToken: string) => {
+    if (requestToken) {
+      const response = await getSessionId(requestToken)
+      const sessionId = response?.data.session_id
+
+      localStorage.setItem('@close_app:session_id', sessionId)
+      setSessionId(sessionId)
+    }
   }
 
   return (
     <AuthContext.Provider
-      value={{ requestToken, getRequestToken, createSessionId }}
+      value={{ getRequestToken, createSessionId, sessionId }}
     >
       {children}
     </AuthContext.Provider>

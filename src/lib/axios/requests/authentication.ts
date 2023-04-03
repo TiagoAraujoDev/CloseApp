@@ -15,3 +15,24 @@ export const authToken = async (): Promise<AxiosResponse | undefined> => {
     }
   }
 }
+
+export const getSessionId = async (
+  requestToken: string,
+): Promise<AxiosResponse | undefined> => {
+  try {
+    const body = {
+      request_token: requestToken,
+    }
+    const response = await api.post(
+      `authentication/session/new?api_key=${apiKey}`,
+      body,
+    )
+
+    return response
+  } catch (error) {
+    if (error instanceof AxiosError && error.status === 401) {
+      console.log('error')
+      console.log(error)
+    }
+  }
+}

@@ -1,14 +1,26 @@
 'use client'
 
+import { useContext } from 'react'
 import { AiFillStar, AiFillHeart } from 'react-icons/ai'
 import { IoMdBookmark } from 'react-icons/io'
+
+import { AuthContext } from '@/context/AuthContext'
 
 interface InteractableProps {
   voteAverage: number
   voteCount: number
+  movieId: number
 }
 
-export function Interactable({ voteAverage, voteCount }: InteractableProps) {
+export function Interactable({
+  voteAverage,
+  voteCount,
+  movieId,
+}: InteractableProps) {
+  const { sessionId } = useContext(AuthContext)
+
+  console.log('sessionId', sessionId)
+  console.log('movieId', movieId)
   return (
     <div className="flex items-center gap-2 sm:mb-2">
       <div className="flex items-center gap-1">

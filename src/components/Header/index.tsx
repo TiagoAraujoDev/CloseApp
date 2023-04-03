@@ -7,7 +7,7 @@ import { LogginButton } from '@/components/Header/components/LogginButton'
 
 export function Header() {
   return (
-    <header className="bg-neutral-700 sticky top-0 z-10 p-4">
+    <header className="h-16 bg-neutral-700 sticky top-0 z-10 p-4">
       <div className="max-w-5xl mx-auto flex items-center justify-around sm:justify-between gap-4">
         <Link
           href="/"

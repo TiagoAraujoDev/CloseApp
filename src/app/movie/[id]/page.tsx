@@ -135,6 +135,7 @@ export default async function MovieDetailsPage({ params }: MovieDetailsProps) {
               <Interactable
                 voteAverage={movieDetails.vote_average}
                 voteCount={movieDetails.vote_count}
+                movieId={movieDetails.id}
               />
               {/** Tagline */}
               <p className="hidden sm:block text-neutral-400 text-base lg:text-lg italic mb-2">
