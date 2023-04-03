@@ -1,5 +1,6 @@
-import { api } from '@/lib/axios/index'
 import { AxiosError, AxiosResponse } from 'axios'
+
+import { api } from '@/lib/axios/index'
 
 const apiKey = process.env.NEXT_PUBLIC_API_KEY
 

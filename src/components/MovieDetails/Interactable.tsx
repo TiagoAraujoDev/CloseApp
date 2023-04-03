@@ -1,3 +1,5 @@
+'use client'
+
 import { AiFillStar, AiFillHeart } from 'react-icons/ai'
 import { IoMdBookmark } from 'react-icons/io'
 
@@ -5,6 +7,7 @@ interface InteractableProps {
   voteAverage: number
   voteCount: number
 }
+
 export function Interactable({ voteAverage, voteCount }: InteractableProps) {
   return (
     <div className="flex items-center gap-2 sm:mb-2">

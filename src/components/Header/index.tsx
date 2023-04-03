@@ -1,9 +1,9 @@
 import Link from 'next/link'
-import { CiLogin } from 'react-icons/ci'
 import { MdLocalMovies } from 'react-icons/md'
 
 import { Menu } from '@/components/Header/components/Menu'
-import { SearchInput } from './components/SearchInput'
+import { SearchInput } from '@/components/Header/components/SearchInput'
+import { LogginButton } from '@/components/Header/components/LogginButton'
 
 export function Header() {
   return (
@@ -21,9 +21,7 @@ export function Header() {
           <SearchInput />
         </div>
         <nav className="flex items-center justify-between gap-2">
-          <button>
-            <CiLogin title="Loggin" className="text-2xl text-emerald-500" />
-          </button>
+          <LogginButton />
           <Menu />
         </nav>
       </div>

@@ -4,6 +4,7 @@ import { ReactNode } from 'react'
 import { QueryClientProvider } from 'react-query'
 
 import { queryClient } from '@/lib/ReactQuery'
+import { AuthContextProvider } from '@/context/AuthContext'
 
 interface ProvidersProps {
   children: ReactNode
@@ -11,6 +12,8 @@ interface ProvidersProps {
 
 export function Providers({ children }: ProvidersProps) {
   return (
-    <QueryClientProvider client={queryClient}>{children}</QueryClientProvider>
+    <QueryClientProvider client={queryClient}>
+      <AuthContextProvider>{children}</AuthContextProvider>
+    </QueryClientProvider>
   )
 }
