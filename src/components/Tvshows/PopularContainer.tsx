@@ -1,24 +1,24 @@
-"use client";
+'use client'
 
-import { useInfiniteQuery } from "react-query";
+import { useInfiniteQuery } from 'react-query'
 
-import { TvShow } from "types";
-import React from "react";
-import { ImSpinner2 } from "react-icons/im";
-import { BsArrowDownCircle } from "react-icons/bs";
+import { TvShow } from 'types'
+import React from 'react'
+import { ImSpinner2 } from 'react-icons/im'
+import { BsArrowDownCircle } from 'react-icons/bs'
 
-import { getTvShows } from "@/lib/axios/requests/tvshows";
+import { getTvShows } from '@/lib/axios/requests/tvshows'
 
-import { TvShowCard } from "../TvShowCard";
-import { CardsSkeleton } from "../Loading/CardsSkeleton";
+import { TvShowCard } from '../TvShowCard'
+import { CardsSkeleton } from '../Loading/CardsSkeleton'
 
 export function PopularTvshowsContainer() {
   const tvshowsQuery = useInfiniteQuery(
-    "popular_tvshows_main",
+    'popular_tvshows_main',
     async ({ pageParam = 1 }) => {
-      const response = await getTvShows("popular", pageParam);
+      const response = await getTvShows('popular', pageParam)
 
-      return response;
+      return response
     },
     {
       getNextPageParam: (lastPage, _pages) =>
@@ -26,16 +26,16 @@ export function PopularTvshowsContainer() {
           ? lastPage?.data.page + 1
           : null,
     },
-  );
+  )
 
-  if (tvshowsQuery.status === "loading") {
-    return <CardsSkeleton />;
-  } else if (tvshowsQuery.status === "error") {
+  if (tvshowsQuery.status === 'loading') {
+    return <CardsSkeleton />
+  } else if (tvshowsQuery.status === 'error') {
     return (
       <div>
         Error: <span>{String(tvshowsQuery.error)}</span>
       </div>
-    );
+    )
   }
 
   return (
@@ -65,5 +65,5 @@ export function PopularTvshowsContainer() {
         </button>
       </div>
     </div>
-  );
+  )
 }

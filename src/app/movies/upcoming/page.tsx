@@ -1,4 +1,4 @@
-import { UpcomingMoviesContainer } from "@/components/Movies/UpcomingContainer";
+import { UpcomingMoviesContainer } from '@/components/Movies/UpcomingContainer'
 
 export default function MoviesUpcomingPage() {
   return (
@@ -8,5 +8,5 @@ export default function MoviesUpcomingPage() {
       </h1>
       <UpcomingMoviesContainer />
     </section>
-  );
+  )
 }

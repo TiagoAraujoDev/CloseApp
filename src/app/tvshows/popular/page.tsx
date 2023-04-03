@@ -1,4 +1,4 @@
-import { PopularTvshowsContainer } from "@/components/Tvshows/PopularContainer";
+import { PopularTvshowsContainer } from '@/components/Tvshows/PopularContainer'
 
 export default function TvshowsPopularPage() {
   return (
@@ -8,5 +8,5 @@ export default function TvshowsPopularPage() {
       </h1>
       <PopularTvshowsContainer />
     </section>
-  );
+  )
 }

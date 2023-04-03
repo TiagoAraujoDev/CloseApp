@@ -1,40 +1,40 @@
-"use client";
+'use client'
 
-import { useState } from "react";
-import { useQuery } from "react-query";
-import * as ToogleGroup from "@radix-ui/react-toggle-group";
+import { useState } from 'react'
+import { useQuery } from 'react-query'
+import * as ToogleGroup from '@radix-ui/react-toggle-group'
 
-import { getMovies } from "@/lib/axios/requests/movies";
-import { formatLabel } from "@/utils/formatLabel";
+import { getMovies } from '@/lib/axios/requests/movies'
+import { formatLabel } from '@/utils/formatLabel'
 
-import { Carousel } from "@/components/Home/Carousel";
-import { CarouselSkeleton } from "@/components/Loading/CarouselSkeleton";
+import { Carousel } from '@/components/Home/Carousel'
+import { CarouselSkeleton } from '@/components/Loading/CarouselSkeleton'
 
 export interface MoviesProps {
-  labels: string[];
+  labels: string[]
 }
 
 export function MovieSection({ labels }: MoviesProps) {
-  const [label, setLabel] = useState(labels[0]);
+  const [label, setLabel] = useState(labels[0])
 
-  const queryKey = `${label}_movies`;
+  const queryKey = `${label}_movies`
 
   const { data, isLoading } = useQuery(
     queryKey,
     async () => {
-      const response = await getMovies(label);
-      const movies = response?.data.results;
+      const response = await getMovies(label)
+      const movies = response?.data.results
 
-      return movies;
+      return movies
     },
     {
       refetchOnMount: false,
       staleTime: 60 * 60 * 2, // 2 hours
     },
-  );
+  )
 
   if (isLoading) {
-    return <CarouselSkeleton labels={labels} label={label} title="Movies" />;
+    return <CarouselSkeleton labels={labels} label={label} title="Movies" />
   }
 
   return (
@@ -48,7 +48,7 @@ export function MovieSection({ labels }: MoviesProps) {
           type="single"
           defaultValue={label}
           onValueChange={(value) => {
-            if (value) setLabel(value);
+            if (value) setLabel(value)
           }}
         >
           {labels.map((label, index) => {
@@ -60,11 +60,11 @@ export function MovieSection({ labels }: MoviesProps) {
               >
                 {formatLabel(label)}
               </ToogleGroup.Item>
-            );
+            )
           })}
         </ToogleGroup.Root>
       </div>
       {data && <Carousel movies={data} />}
     </section>
-  );
+  )
 }

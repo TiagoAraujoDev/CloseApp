@@ -1,4 +1,4 @@
-import { OnTheAirTvshowsContainer } from "@/components/Tvshows/OnTheAirContainer";
+import { OnTheAirTvshowsContainer } from '@/components/Tvshows/OnTheAirContainer'
 
 export default function TvshowsOnTheAirPage() {
   return (
@@ -8,5 +8,5 @@ export default function TvshowsOnTheAirPage() {
       </h1>
       <OnTheAirTvshowsContainer />
     </section>
-  );
+  )
 }

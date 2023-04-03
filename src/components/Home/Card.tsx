@@ -1,14 +1,14 @@
-import Image from "next/image";
-import Link from "next/link";
+import Image from 'next/image'
+import Link from 'next/link'
 
-import { formatDate } from "@/utils/formatDate";
-import { Movie, TvShow } from "types";
+import { formatDate } from '@/utils/formatDate'
+import { Movie, TvShow } from 'types'
 
-import placeholderPoster from "../../../public/placeholderPoster.png";
+import placeholderPoster from '../../../public/placeholderPoster.png'
 
 interface CardProps {
-  movie?: Movie;
-  tvshow?: TvShow;
+  movie?: Movie
+  tvshow?: TvShow
 }
 
 export function Card({ movie, tvshow }: CardProps) {
@@ -94,5 +94,5 @@ export function Card({ movie, tvshow }: CardProps) {
         </div>
       )}
     </>
-  );
+  )
 }

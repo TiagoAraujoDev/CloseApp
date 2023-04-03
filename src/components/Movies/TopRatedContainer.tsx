@@ -1,24 +1,24 @@
-"use client";
+'use client'
 
-import { useInfiniteQuery } from "react-query";
+import { useInfiniteQuery } from 'react-query'
 
-import { Movie } from "types";
-import React from "react";
-import { ImSpinner2 } from "react-icons/im";
-import { BsArrowDownCircle } from "react-icons/bs";
+import { Movie } from 'types'
+import React from 'react'
+import { ImSpinner2 } from 'react-icons/im'
+import { BsArrowDownCircle } from 'react-icons/bs'
 
-import { getMovies } from "@/lib/axios/requests/movies";
+import { getMovies } from '@/lib/axios/requests/movies'
 
-import { MovieCard } from "@/components/MovieCard";
-import { CardsSkeleton } from "../Loading/CardsSkeleton";
+import { MovieCard } from '@/components/MovieCard'
+import { CardsSkeleton } from '../Loading/CardsSkeleton'
 
 export function TopRatedMoviesContainer() {
   const moviesQuery = useInfiniteQuery(
-    "top_rated_movies_main",
+    'top_rated_movies_main',
     async ({ pageParam = 1 }) => {
-      const response = await getMovies("top_rated", pageParam);
+      const response = await getMovies('top_rated', pageParam)
 
-      return response;
+      return response
     },
     {
       getNextPageParam: (lastPage, _pages) =>
@@ -26,16 +26,16 @@ export function TopRatedMoviesContainer() {
           ? lastPage?.data.page + 1
           : null,
     },
-  );
+  )
 
-  if (moviesQuery.status === "loading") {
-    return <CardsSkeleton />;
-  } else if (moviesQuery.status === "error") {
+  if (moviesQuery.status === 'loading') {
+    return <CardsSkeleton />
+  } else if (moviesQuery.status === 'error') {
     return (
       <div>
         Error: <span>{String(moviesQuery.error)}</span>
       </div>
-    );
+    )
   }
 
   return (
@@ -63,5 +63,5 @@ export function TopRatedMoviesContainer() {
         </button>
       </div>
     </div>
-  );
+  )
 }

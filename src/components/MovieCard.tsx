@@ -1,15 +1,15 @@
-import Image from "next/image";
-import Link from "next/link";
-import { Movie } from "types";
-import { AiFillStar } from "react-icons/ai";
+import Image from 'next/image'
+import Link from 'next/link'
+import { Movie } from 'types'
+import { AiFillStar } from 'react-icons/ai'
 
-import { formatDate } from "@/utils/formatDate";
-import { shortenText } from "@/utils/shortenText";
+import { formatDate } from '@/utils/formatDate'
+import { shortenText } from '@/utils/shortenText'
 
-import placeholderPoster from "../../public/placeholderPoster.png";
+import placeholderPoster from '../../public/placeholderPoster.png'
 
 interface MovieCardProps {
-  movie: Movie;
+  movie: Movie
 }
 
 export function MovieCard({ movie }: MovieCardProps) {
@@ -59,5 +59,5 @@ export function MovieCard({ movie }: MovieCardProps) {
         </div>
       </div>
     </Link>
-  );
+  )
 }

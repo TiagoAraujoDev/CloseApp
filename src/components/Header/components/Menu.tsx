@@ -1,8 +1,8 @@
-"use client";
+'use client'
 
-import * as DropDownMenu from "@radix-ui/react-dropdown-menu";
-import Link from "next/link";
-import { CaretRight, List } from "phosphor-react";
+import * as DropDownMenu from '@radix-ui/react-dropdown-menu'
+import Link from 'next/link'
+import { CaretRight, List } from 'phosphor-react'
 
 export const Menu = () => {
   return (
@@ -31,22 +31,22 @@ export const Menu = () => {
                 className="bg-neutral-500 z-20 py-2 w-32 rounded-md border border-emerald-500"
               >
                 <DropDownMenu.Arrow className="fill-emerald-500" />
-                <Link href={"/movies/popular"}>
+                <Link href={'/movies/popular'}>
                   <DropDownMenu.Item className="p-2 outline-none cursor-pointer hover:bg-neutral-600 text-neutral-100 hover:text-emerald-500">
                     Popular
                   </DropDownMenu.Item>
                 </Link>
-                <Link href={"/movies/now_playing"}>
+                <Link href={'/movies/now_playing'}>
                   <DropDownMenu.Item className="p-2 outline-none cursor-pointer hover:bg-neutral-600 text-neutral-100 hover:text-emerald-500">
                     Now playing
                   </DropDownMenu.Item>
                 </Link>
-                <Link href={"/movies/upcoming"}>
+                <Link href={'/movies/upcoming'}>
                   <DropDownMenu.Item className="p-2 outline-none cursor-pointer hover:bg-neutral-600 text-neutral-100 hover:text-emerald-500">
                     Upcoming
                   </DropDownMenu.Item>
                 </Link>
-                <Link href={"/movies/top_rated"}>
+                <Link href={'/movies/top_rated'}>
                   <DropDownMenu.Item className="p-2 outline-none cursor-pointer hover:bg-neutral-600 text-neutral-100 hover:text-emerald-500">
                     Top rated
                   </DropDownMenu.Item>
@@ -67,22 +67,22 @@ export const Menu = () => {
                 className="bg-neutral-500 z-20 py-2 w-32 rounded-md border border-emerald-500"
               >
                 <DropDownMenu.Arrow className="fill-emerald-500" />
-                <Link href={"/tvshows/popular"}>
+                <Link href={'/tvshows/popular'}>
                   <DropDownMenu.Item className="p-2 outline-none cursor-pointer hover:bg-neutral-600 text-neutral-100 hover:text-emerald-500">
                     Popular
                   </DropDownMenu.Item>
                 </Link>
-                <Link href={"/tvshows/airing_today"}>
+                <Link href={'/tvshows/airing_today'}>
                   <DropDownMenu.Item className="p-2 outline-none cursor-pointer hover:bg-neutral-600 text-neutral-100 hover:text-emerald-500">
                     Airing today
                   </DropDownMenu.Item>
                 </Link>
-                <Link href={"/tvshows/on_the_air"}>
+                <Link href={'/tvshows/on_the_air'}>
                   <DropDownMenu.Item className="p-2 outline-none cursor-pointer hover:bg-neutral-600 text-neutral-100 hover:text-emerald-500">
                     On the air
                   </DropDownMenu.Item>
                 </Link>
-                <Link href={"/tvshows/top_rated"}>
+                <Link href={'/tvshows/top_rated'}>
                   <DropDownMenu.Item className="p-2 outline-none cursor-pointer hover:bg-neutral-600 text-neutral-100 hover:text-emerald-500">
                     Top rated
                   </DropDownMenu.Item>
@@ -93,5 +93,5 @@ export const Menu = () => {
         </DropDownMenu.Content>
       </DropDownMenu.Portal>
     </DropDownMenu.Root>
-  );
-};
+  )
+}

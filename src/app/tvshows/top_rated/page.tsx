@@ -1,4 +1,4 @@
-import { TopRatedTvshowsContainer } from "@/components/Tvshows/TopRatedContainer";
+import { TopRatedTvshowsContainer } from '@/components/Tvshows/TopRatedContainer'
 
 export default function TvshowsTopRatedPage() {
   return (
@@ -8,5 +8,5 @@ export default function TvshowsTopRatedPage() {
       </h1>
       <TopRatedTvshowsContainer />
     </section>
-  );
+  )
 }

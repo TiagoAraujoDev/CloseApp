@@ -1,40 +1,40 @@
-"use client";
+'use client'
 
-import { useState } from "react";
-import { useQuery } from "react-query";
-import * as ToogleGroup from "@radix-ui/react-toggle-group";
+import { useState } from 'react'
+import { useQuery } from 'react-query'
+import * as ToogleGroup from '@radix-ui/react-toggle-group'
 
-import { getTvShows } from "@/lib/axios/requests/tvshows";
-import { formatLabel } from "@/utils/formatLabel";
+import { getTvShows } from '@/lib/axios/requests/tvshows'
+import { formatLabel } from '@/utils/formatLabel'
 
-import { Carousel } from "@/components/Home/Carousel";
-import { CarouselSkeleton } from "@/components/Loading/CarouselSkeleton";
+import { Carousel } from '@/components/Home/Carousel'
+import { CarouselSkeleton } from '@/components/Loading/CarouselSkeleton'
 
 interface TvShowsProps {
-  labels: string[];
+  labels: string[]
 }
 
 export function TvShowsSection({ labels }: TvShowsProps) {
-  const [label, setLabel] = useState(labels[0]);
+  const [label, setLabel] = useState(labels[0])
 
-  const queryKey = `${label}_tvshows`;
+  const queryKey = `${label}_tvshows`
 
   const { data, isLoading } = useQuery(
     queryKey,
     async () => {
-      const response = await getTvShows(label);
-      const tvshows = response?.data.results;
+      const response = await getTvShows(label)
+      const tvshows = response?.data.results
 
-      return tvshows;
+      return tvshows
     },
     {
       refetchOnMount: false,
       staleTime: 60 * 60 * 2, // 2 hours
     },
-  );
+  )
 
   if (isLoading) {
-    return <CarouselSkeleton labels={labels} label={label} title="TV Shows" />;
+    return <CarouselSkeleton labels={labels} label={label} title="TV Shows" />
   }
 
   return (
@@ -48,7 +48,7 @@ export function TvShowsSection({ labels }: TvShowsProps) {
           type="single"
           defaultValue={label}
           onValueChange={(value) => {
-            if (value) setLabel(value);
+            if (value) setLabel(value)
           }}
         >
           {labels.map((label, index) => {
@@ -60,11 +60,11 @@ export function TvShowsSection({ labels }: TvShowsProps) {
               >
                 {formatLabel(label)}
               </ToogleGroup.Item>
-            );
+            )
           })}
         </ToogleGroup.Root>
       </div>
       {data && <Carousel tvshows={data} />}
     </section>
-  );
+  )
 }

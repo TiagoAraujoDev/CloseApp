@@ -1,9 +1,9 @@
-import Link from "next/link";
-import { CiLogin } from "react-icons/ci";
-import { MdLocalMovies } from "react-icons/md";
+import Link from 'next/link'
+import { CiLogin } from 'react-icons/ci'
+import { MdLocalMovies } from 'react-icons/md'
 
-import { Menu } from "@/components/Header/components/Menu";
-import { SearchInput } from "./components/SearchInput";
+import { Menu } from '@/components/Header/components/Menu'
+import { SearchInput } from './components/SearchInput'
 
 export function Header() {
   return (
@@ -28,5 +28,5 @@ export function Header() {
         </nav>
       </div>
     </header>
-  );
+  )
 }

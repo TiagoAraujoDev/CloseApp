@@ -1,4 +1,4 @@
-import { AiringTodayTvshowsContainer } from "@/components/Tvshows/AiringTodayContainer";
+import { AiringTodayTvshowsContainer } from '@/components/Tvshows/AiringTodayContainer'
 
 export default function TvshowsAiringTodayPage() {
   return (
@@ -8,5 +8,5 @@ export default function TvshowsAiringTodayPage() {
       </h1>
       <AiringTodayTvshowsContainer />
     </section>
-  );
+  )
 }

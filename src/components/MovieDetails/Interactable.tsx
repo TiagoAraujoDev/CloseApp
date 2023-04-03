@@ -1,9 +1,9 @@
-import { AiFillStar, AiFillHeart } from "react-icons/ai";
-import { IoMdBookmark } from "react-icons/io";
+import { AiFillStar, AiFillHeart } from 'react-icons/ai'
+import { IoMdBookmark } from 'react-icons/io'
 
 interface InteractableProps {
-  voteAverage: number;
-  voteCount: number;
+  voteAverage: number
+  voteCount: number
 }
 export function Interactable({ voteAverage, voteCount }: InteractableProps) {
   return (
@@ -30,5 +30,5 @@ export function Interactable({ voteAverage, voteCount }: InteractableProps) {
         </div>
       </div>
     </div>
-  );
+  )
 }

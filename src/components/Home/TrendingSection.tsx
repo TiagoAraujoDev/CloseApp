@@ -1,51 +1,51 @@
-"use client";
+'use client'
 
-import { useState } from "react";
-import { useQuery } from "react-query";
-import * as ToogleGroup from "@radix-ui/react-toggle-group";
+import { useState } from 'react'
+import { useQuery } from 'react-query'
+import * as ToogleGroup from '@radix-ui/react-toggle-group'
 
-import { getTrending } from "@/lib/axios/requests/trending";
-import { formatLabel } from "@/utils/formatLabel";
+import { getTrending } from '@/lib/axios/requests/trending'
+import { formatLabel } from '@/utils/formatLabel'
 
-import { Carousel } from "@/components/Home/Carousel";
-import { CarouselSkeleton } from "@/components/Loading/CarouselSkeleton";
+import { Carousel } from '@/components/Home/Carousel'
+import { CarouselSkeleton } from '@/components/Loading/CarouselSkeleton'
 
 interface TrendingProps {
-  variant: string;
+  variant: string
 }
 
 export function TrendingSection({ variant }: TrendingProps) {
-  const sectionTitle = variant === "movie" ? "Trending movies" : "Trending TV";
+  const sectionTitle = variant === 'movie' ? 'Trending movies' : 'Trending TV'
 
-  const periods = ["day", "week"];
-  const [period, setPeriod] = useState(periods[0]);
+  const periods = ['day', 'week']
+  const [period, setPeriod] = useState(periods[0])
 
-  const queryKey = `${variant}_${period}`;
+  const queryKey = `${variant}_${period}`
 
   const { data, isLoading } = useQuery(
     queryKey,
     async () => {
-      const response = await getTrending(variant, period);
-      if (variant === "movie") {
-        const movies = response?.data.results;
+      const response = await getTrending(variant, period)
+      if (variant === 'movie') {
+        const movies = response?.data.results
 
-        return movies;
+        return movies
       } else {
-        const tvshows = response?.data.results;
+        const tvshows = response?.data.results
 
-        return tvshows;
+        return tvshows
       }
     },
     {
       refetchOnMount: false,
       staleTime: 60 * 60 * 2, // 2 hours
     },
-  );
+  )
 
   if (isLoading) {
     return (
       <CarouselSkeleton labels={periods} label={period} title={sectionTitle} />
-    );
+    )
   }
 
   return (
@@ -59,7 +59,7 @@ export function TrendingSection({ variant }: TrendingProps) {
           type="single"
           defaultValue={period}
           onValueChange={(value) => {
-            if (value) setPeriod(value);
+            if (value) setPeriod(value)
           }}
         >
           {periods.map((period, index) => {
@@ -71,15 +71,15 @@ export function TrendingSection({ variant }: TrendingProps) {
               >
                 {formatLabel(period)}
               </ToogleGroup.Item>
-            );
+            )
           })}
         </ToogleGroup.Root>
       </div>
-      {variant === "movie" ? (
+      {variant === 'movie' ? (
         <Carousel movies={data} />
       ) : (
         <Carousel tvshows={data} />
       )}
     </section>
-  );
+  )
 }

@@ -1,4 +1,4 @@
-import { PopularMoviesContainer } from "@/components/Movies/PopularContainer";
+import { PopularMoviesContainer } from '@/components/Movies/PopularContainer'
 
 export default function MoviesPopularPage() {
   return (
@@ -8,5 +8,5 @@ export default function MoviesPopularPage() {
       </h1>
       <PopularMoviesContainer />
     </section>
-  );
+  )
 }

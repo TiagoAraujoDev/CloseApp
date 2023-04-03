@@ -1,4 +1,4 @@
-import { NowPlayingMoviesContainer } from "@/components/Movies/NowPlayingContainer";
+import { NowPlayingMoviesContainer } from '@/components/Movies/NowPlayingContainer'
 
 export default function MoviesNowPlayingPage() {
   return (
@@ -8,5 +8,5 @@ export default function MoviesNowPlayingPage() {
       </h1>
       <NowPlayingMoviesContainer />
     </section>
-  );
+  )
 }

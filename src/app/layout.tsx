@@ -1,20 +1,20 @@
-import { Metadata } from "next";
-import { ReactNode } from "react";
+import { Metadata } from 'next'
+import { ReactNode } from 'react'
 
-import { Header } from "@/components/Header";
-import { Footer } from "@/components/Footer";
-import { Providers } from "@/Providers";
+import { Header } from '@/components/Header'
+import { Footer } from '@/components/Footer'
+import { Providers } from '@/Providers'
 
-import "./globals.css";
+import './globals.css'
 // import { authToken } from "@/lib/axios/requests/authentication";
 
 export const metadata: Metadata = {
-  title: "Home",
-  description: "The movies and TV shows most popular",
-};
+  title: 'Home',
+  description: 'The movies and TV shows most popular',
+}
 
 interface LayoutProps {
-  children: ReactNode;
+  children: ReactNode
 }
 
 export default async function RootLayout({ children }: LayoutProps) {
@@ -31,5 +31,5 @@ export default async function RootLayout({ children }: LayoutProps) {
         </Providers>
       </body>
     </html>
-  );
+  )
 }
