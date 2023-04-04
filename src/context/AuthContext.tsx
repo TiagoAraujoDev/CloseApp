@@ -1,18 +1,23 @@
 import { createContext, ReactNode, useEffect, useState } from 'react'
 
-import { authToken, getSessionId } from '@/lib/axios/requests/authentication'
+import {
+  authToken,
+  deleteSessionId,
+  getSessionId,
+} from '@/lib/axios/requests/authentication'
 
 interface AuthContextType {
   sessionId: string | undefined
   getRequestToken: () => Promise<string>
   createSessionId: (requestToken: string) => Promise<void>
+  logoutSession: () => Promise<void>
 }
-
-export const AuthContext = createContext({} as AuthContextType)
 
 interface AuthContextProviderProps {
   children: ReactNode
 }
+
+export const AuthContext = createContext({} as AuthContextType)
 
 export const AuthContextProvider = ({ children }: AuthContextProviderProps) => {
   const [sessionId, setSessionId] = useState<string>()
@@ -44,9 +49,19 @@ export const AuthContextProvider = ({ children }: AuthContextProviderProps) => {
     }
   }
 
+  const logoutSession = async () => {
+    if (sessionId) {
+      const response = await deleteSessionId(sessionId)
+      if (response?.data.success) {
+        setSessionId('')
+        localStorage.removeItem('@close_app:session_id')
+      }
+    }
+  }
+
   return (
     <AuthContext.Provider
-      value={{ getRequestToken, createSessionId, sessionId }}
+      value={{ getRequestToken, createSessionId, sessionId, logoutSession }}
     >
       {children}
     </AuthContext.Provider>

@@ -36,3 +36,24 @@ export const getSessionId = async (
     }
   }
 }
+
+export const deleteSessionId = async (
+  sessionId: string,
+): Promise<AxiosResponse | undefined> => {
+  try {
+    const body = {
+      session_id: sessionId,
+    }
+    const response = await api.delete(
+      `authentication/session?api_key=${apiKey}`,
+      { data: body },
+    )
+
+    return response
+  } catch (error) {
+    if (error instanceof AxiosError && error.status === 401) {
+      console.log('error')
+      console.log(error)
+    }
+  }
+}
