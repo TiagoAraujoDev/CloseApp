@@ -21,7 +21,7 @@ import { treatAvatarPath } from '@/utils/treatReviewAuthorAvatarPath'
 import { convertCodeToLang } from '@/utils/convertCodeToLang'
 import { formatCurrency } from '@/utils/formatCurrency'
 
-import { Interactable } from '@/components/MovieDetails/Interactable'
+import { Interactable } from '@/components/MediaDetails/Interactable'
 
 import placeholderBackdrop from '../../../../public/placeholderBackdrop.png'
 import placeholderPoster from '../../../../public/placeholderPoster.png'
