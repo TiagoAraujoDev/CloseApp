@@ -16,6 +16,13 @@ interface SetAsFavoriteParams {
   id: number | undefined
 }
 
+interface RateMediaParams {
+  sessionId: string | undefined
+  mediaType: string
+  mediaId: number | undefined
+  rating: number
+}
+
 export const addToWatchList = async (
   params: AddToWatchListParams,
 ): Promise<void> => {
@@ -79,6 +86,35 @@ export const setAsFavorite = async ({
   }
 }
 
+export const rateMedia = async ({
+  sessionId,
+  mediaType,
+  mediaId,
+  rating,
+}: RateMediaParams) => {
+  try {
+    const body = {
+      value: rating * 2,
+    }
+    const config = {
+      headers: {
+        'Content-Type': 'application/json',
+      },
+    }
+
+    const response = await api.post(
+      `${mediaType}/${mediaId}/rating?api_key=${apiKey}&session_id=${sessionId}`,
+      body,
+      config,
+    )
+
+    console.log(response.data)
+  } catch (error) {
+    if (error instanceof AxiosError) {
+      console.log(error.response?.data)
+    }
+  }
+}
 const getAccountId = async (sessionId: string) => {
   const response = await api.get(
     `account?api_key=${apiKey}&session_id=${sessionId}`,

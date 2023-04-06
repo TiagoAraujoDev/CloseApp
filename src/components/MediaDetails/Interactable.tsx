@@ -10,6 +10,7 @@ import {
   addToWatchList,
   setAsFavorite,
 } from '@/lib/axios/requests/interactions'
+import { RatingPopover } from './RatingPopover'
 
 interface InteractableProps {
   voteAverage: number
@@ -62,11 +63,6 @@ export function Interactable({
     mutateFavorite(media)
   }
 
-  const handleRating = () => {
-    //  TODO:
-    console.log('rated')
-  }
-
   return (
     <div className="flex items-center gap-2 sm:mb-2">
       <div className="flex items-center gap-1">
@@ -94,13 +90,11 @@ export function Interactable({
         >
           <AiFillHeart className="text-xs sm:text-base text-emerald-500" />
         </button>
-        <button
-          onClick={handleRating}
-          title="Rate it!"
-          className="bg-neutral-700 text-xs w-4 h-4 sm:text-base sm:w-6 sm:h-6 md:text-xl md:w-8 md:h-8 rounded-full flex items-center justify-center hover:scale-110 cursor-pointer"
-        >
-          <AiFillStar className="text-xs sm:text-base text-emerald-500" />
-        </button>
+        <RatingPopover
+          mediaId={id}
+          mediaType={mediaType}
+          sessionId={sessionId}
+        />
       </div>
     </div>
   )
