@@ -362,7 +362,7 @@ export default async function TvShowDetailsPage({ params }: MovieDetailsProps) {
             <div className="flex flex-col items-center justify-center space-y-4">
               <MdRateReview className="text-neutral-500 text-5xl" />
               <p className="text-base text-neutral-300 font-bold">
-                There isn&apos;t no review yet!
+                There are no reviews yet!
               </p>
             </div>
           )}
