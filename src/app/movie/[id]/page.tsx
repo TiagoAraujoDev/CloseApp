@@ -21,7 +21,7 @@ import { treatAvatarPath } from '@/utils/treatReviewAuthorAvatarPath'
 import { convertCodeToLang } from '@/utils/convertCodeToLang'
 import { formatCurrency } from '@/utils/formatCurrency'
 
-import { Interactable } from '@/components/MediaDetails/Interactable'
+import { Interactables } from '@/components/MediaDetails/Interactables'
 
 import placeholderBackdrop from '../../../../public/placeholderBackdrop.png'
 import placeholderPoster from '../../../../public/placeholderPoster.png'
@@ -132,7 +132,7 @@ export default async function MovieDetailsPage({ params }: MovieDetailsProps) {
                 </span>
               </div>
               {/** Intaractive: ClientComponent */}
-              <Interactable
+              <Interactables
                 voteAverage={movieDetails.vote_average}
                 voteCount={movieDetails.vote_count}
                 movieId={movieDetails.id}

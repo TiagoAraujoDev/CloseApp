@@ -6,14 +6,14 @@ const apiKey = process.env.NEXT_PUBLIC_API_KEY
 
 interface AddToWatchListParams {
   mediaType: string
-  id: number | undefined
+  mediaId: number | undefined
   sessionId: string | undefined
 }
 
 interface SetAsFavoriteParams {
   sessionId: string | undefined
   mediaType: string
-  id: number | undefined
+  mediaId: number | undefined
 }
 
 interface RateMediaParams {
@@ -23,13 +23,21 @@ interface RateMediaParams {
   rating: number
 }
 
-export const addToWatchList = async (
-  params: AddToWatchListParams,
-): Promise<void> => {
+interface AccountStateParams {
+  mediaId: number | undefined
+  sessionId: string | undefined
+  mediaType: string
+}
+
+export const addToWatchList = async ({
+  sessionId,
+  mediaType,
+  mediaId,
+}: AddToWatchListParams): Promise<void> => {
   try {
     const body = {
-      media_type: params.mediaType,
-      media_id: params.id,
+      media_type: mediaType,
+      media_id: mediaId,
       watchlist: true,
     }
     const config = {
@@ -37,10 +45,10 @@ export const addToWatchList = async (
         'Content-Type': 'application/json',
       },
     }
-    const accountId = await getAccountId(params.sessionId as string)
+    const accountId = await getAccountId(sessionId as string)
 
     await api.post(
-      `account/${accountId}/watchlist?api_key=${apiKey}&session_id=${params.sessionId}`,
+      `account/${accountId}/watchlist?api_key=${apiKey}&session_id=${sessionId}`,
       body,
       config,
     )
@@ -54,12 +62,12 @@ export const addToWatchList = async (
 export const setAsFavorite = async ({
   sessionId,
   mediaType,
-  id,
+  mediaId,
 }: SetAsFavoriteParams) => {
   try {
     const body = {
       media_type: mediaType,
-      media_id: id,
+      media_id: mediaId,
       favorite: true,
     }
     const config = {
@@ -103,6 +111,24 @@ export const rateMedia = async ({
       body,
       config,
     )
+  } catch (error) {
+    if (error instanceof AxiosError) {
+      console.log(error.response?.data)
+    }
+  }
+}
+
+export const getAccountState = async ({
+  mediaId,
+  sessionId,
+  mediaType,
+}: AccountStateParams) => {
+  try {
+    const response = await api.get(
+      `${mediaType}/${mediaId}/account_states?api_key=${apiKey}&session_id=${sessionId}`,
+    )
+
+    console.log(response.data)
   } catch (error) {
     if (error instanceof AxiosError) {
       console.log(error.response?.data)

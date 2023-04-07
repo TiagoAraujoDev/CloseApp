@@ -20,7 +20,7 @@ import { formatDate } from '@/utils/formatDate'
 import { convertCodeToLang } from '@/utils/convertCodeToLang'
 import { treatAvatarPath } from '@/utils/treatReviewAuthorAvatarPath'
 
-import { Interactable } from '@/components/MediaDetails/Interactable'
+import { Interactables } from '@/components/MediaDetails/Interactables'
 
 import placeholderBackdrop from '../../../../public/placeholderBackdrop.png'
 import placeholderPoster from '../../../../public/placeholderPoster.png'
@@ -132,7 +132,7 @@ export default async function TvShowDetailsPage({ params }: MovieDetailsProps) {
                 </span>
               </div>
               {/** Intaractive: ClientComponent */}
-              <Interactable
+              <Interactables
                 voteAverage={tvShowDetails.vote_average}
                 voteCount={tvShowDetails.vote_count}
                 tvshowId={tvShowDetails.id}

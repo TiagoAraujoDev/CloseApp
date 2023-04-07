@@ -1,18 +1,20 @@
-import * as Popover from '@radix-ui/react-popover'
-import { AiFillStar } from 'react-icons/ai'
-import { RatingStars } from './RatingStars'
+'use client'
 
-interface RatingPopoverProps {
-  sessionId: string | undefined
+import { useContext } from 'react'
+import { AiFillStar } from 'react-icons/ai'
+import * as Popover from '@radix-ui/react-popover'
+
+import { AuthContext } from '@/context/AuthContext'
+import { RatingStars } from '@/components/MediaDetails/RatingStars'
+
+interface RatingButtonProps {
   mediaId: number | undefined
   mediaType: string
 }
 
-export const RatingPopover = ({
-  mediaId,
-  mediaType,
-  sessionId,
-}: RatingPopoverProps) => {
+export const RatingButton = ({ mediaId, mediaType }: RatingButtonProps) => {
+  const { sessionId } = useContext(AuthContext)
+
   return (
     <Popover.Root>
       <Popover.Trigger asChild>
