@@ -1,4 +1,4 @@
-import { AxiosError } from 'axios'
+import { AxiosError, AxiosResponse } from 'axios'
 
 import { api } from '@/lib/axios/index'
 
@@ -122,13 +122,13 @@ export const getAccountState = async ({
   mediaId,
   sessionId,
   mediaType,
-}: AccountStateParams) => {
+}: AccountStateParams): Promise<AxiosResponse | undefined> => {
   try {
     const response = await api.get(
       `${mediaType}/${mediaId}/account_states?api_key=${apiKey}&session_id=${sessionId}`,
     )
 
-    console.log(response.data)
+    return response
   } catch (error) {
     if (error instanceof AxiosError) {
       console.log(error.response?.data)

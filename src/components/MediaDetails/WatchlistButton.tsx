@@ -1,11 +1,14 @@
 'use client'
 
 import { useContext } from 'react'
-import { IoMdBookmark } from 'react-icons/io'
-import { useMutation } from 'react-query'
+import { useMutation, useQuery } from 'react-query'
+import { BsBookmark, BsBookmarkFill } from 'react-icons/bs'
 
 import { AuthContext } from '@/context/AuthContext'
-import { addToWatchList } from '@/lib/axios/requests/interactions'
+import {
+  addToWatchList,
+  getAccountState,
+} from '@/lib/axios/requests/interactions'
 
 interface MutationParams {
   mediaType: string
@@ -24,6 +27,19 @@ export const WatchlistButton = ({
 }: WatchlistButtonProps) => {
   const { sessionId } = useContext(AuthContext)
 
+  const { data: isInWatchlist, isLoading } = useQuery(
+    `${mediaType}_${mediaId}_watchlist`,
+    async () => {
+      const response = await getAccountState({ mediaId, mediaType, sessionId })
+
+      return response?.data.watchlist
+    },
+    {
+      notifyOnChangeProps: ['data'],
+      refetchOnMount: false,
+    },
+  )
+
   const { mutate: mutateWatchlist } = useMutation({
     mutationFn: (media: MutationParams) => addToWatchList(media),
   })
@@ -35,8 +51,19 @@ export const WatchlistButton = ({
       sessionId,
     }
 
-    console.log(media)
     mutateWatchlist(media)
+  }
+
+  if (isLoading) {
+    return (
+      <button
+        disabled={true}
+        title="Add to watchlist!"
+        className="bg-neutral-700 text-sm w-4 h-4 sm:text-lg sm:w-6 sm:h-6 md:text-xl md:w-8 md:h-8 rounded-full flex items-center justify-center hover:scale-110 cursor-pointer"
+      >
+        <BsBookmark className="text-xs sm:text-base text-emerald-500" />
+      </button>
+    )
   }
 
   return (
@@ -45,7 +72,11 @@ export const WatchlistButton = ({
       title="Add to watchlist!"
       className="bg-neutral-700 text-xs w-4 h-4 sm:text-base sm:w-6 sm:h-6 md:text-xl md:w-8 md:h-8 rounded-full flex items-center justify-center hover:scale-110 cursor-pointer"
     >
-      <IoMdBookmark className="text-xs sm:text-base text-emerald-500" />
+      {isInWatchlist ? (
+        <BsBookmarkFill className="text-xs sm:text-sm text-emerald-500" />
+      ) : (
+        <BsBookmark className="text-xs sm:text-sm text-emerald-500" />
+      )}
     </button>
   )
 }
