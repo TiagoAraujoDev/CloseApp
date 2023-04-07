@@ -39,13 +39,11 @@ export const addToWatchList = async (
     }
     const accountId = await getAccountId(params.sessionId as string)
 
-    const response = await api.post(
+    await api.post(
       `account/${accountId}/watchlist?api_key=${apiKey}&session_id=${params.sessionId}`,
       body,
       config,
     )
-
-    console.log('response', response.data)
   } catch (error) {
     if (error instanceof AxiosError) {
       console.log('response error', error.response?.data)
@@ -72,13 +70,11 @@ export const setAsFavorite = async ({
 
     const accountId = await getAccountId(sessionId as string)
 
-    const response = await api.post(
+    await api.post(
       `account/${accountId}/favorite?api_key=${apiKey}&session_id=${sessionId}`,
       body,
       config,
     )
-
-    console.log(response.data)
   } catch (error) {
     if (error instanceof AxiosError) {
       console.log(error.response?.data)
@@ -102,19 +98,18 @@ export const rateMedia = async ({
       },
     }
 
-    const response = await api.post(
+    await api.post(
       `${mediaType}/${mediaId}/rating?api_key=${apiKey}&session_id=${sessionId}`,
       body,
       config,
     )
-
-    console.log(response.data)
   } catch (error) {
     if (error instanceof AxiosError) {
       console.log(error.response?.data)
     }
   }
 }
+
 const getAccountId = async (sessionId: string) => {
   const response = await api.get(
     `account?api_key=${apiKey}&session_id=${sessionId}`,
