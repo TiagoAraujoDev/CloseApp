@@ -8,12 +8,14 @@ interface AddToWatchListParams {
   mediaType: string
   mediaId: number | undefined
   sessionId: string | undefined
+  isInWatchlist: boolean
 }
 
 interface SetAsFavoriteParams {
   sessionId: string | undefined
   mediaType: string
   mediaId: number | undefined
+  isFavorite: boolean
 }
 
 interface RateMediaParams {
@@ -33,12 +35,13 @@ export const addToWatchList = async ({
   sessionId,
   mediaType,
   mediaId,
+  isInWatchlist,
 }: AddToWatchListParams): Promise<void> => {
   try {
     const body = {
       media_type: mediaType,
       media_id: mediaId,
-      watchlist: true,
+      watchlist: isInWatchlist,
     }
     const config = {
       headers: {
@@ -63,12 +66,13 @@ export const setAsFavorite = async ({
   sessionId,
   mediaType,
   mediaId,
+  isFavorite,
 }: SetAsFavoriteParams) => {
   try {
     const body = {
       media_type: mediaType,
       media_id: mediaId,
-      favorite: true,
+      favorite: isFavorite,
     }
     const config = {
       headers: {

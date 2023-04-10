@@ -6,6 +6,7 @@ import * as Popover from '@radix-ui/react-popover'
 
 import { AuthContext } from '@/context/AuthContext'
 import { RatingStars } from '@/components/MediaDetails/RatingStars'
+import { SessionButton } from '../Header/components/SessionButton'
 
 interface RatingButtonProps {
   mediaId: number | undefined
@@ -27,11 +28,18 @@ export const RatingButton = ({ mediaId, mediaType }: RatingButtonProps) => {
       </Popover.Trigger>
       <Popover.Portal>
         <Popover.Content className="bg-neutral-600 p-2 rounded border border-emerald-500 outline-transparent">
-          <RatingStars
-            mediaType={mediaType}
-            mediaId={mediaId}
-            sessionId={sessionId}
-          />
+          {sessionId ? (
+            <RatingStars
+              mediaType={mediaType}
+              mediaId={mediaId}
+              sessionId={sessionId}
+            />
+          ) : (
+            <div className="flex items-center justify-between gap-2 p-2">
+              <span className="text-white">Loggin</span>
+              <SessionButton />
+            </div>
+          )}
           <Popover.Arrow className="fill-emerald-500" />
         </Popover.Content>
       </Popover.Portal>

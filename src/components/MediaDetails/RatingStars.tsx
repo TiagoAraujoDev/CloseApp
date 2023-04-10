@@ -4,6 +4,7 @@ import { AiFillStar, AiOutlineStar } from 'react-icons/ai'
 import { useMutation, useQuery } from 'react-query'
 
 import { getAccountState, rateMedia } from '@/lib/axios/requests/interactions'
+import { queryClient } from '@/lib/ReactQuery'
 
 interface RatingStarsProps {
   sessionId: string | undefined
@@ -16,12 +17,7 @@ export const RatingStars = ({
   mediaType,
   mediaId,
 }: RatingStarsProps) => {
-  //  BUG: Update the stars ui after click on the star
-  const {
-    data: rating,
-    isLoading,
-    refetch,
-  } = useQuery(
+  const { data: prevRating, isLoading } = useQuery(
     `${mediaType}_${mediaId}_rating`,
     async () => {
       const response = await getAccountState({ mediaId, mediaType, sessionId })
@@ -31,17 +27,17 @@ export const RatingStars = ({
     },
     {
       notifyOnChangeProps: ['data'],
+      cacheTime: 1,
     },
   )
 
-  console.log('previousRating', rating)
   const { mutate } = useMutation({
     mutationFn: (mediaInfo: any) => rateMedia(mediaInfo),
   })
 
-  const handleStarClick = (rating: number) => {
+  const handleStarClick = async (rating: number) => {
     mutate({ mediaType, mediaId, sessionId, rating })
-    refetch()
+    queryClient.setQueryData(`${mediaType}_${mediaId}_rating`, rating)
   }
 
   if (isLoading) {
@@ -64,7 +60,7 @@ export const RatingStars = ({
           className="hover:scale-110 cursor-pointer"
           onClick={() => handleStarClick(starNumber)}
         >
-          {starNumber <= rating! ? (
+          {starNumber <= prevRating! ? (
             <AiFillStar color="yellow" size={18} />
           ) : (
             <AiOutlineStar color="yellow" size={18} />

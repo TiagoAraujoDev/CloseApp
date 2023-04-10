@@ -9,11 +9,13 @@ import {
   getAccountState,
   setAsFavorite,
 } from '@/lib/axios/requests/interactions'
+import { queryClient } from '@/lib/ReactQuery'
 
 interface MutationParams {
   mediaType: string
   mediaId: number | undefined
   sessionId: string | undefined
+  isFavorite: boolean
 }
 
 interface FavoriteButtonProps {
@@ -33,7 +35,7 @@ export const FavoriteButton = ({ mediaType, mediaId }: FavoriteButtonProps) => {
     },
     {
       notifyOnChangeProps: ['data'],
-      refetchOnMount: false,
+      initialData: false,
     },
   )
 
@@ -46,8 +48,10 @@ export const FavoriteButton = ({ mediaType, mediaId }: FavoriteButtonProps) => {
       mediaType,
       mediaId,
       sessionId,
+      isFavorite: !isFavorite,
     }
     mutateFavorite(media)
+    queryClient.setQueryData(`${mediaType}_${mediaId}_fav`, !isFavorite)
   }
 
   if (isLoading) {
@@ -62,16 +66,27 @@ export const FavoriteButton = ({ mediaType, mediaId }: FavoriteButtonProps) => {
   }
 
   return (
-    <button
-      onClick={handleAddAsFavorite}
-      title="Mark as favorite!"
-      className="bg-neutral-700 text-xs w-4 h-4 sm:text-base sm:w-6 sm:h-6 md:text-xl md:w-8 md:h-8 rounded-full flex items-center justify-center hover:scale-110  cursor-pointer"
-    >
-      {isFavorite ? (
-        <AiFillHeart className="text-xs sm:text-base text-emerald-500" />
+    <>
+      {sessionId ? (
+        <button
+          onClick={handleAddAsFavorite}
+          title="Mark as favorite!"
+          className="bg-neutral-700 text-xs w-4 h-4 sm:text-base sm:w-6 sm:h-6 md:text-xl md:w-8 md:h-8 rounded-full flex items-center justify-center hover:scale-110  cursor-pointer"
+        >
+          {isFavorite ? (
+            <AiFillHeart className="text-xs sm:text-base text-emerald-500" />
+          ) : (
+            <AiOutlineHeart className="text-xs sm:text-base text-emerald-500" />
+          )}
+        </button>
       ) : (
-        <AiOutlineHeart className="text-xs sm:text-base text-emerald-500" />
+        <button
+          title="Loggin to interact!"
+          className="bg-neutral-700 text-xs w-4 h-4 sm:text-base sm:w-6 sm:h-6 md:text-xl md:w-8 md:h-8 rounded-full flex items-center justify-center hover:scale-110  cursor-pointer"
+        >
+          <AiOutlineHeart className="text-xs sm:text-base text-emerald-500" />
+        </button>
       )}
-    </button>
+    </>
   )
 }

@@ -9,11 +9,13 @@ import {
   addToWatchList,
   getAccountState,
 } from '@/lib/axios/requests/interactions'
+import { queryClient } from '@/lib/ReactQuery'
 
 interface MutationParams {
   mediaType: string
   mediaId: number | undefined
   sessionId: string | undefined
+  isInWatchlist: boolean
 }
 
 interface WatchlistButtonProps {
@@ -36,7 +38,7 @@ export const WatchlistButton = ({
     },
     {
       notifyOnChangeProps: ['data'],
-      refetchOnMount: false,
+      initialData: false,
     },
   )
 
@@ -49,9 +51,14 @@ export const WatchlistButton = ({
       mediaType,
       mediaId,
       sessionId,
+      isInWatchlist: !isInWatchlist,
     }
 
     mutateWatchlist(media)
+    queryClient.setQueryData(
+      `${mediaType}_${mediaId}_watchlist`,
+      !isInWatchlist,
+    )
   }
 
   if (isLoading) {
@@ -67,16 +74,27 @@ export const WatchlistButton = ({
   }
 
   return (
-    <button
-      onClick={handleAddToWatchlist}
-      title="Add to watchlist!"
-      className="bg-neutral-700 text-xs w-4 h-4 sm:text-base sm:w-6 sm:h-6 md:text-xl md:w-8 md:h-8 rounded-full flex items-center justify-center hover:scale-110 cursor-pointer"
-    >
-      {isInWatchlist ? (
-        <BsBookmarkFill className="text-xs sm:text-sm text-emerald-500" />
+    <>
+      {sessionId ? (
+        <button
+          onClick={handleAddToWatchlist}
+          title="Add to watchlist!"
+          className="bg-neutral-700 text-xs w-4 h-4 sm:text-base sm:w-6 sm:h-6 md:text-xl md:w-8 md:h-8 rounded-full flex items-center justify-center hover:scale-110 cursor-pointer"
+        >
+          {isInWatchlist ? (
+            <BsBookmarkFill className="text-xs sm:text-sm text-emerald-500" />
+          ) : (
+            <BsBookmark className="text-xs sm:text-sm text-emerald-500" />
+          )}
+        </button>
       ) : (
-        <BsBookmark className="text-xs sm:text-sm text-emerald-500" />
+        <button
+          title="Loggin to interact!"
+          className="bg-neutral-700 text-xs w-4 h-4 sm:text-base sm:w-6 sm:h-6 md:text-xl md:w-8 md:h-8 rounded-full flex items-center justify-center hover:scale-110 cursor-pointer"
+        >
+          <BsBookmark className="text-xs sm:text-sm text-emerald-500" />
+        </button>
       )}
-    </button>
+    </>
   )
 }
