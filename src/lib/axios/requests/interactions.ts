@@ -25,6 +25,11 @@ interface RateMediaParams {
   rating: number
 }
 
+interface GetFavoritesParams {
+  mediaType: string
+  sessionId: string | undefined
+}
+
 interface AccountStateParams {
   mediaId: number | undefined
   sessionId: string | undefined
@@ -130,6 +135,26 @@ export const getAccountState = async ({
   try {
     const response = await api.get(
       `${mediaType}/${mediaId}/account_states?api_key=${apiKey}&session_id=${sessionId}`,
+    )
+
+    return response
+  } catch (error) {
+    if (error instanceof AxiosError) {
+      console.log(error.response?.data)
+    }
+  }
+}
+
+export const getAccountFavorites = async ({
+  mediaType,
+  sessionId,
+}: GetFavoritesParams): Promise<AxiosResponse | undefined> => {
+  try {
+    console.log(sessionId)
+    if (!sessionId) throw new AxiosError()
+    const accountId = await getAccountId(sessionId as string)
+    const response = await api.get(
+      `account/${accountId}/favorite/${mediaType}?api_key=${apiKey}&session_id=${sessionId}`,
     )
 
     return response

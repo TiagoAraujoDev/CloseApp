@@ -1,10 +1,13 @@
 'use client'
 
+import { AuthContext } from '@/context/AuthContext'
 import * as DropDownMenu from '@radix-ui/react-dropdown-menu'
 import Link from 'next/link'
 import { CaretRight, List } from 'phosphor-react'
+import { useContext } from 'react'
 
 export const Menu = () => {
+  const { sessionId } = useContext(AuthContext)
   return (
     <DropDownMenu.Root>
       <DropDownMenu.Trigger asChild>
@@ -90,6 +93,24 @@ export const Menu = () => {
               </DropDownMenu.SubContent>
             </DropDownMenu.Portal>
           </DropDownMenu.Sub>
+          {sessionId && (
+            <>
+              <DropDownMenu.Sub>
+                <Link href={'/favorites'}>
+                  <DropDownMenu.SubTrigger className="flex items-center justify-between hover:text-emerald-500 text-neutral-100 outline-none hover:bg-neutral-600 p-2 cursor-pointer">
+                    Favorites
+                  </DropDownMenu.SubTrigger>
+                </Link>
+              </DropDownMenu.Sub>
+              <DropDownMenu.Sub>
+                <Link href={'/watchlist'}>
+                  <DropDownMenu.SubTrigger className="flex items-center justify-between hover:text-emerald-500 text-neutral-100 outline-none hover:bg-neutral-600 p-2 cursor-pointer">
+                    Watchlist
+                  </DropDownMenu.SubTrigger>
+                </Link>
+              </DropDownMenu.Sub>
+            </>
+          )}
         </DropDownMenu.Content>
       </DropDownMenu.Portal>
     </DropDownMenu.Root>
