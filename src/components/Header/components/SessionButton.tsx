@@ -20,6 +20,7 @@ export const SessionButton = () => {
 
   const handleLogout = async () => {
     logoutSession()
+    router.push('/')
   }
 
   return (
