@@ -30,6 +30,11 @@ interface GetFavoritesParams {
   sessionId: string | undefined
 }
 
+interface GetWatchlistParams {
+  mediaType: string
+  sessionId: string | undefined
+}
+
 interface AccountStateParams {
   mediaId: number | undefined
   sessionId: string | undefined
@@ -150,11 +155,27 @@ export const getAccountFavorites = async ({
   sessionId,
 }: GetFavoritesParams): Promise<AxiosResponse | undefined> => {
   try {
-    console.log(sessionId)
-    if (!sessionId) throw new AxiosError()
     const accountId = await getAccountId(sessionId as string)
     const response = await api.get(
       `account/${accountId}/favorite/${mediaType}?api_key=${apiKey}&session_id=${sessionId}`,
+    )
+
+    return response
+  } catch (error) {
+    if (error instanceof AxiosError) {
+      console.log(error.response?.data)
+    }
+  }
+}
+
+export const getAccountWatchlist = async ({
+  mediaType,
+  sessionId,
+}: GetWatchlistParams): Promise<AxiosResponse | undefined> => {
+  try {
+    const accountId = await getAccountId(sessionId as string)
+    const response = await api.get(
+      `account/${accountId}/watchlist/${mediaType}?api_key=${apiKey}&session_id=${sessionId}`,
     )
 
     return response
