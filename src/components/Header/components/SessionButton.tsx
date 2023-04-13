@@ -14,7 +14,11 @@ export const SessionButton = () => {
     const token = await getRequestToken()
     //  FIX: Change the redirect_to url for production domain
     router.push(
-      `https://www.themoviedb.org/authenticate/${token}?redirect_to=https://close-app.vercel.app/approved`,
+      //  NOTE: url for production 👇
+      // `https://www.themoviedb.org/authenticate/${token}?redirect_to=https://close-app.vercel.app/approved`,
+
+      //  NOTE: url for development 👇
+      `https://www.themoviedb.org/authenticate/${token}?redirect_to=http://localhost:3000/approved`,
     )
   }
 

@@ -1,4 +1,11 @@
+import type { Metadata } from 'next'
+
 import { AiringTodayTvshowsContainer } from '@/components/Tvshows/AiringTodayContainer'
+
+export const metadata: Metadata = {
+  title: 'Tvshows | Airing today',
+  description: 'Page with TV shows that are airing today',
+}
 
 export default function TvshowsAiringTodayPage() {
   return (

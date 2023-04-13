@@ -1,3 +1,4 @@
+import type { Metadata } from 'next'
 import Link from 'next/link'
 import Image from 'next/image'
 import { Actor, Crew, ExternalIds, Review, TvShowDetails } from 'types'
@@ -25,13 +26,24 @@ import { Interactables } from '@/components/MediaDetails/Interactables'
 import placeholderBackdrop from '../../../../public/placeholderBackdrop.png'
 import placeholderPoster from '../../../../public/placeholderPoster.png'
 
-interface MovieDetailsProps {
+interface TvshowDetailsProps {
   params: {
     id: number
   }
 }
 
-export default async function TvShowDetailsPage({ params }: MovieDetailsProps) {
+export async function generateMetadata({
+  params,
+}: TvshowDetailsProps): Promise<Metadata> {
+  const tvshowDetailsResponse = await getTvShowsDetails(params.id)
+  const title = tvshowDetailsResponse?.data.original_name
+
+  return { title: `Tvshow | ${title}` }
+}
+
+export default async function TvShowDetailsPage({
+  params,
+}: TvshowDetailsProps) {
   const [
     tvShowDetailsResponse,
     tvShowCreditsResponse,

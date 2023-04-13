@@ -8,7 +8,7 @@ import { Providers } from '@/Providers'
 import './globals.css'
 
 export const metadata: Metadata = {
-  title: 'Home',
+  title: 'CloseApp',
   description: 'The movies and TV shows most popular',
 }
 

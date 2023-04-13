@@ -21,6 +21,7 @@ export const AuthContext = createContext({} as AuthContextType)
 
 export const AuthContextProvider = ({ children }: AuthContextProviderProps) => {
   const [sessionId, setSessionId] = useState<string>()
+
   useEffect(() => {
     const sessionIdFromStorage = localStorage.getItem('@close_app:session_id')
 

@@ -1,10 +1,8 @@
 'use client'
 
-import { useContext } from 'react'
 import { useMutation, useQuery } from 'react-query'
 import { BsBookmark, BsBookmarkFill } from 'react-icons/bs'
 
-import { AuthContext } from '@/context/AuthContext'
 import {
   addToWatchList,
   getAccountState,
@@ -21,14 +19,14 @@ interface MutationParams {
 interface WatchlistButtonProps {
   mediaId: number | undefined
   mediaType: string
+  sessionId: string | undefined
 }
 
 export const WatchlistButton = ({
   mediaType,
   mediaId,
+  sessionId,
 }: WatchlistButtonProps) => {
-  const { sessionId } = useContext(AuthContext)
-
   const { data: isInWatchlist, isLoading } = useQuery(
     `${mediaType}_${mediaId}_watchlist`,
     async () => {
@@ -36,14 +34,17 @@ export const WatchlistButton = ({
 
       return response?.data.watchlist
     },
-    {
-      notifyOnChangeProps: ['data'],
-      initialData: false,
-    },
+    { initialData: false },
   )
 
   const { mutate: mutateWatchlist } = useMutation({
     mutationFn: (media: MutationParams) => addToWatchList(media),
+    onSuccess: (_data, variables, _context) => {
+      queryClient.setQueryData(
+        `${mediaType}_${mediaId}_watchlist`,
+        variables.isInWatchlist,
+      )
+    },
   })
 
   const handleAddToWatchlist = () => {
@@ -55,10 +56,6 @@ export const WatchlistButton = ({
     }
 
     mutateWatchlist(media)
-    queryClient.setQueryData(
-      `${mediaType}_${mediaId}_watchlist`,
-      !isInWatchlist,
-    )
   }
 
   if (isLoading) {

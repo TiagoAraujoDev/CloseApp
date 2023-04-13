@@ -1,7 +1,14 @@
+import type { Metadata } from 'next'
+
 import { SearchInput } from '@/components/Header/components/SearchInput'
 import { MovieSection } from '@/components/Home/MoviesSection'
 import { TrendingSection } from '@/components/Home/TrendingSection'
 import { TvShowsSection } from '@/components/Home/TvShowsSection'
+
+export const metadata: Metadata = {
+  title: 'CloseApp | Home',
+  description: 'Home page in CloseApp',
+}
 
 export default async function Home() {
   return (

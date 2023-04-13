@@ -1,4 +1,11 @@
+import type { Metadata } from 'next'
+
 import { OnTheAirTvshowsContainer } from '@/components/Tvshows/OnTheAirContainer'
+
+export const metadata: Metadata = {
+  title: 'Tvshows | On the air',
+  description: 'Page with TV shows that are currently on the air',
+}
 
 export default function TvshowsOnTheAirPage() {
   return (

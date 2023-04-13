@@ -1,4 +1,11 @@
+import type { Metadata } from 'next'
+
 import { NowPlayingMoviesContainer } from '@/components/Movies/NowPlayingContainer'
+
+export const metadata: Metadata = {
+  title: 'Movies | Now playing',
+  description: 'Page with the movies that are playing now',
+}
 
 export default function MoviesNowPlayingPage() {
   return (

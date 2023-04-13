@@ -1,4 +1,11 @@
+import type { Metadata } from 'next'
+
 import { UpcomingMoviesContainer } from '@/components/Movies/UpcomingContainer'
+
+export const metadata: Metadata = {
+  title: 'Movies | Upcoming',
+  description: 'Page with the upcoming movies',
+}
 
 export default function MoviesUpcomingPage() {
   return (

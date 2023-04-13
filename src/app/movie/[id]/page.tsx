@@ -1,3 +1,4 @@
+import type { Metadata } from 'next'
 import Image from 'next/image'
 import Link from 'next/link'
 import {
@@ -30,6 +31,15 @@ interface MovieDetailsProps {
   params: {
     id: number
   }
+}
+
+export async function generateMetadata({
+  params,
+}: MovieDetailsProps): Promise<Metadata> {
+  const movieDetailsResponse = await getMovieDetails(params.id)
+  const title = movieDetailsResponse?.data.title
+  
+  return { title: `Movie | ${title}` }
 }
 
 export default async function MovieDetailsPage({ params }: MovieDetailsProps) {

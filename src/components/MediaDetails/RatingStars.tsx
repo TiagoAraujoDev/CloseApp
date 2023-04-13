@@ -25,19 +25,21 @@ export const RatingStars = ({
       const rating = Math.floor(response?.data.rated.value / 2)
       return rating
     },
-    {
-      notifyOnChangeProps: ['data'],
-      cacheTime: 1,
-    },
   )
 
   const { mutate } = useMutation({
     mutationFn: (mediaInfo: any) => rateMedia(mediaInfo),
+    onSuccess: (_data, variables, _context) => {
+      console.log(variables)
+      queryClient.setQueryData(
+        `${mediaType}_${mediaId}_rating`,
+        variables.rating,
+      )
+    },
   })
 
   const handleStarClick = async (rating: number) => {
     mutate({ mediaType, mediaId, sessionId, rating })
-    queryClient.setQueryData(`${mediaType}_${mediaId}_rating`, rating)
   }
 
   if (isLoading) {

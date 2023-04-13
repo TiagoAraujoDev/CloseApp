@@ -1,10 +1,8 @@
 'use client'
 
-import { useContext } from 'react'
 import { AiFillHeart, AiOutlineHeart } from 'react-icons/ai'
 import { useMutation, useQuery } from 'react-query'
 
-import { AuthContext } from '@/context/AuthContext'
 import {
   getAccountState,
   setAsFavorite,
@@ -21,11 +19,14 @@ interface MutationParams {
 interface FavoriteButtonProps {
   mediaId: number | undefined
   mediaType: string
+  sessionId: string | undefined
 }
 
-export const FavoriteButton = ({ mediaType, mediaId }: FavoriteButtonProps) => {
-  const { sessionId } = useContext(AuthContext)
-
+export const FavoriteButton = ({
+  mediaType,
+  mediaId,
+  sessionId,
+}: FavoriteButtonProps) => {
   const { data: isFavorite, isLoading } = useQuery(
     `${mediaType}_${mediaId}_fav`,
     async () => {
@@ -33,14 +34,18 @@ export const FavoriteButton = ({ mediaType, mediaId }: FavoriteButtonProps) => {
 
       return response?.data.favorite
     },
-    {
-      notifyOnChangeProps: ['data'],
-      initialData: false,
-    },
+    { initialData: false },
   )
 
   const { mutate: mutateFavorite } = useMutation({
     mutationFn: (media: MutationParams) => setAsFavorite(media),
+    onSuccess: (_data, variables, _context) => {
+      console.log(variables)
+      queryClient.setQueryData(
+        `${mediaType}_${mediaId}_fav`,
+        variables.isFavorite,
+      )
+    },
   })
 
   const handleAddAsFavorite = () => {
@@ -51,7 +56,6 @@ export const FavoriteButton = ({ mediaType, mediaId }: FavoriteButtonProps) => {
       isFavorite: !isFavorite,
     }
     mutateFavorite(media)
-    queryClient.setQueryData(`${mediaType}_${mediaId}_fav`, !isFavorite)
   }
 
   if (isLoading) {
