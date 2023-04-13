@@ -25,7 +25,6 @@ export const AuthContextProvider = ({ children }: AuthContextProviderProps) => {
   useEffect(() => {
     const sessionIdFromStorage = localStorage.getItem('@close_app:session_id')
 
-    console.log('SessionId localStorage: ', sessionIdFromStorage)
     if (sessionIdFromStorage && !sessionId) {
       setSessionId(sessionIdFromStorage)
     } else if (sessionIdFromStorage && sessionId) {

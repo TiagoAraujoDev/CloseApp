@@ -38,7 +38,7 @@ export async function generateMetadata({
 }: MovieDetailsProps): Promise<Metadata> {
   const movieDetailsResponse = await getMovieDetails(params.id)
   const title = movieDetailsResponse?.data.title
-  
+
   return { title: `Movie | ${title}` }
 }
 
