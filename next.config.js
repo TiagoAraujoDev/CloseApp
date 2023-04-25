@@ -5,6 +5,7 @@ const nextConfig = {
   },
   images: {
     domains: ["www.themoviedb.org", "image.tmdb.org", "www.gravatar.com"],
+    unoptimized: true,
   },
 };
 
