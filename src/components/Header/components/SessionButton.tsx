@@ -10,15 +10,15 @@ export const SessionButton = () => {
   const { getRequestToken, sessionId, logoutSession } = useContext(AuthContext)
   const router = useRouter()
 
+  const redirectUrl =
+    process.env.NODE_ENV === 'production'
+      ? 'https://close-app.vercel.app/approved'
+      : 'http://localhost:3000/approved'
+
   const handleLoggin = async () => {
     const token = await getRequestToken()
-    //  FIX: Change the redirect_to url for production domain
     router.push(
-      //  NOTE: url for production 👇
-      `https://www.themoviedb.org/authenticate/${token}?redirect_to=https://close-app.vercel.app/approved`,
-
-      //  NOTE: url for development 👇
-      // `https://www.themoviedb.org/authenticate/${token}?redirect_to=http://localhost:3000/approved`,
+      `https://www.themoviedb.org/authenticate/${token}?redirect_to=${redirectUrl}`,
     )
   }
 
