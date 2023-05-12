@@ -1,12 +1,10 @@
 /** @type {import('next').NextConfig} */
 const nextConfig = {
-  experimental: {
-    appDir: true,
-  },
+  experimental: {},
   images: {
-    domains: ["www.themoviedb.org", "image.tmdb.org", "www.gravatar.com"],
+    domains: ['www.themoviedb.org', 'image.tmdb.org', 'www.gravatar.com'],
     unoptimized: true,
   },
-};
+}
 
-module.exports = nextConfig;
+module.exports = nextConfig
