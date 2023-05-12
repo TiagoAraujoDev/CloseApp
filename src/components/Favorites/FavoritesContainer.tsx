@@ -48,8 +48,8 @@ export const FavoritesContainer = ({
           <TvShowCard key={tvshow.id} tvshow={tvshow} />
         ))}
       {isSuccess && favorites.length === 0 && (
-        <div className="flex flex-col items-center justify-center min-h-full">
-          <MdFavorite size={64} className="text-neutral-400" />
+        <div className="flex flex-col items-center justify-center flex-1">
+          <MdFavorite size={96} className="text-neutral-400 mb-4" />
           <h1 className="text-xl text-neutral-300">
             You haven&apos;t added any favorite{' '}
             {mediaType === 'movies' ? 'movies' : 'Tv shows'}.

@@ -42,7 +42,7 @@ export default function FavoritePage() {
     )
 
   return (
-    <section className="max-w-5xl myMinHeight px-16 my-8 mx-auto">
+    <section className="max-w-5xl myMinHeight flex flex-col items-center justify-center px-16 my-8 mx-auto">
       <div className="min-w-full flex items-end justify-between mb-4">
         <h1 className="text-base md:text-lg font-bold ">MyFavorites</h1>
         <ToggleGroup.Root
