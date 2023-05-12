@@ -16,8 +16,8 @@ export default async function Home() {
       <div className="sm:hidden block my-4">
         <SearchInput />
       </div>
-      <TrendingSection variant="movie" />
-      <TrendingSection variant="tv" />
+      <TrendingSection periods={['week', 'day']} variant="movie" />
+      <TrendingSection periods={['week', 'day']} variant="tv" />
       <MovieSection labels={['popular', 'upcoming', 'top_rated']} />
       <TvShowsSection labels={['popular', 'on_the_air', 'top_rated']} />
     </main>

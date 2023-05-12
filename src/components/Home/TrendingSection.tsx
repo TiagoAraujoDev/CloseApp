@@ -1,24 +1,23 @@
 'use client'
 
-import { useState } from 'react'
+import { useCallback, useState } from 'react'
 import { useQuery } from 'react-query'
-import * as ToogleGroup from '@radix-ui/react-toggle-group'
 
 import { getTrending } from '@/lib/axios/requests/trending'
-import { formatLabel } from '@/utils/formatLabel'
 
 import { Carousel } from '@/components/Home/Carousel'
 import { CarouselSkeleton } from '@/components/Loading/CarouselSkeleton'
+import { ToggleCarousel } from '@/components/Home/ToggleCarousel'
 
 interface TrendingProps {
   variant: string
+  periods: string[]
 }
 
-export function TrendingSection({ variant }: TrendingProps) {
-  const sectionTitle = variant === 'movie' ? 'Trending movies' : 'Trending TV'
-
-  const periods = ['day', 'week']
+export function TrendingSection({ variant, periods }: TrendingProps) {
   const [period, setPeriod] = useState(periods[0])
+
+  const sectionTitle = variant === 'movie' ? 'Trending movies' : 'Trending TV'
 
   const queryKey = `${variant}_${period}`
 
@@ -26,21 +25,17 @@ export function TrendingSection({ variant }: TrendingProps) {
     queryKey,
     async () => {
       const response = await getTrending(variant, period)
-      if (variant === 'movie') {
-        const movies = response?.data.results
-
-        return movies
-      } else {
-        const tvshows = response?.data.results
-
-        return tvshows
-      }
+      return response?.data.results
     },
     {
       refetchOnMount: false,
       staleTime: 60 * 60 * 2, // 2 hours
     },
   )
+
+  const handleToggleChange = useCallback((period: string) => {
+    setPeriod(period)
+  }, [])
 
   if (isLoading) {
     return (
@@ -49,31 +44,16 @@ export function TrendingSection({ variant }: TrendingProps) {
   }
 
   return (
-    <section className="flex flex-col gap-3 mb-10 last:mb-0">
+    <section className="w-full flex flex-col gap-3 mb-10">
       <div className="flex items-center justify-between">
         <span className="text-neutral-100 font-bold text-xl md:text-2xl">
           {sectionTitle}
         </span>
-        <ToogleGroup.Root
-          className="flex items-center w-fit"
-          type="single"
-          defaultValue={period}
-          onValueChange={(value) => {
-            if (value) setPeriod(value)
-          }}
-        >
-          {periods.map((period, index) => {
-            return (
-              <ToogleGroup.Item
-                className="text-sm sm:text-base lg:text-xl bg-neutral-200 text-neutral-800 border border-neutral-800 first:rounded-tl first:rounded-bl last:rounded-br last:rounded-tr py-1 px-3 overflow-hidden radix-state-on:bg-emerald-500 radix-state-on:text-neutral-50"
-                key={index}
-                value={period}
-              >
-                {formatLabel(period)}
-              </ToogleGroup.Item>
-            )
-          })}
-        </ToogleGroup.Root>
+        <ToggleCarousel
+          labels={periods}
+          currentLabel={period}
+          onToggleChange={handleToggleChange}
+        />
       </div>
       {variant === 'movie' ? (
         <Carousel movies={data} />
