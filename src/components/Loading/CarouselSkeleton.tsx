@@ -1,3 +1,4 @@
+import { memo } from 'react'
 import * as ToogleGroup from '@radix-ui/react-toggle-group'
 
 import { formatLabel } from '@/utils/formatLabel'
@@ -8,21 +9,15 @@ interface CarouselSkeletonProps {
   title: string
 }
 
-export function CarouselSkeleton({
-  labels,
-  label,
-  title,
-}: CarouselSkeletonProps) {
-  const arr = [1, 2, 3, 4, 5, 6, 7, 8] // Quantity of cards
-
+function CarouselSkeleton({ labels, label, title }: CarouselSkeletonProps) {
   return (
-    <div className="flex flex-col gap-3 w-full mb-6 last:mb-0">
+    <div className="mb-6 flex w-full flex-col gap-3 last:mb-0">
       <div className="flex items-center justify-between">
-        <span className="text-neutral-100 font-bold text-xl md:text-2xl">
+        <span className="text-xl font-bold text-neutral-100 md:text-2xl">
           {title}
         </span>
         <ToogleGroup.Root
-          className="flex items-center w-fit"
+          className="flex w-fit items-center"
           type="single"
           defaultValue={label}
           disabled
@@ -30,7 +25,7 @@ export function CarouselSkeleton({
           {labels.map((label, index) => {
             return (
               <ToogleGroup.Item
-                className="text-sm sm:text-base lg:text-xl bg-neutral-200 text-neutral-800 border border-neutral-800 first:rounded-tl first:rounded-bl last:rounded-br last:rounded-tr py-1 px-3 overflow-hidden radix-state-on:bg-emerald-500 radix-state-on:text-neutral-50"
+                className="overflow-hidden border border-neutral-800 bg-neutral-200 py-1 px-3 text-sm text-neutral-800 first:rounded-tl first:rounded-bl last:rounded-br last:rounded-tr radix-state-on:bg-emerald-500 radix-state-on:text-neutral-50 sm:text-base lg:text-xl"
                 key={index}
                 value={label}
               >
@@ -40,17 +35,17 @@ export function CarouselSkeleton({
           })}
         </ToogleGroup.Root>
       </div>
-      <div className="animate-pulse flex justify-between gap-2 w-full pb-3 overflow-auto scrollbar-thin scrollbar-thumb-emerald-500 scrollbar-track-neutral-300">
-        {arr.map((_, i) => {
+      <div className="flex w-full animate-pulse justify-between gap-2 overflow-auto pb-3 scrollbar-thin scrollbar-track-neutral-300 scrollbar-thumb-emerald-500">
+        {Array.from({ length: 8 }).map((_, i) => {
           return (
             <div
               key={i}
-              className="flex flex-col justify-end min-w-[230px] min-h-[420px] bg-neutral-700 rounded"
+              className="flex min-h-[420px] min-w-[230px] flex-col justify-end rounded bg-neutral-700"
             >
-              <div className="min-w-[230px] min-h-[180px] rounded-tl rounded-tr"></div>
-              <div className="flex flex-col justify-center gap-2 min-h-[90px] bg-neutral-500 rounded-bl rounded-br p-2 text-sm font-medium">
-                <span className="w-4/5 h-5 bg-neutral-600 rounded"></span>
-                <span className="w-2/3 h-5 bg-neutral-600 rounded"></span>
+              <div className="min-h-[180px] min-w-[230px] rounded-tl rounded-tr"></div>
+              <div className="flex min-h-[90px] flex-col justify-center gap-2 rounded-bl rounded-br bg-neutral-500 p-2 text-sm font-medium">
+                <span className="h-5 w-4/5 rounded bg-neutral-600"></span>
+                <span className="h-5 w-2/3 rounded bg-neutral-600"></span>
               </div>
             </div>
           )
@@ -59,3 +54,5 @@ export function CarouselSkeleton({
     </div>
   )
 }
+
+export default memo(CarouselSkeleton)

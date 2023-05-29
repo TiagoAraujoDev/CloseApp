@@ -1,20 +1,20 @@
 'use client'
 
-import { useCallback, useState } from 'react'
+import { memo, useCallback, useState } from 'react'
 import { useQuery } from 'react-query'
 
 import { getTrending } from '@/lib/axios/requests/trending'
 
-import { Carousel } from '@/components/Home/Carousel'
-import { CarouselSkeleton } from '@/components/Loading/CarouselSkeleton'
-import { ToggleCarousel } from '@/components/Home/ToggleCarousel'
+import Carousel from '@/components/Home/Carousel'
+import CarouselSkeleton from '@/components/Loading/CarouselSkeleton'
+import ToggleCarousel from '@/components/Home/ToggleCarousel'
 
 interface TrendingProps {
   variant: string
   periods: string[]
 }
 
-export function TrendingSection({ variant, periods }: TrendingProps) {
+function TrendingSection({ variant, periods }: TrendingProps) {
   const [period, setPeriod] = useState(periods[0])
 
   const sectionTitle = variant === 'movie' ? 'Trending movies' : 'Trending TV'
@@ -44,9 +44,9 @@ export function TrendingSection({ variant, periods }: TrendingProps) {
   }
 
   return (
-    <section className="w-full flex flex-col gap-3 mb-10">
+    <section className="mb-10 flex w-full flex-col gap-3">
       <div className="flex items-center justify-between">
-        <span className="text-neutral-100 font-bold text-xl md:text-2xl">
+        <span className="text-xl font-bold text-neutral-100 md:text-2xl">
           {sectionTitle}
         </span>
         <ToggleCarousel
@@ -63,3 +63,5 @@ export function TrendingSection({ variant, periods }: TrendingProps) {
     </section>
   )
 }
+
+export default memo(TrendingSection)

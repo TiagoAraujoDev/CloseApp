@@ -1,9 +1,10 @@
 import type { Metadata } from 'next'
 
 import { SearchInput } from '@/components/Header/components/SearchInput'
-import { MovieSection } from '@/components/Home/MoviesSection'
-import { TrendingSection } from '@/components/Home/TrendingSection'
-import { TvShowsSection } from '@/components/Home/TvShowsSection'
+import MovieSection from '@/components/Home/MoviesSection'
+import TrendingSection from '@/components/Home/TrendingSection'
+import TvShowsSection from '@/components/Home/TvShowsSection'
+import { getConfig } from '@/lib/axios/requests/search'
 
 export const metadata: Metadata = {
   title: 'CloseApp | Home',
@@ -11,9 +12,11 @@ export const metadata: Metadata = {
 }
 
 export default async function Home() {
+  const config = await getConfig()
+  console.log(config?.data)
   return (
-    <main className="max-w-screen-lg mx-auto px-6 md:py-16">
-      <div className="sm:hidden block my-4">
+    <main className="mx-auto max-w-screen-lg px-6 md:py-16">
+      <div className="my-4 block sm:hidden">
         <SearchInput />
       </div>
       <TrendingSection periods={['week', 'day']} variant="movie" />

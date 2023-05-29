@@ -1,19 +1,19 @@
 'use client'
 
-import { useCallback, useState } from 'react'
+import { memo, useCallback, useState } from 'react'
 import { useQuery } from 'react-query'
 
 import { getMovies } from '@/lib/axios/requests/movies'
 
-import { Carousel } from '@/components/Home/Carousel'
-import { CarouselSkeleton } from '@/components/Loading/CarouselSkeleton'
-import { ToggleCarousel } from '@/components/Home/ToggleCarousel'
+import Carousel from '@/components/Home/Carousel'
+import CarouselSkeleton from '@/components/Loading/CarouselSkeleton'
+import ToggleCarousel from '@/components/Home/ToggleCarousel'
 
 export interface MoviesProps {
   labels: string[]
 }
 
-export function MovieSection({ labels }: MoviesProps) {
+function MovieSection({ labels }: MoviesProps) {
   const [label, setLabel] = useState(labels[0])
 
   const queryKey = `${label}_movies`
@@ -41,9 +41,9 @@ export function MovieSection({ labels }: MoviesProps) {
   }
 
   return (
-    <section className="flex flex-col gap-3 mb-10 last:mb-0">
+    <section className="mb-10 flex flex-col gap-3 last:mb-0">
       <div className="flex items-center justify-between">
-        <span className="text-neutral-100 font-bold text-xl md:text-2xl">
+        <span className="text-xl font-bold text-neutral-100 md:text-2xl">
           Movies
         </span>
         <ToggleCarousel
@@ -56,3 +56,5 @@ export function MovieSection({ labels }: MoviesProps) {
     </section>
   )
 }
+
+export default memo(MovieSection)
