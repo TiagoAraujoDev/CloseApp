@@ -63,9 +63,9 @@ export const WatchlistButton = ({
       <button
         disabled={true}
         title="Add to watchlist!"
-        className="bg-neutral-700 text-sm w-4 h-4 sm:text-lg sm:w-6 sm:h-6 md:text-xl md:w-8 md:h-8 rounded-full flex items-center justify-center hover:scale-110 cursor-pointer"
+        className="flex h-4 w-4 cursor-pointer items-center justify-center rounded-full bg-neutral-700 text-sm hover:scale-110 sm:h-6 sm:w-6 sm:text-lg md:h-8 md:w-8 md:text-xl"
       >
-        <BsBookmark className="text-xs sm:text-base text-emerald-500" />
+        <BsBookmark className="text-xs text-emerald-500 sm:text-base" />
       </button>
     )
   }
@@ -76,20 +76,20 @@ export const WatchlistButton = ({
         <button
           onClick={handleAddToWatchlist}
           title="Add to watchlist!"
-          className="bg-neutral-700 text-xs w-4 h-4 sm:text-base sm:w-6 sm:h-6 md:text-xl md:w-8 md:h-8 rounded-full flex items-center justify-center hover:scale-110 cursor-pointer"
+          className="flex h-4 w-4 cursor-pointer items-center justify-center rounded-full bg-neutral-700 text-xs hover:scale-110 sm:h-6 sm:w-6 sm:text-base md:h-8 md:w-8 md:text-xl"
         >
           {isInWatchlist ? (
-            <BsBookmarkFill className="text-xs sm:text-sm text-emerald-500" />
+            <BsBookmarkFill className="text-xs text-emerald-500 sm:text-sm" />
           ) : (
-            <BsBookmark className="text-xs sm:text-sm text-emerald-500" />
+            <BsBookmark className="text-xs text-emerald-500 sm:text-sm" />
           )}
         </button>
       ) : (
         <button
           title="Loggin to interact!"
-          className="bg-neutral-700 text-xs w-4 h-4 sm:text-base sm:w-6 sm:h-6 md:text-xl md:w-8 md:h-8 rounded-full flex items-center justify-center hover:scale-110 cursor-pointer"
+          className="flex h-4 w-4 cursor-pointer items-center justify-center rounded-full bg-neutral-700 text-xs hover:scale-110 sm:h-6 sm:w-6 sm:text-base md:h-8 md:w-8 md:text-xl"
         >
-          <BsBookmark className="text-xs sm:text-sm text-emerald-500" />
+          <BsBookmark className="text-xs text-emerald-500 sm:text-sm" />
         </button>
       )}
     </>

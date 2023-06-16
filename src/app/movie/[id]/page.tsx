@@ -66,16 +66,16 @@ export default async function MovieDetailsPage({ params }: MovieDetailsProps) {
 
   if (!movieDetails || !movieReviews || !externalIds || !cast || !crew) {
     return (
-      <div className="h-screen w-screen flex items-center justify-center">
-        <ImSpinner2 className="animate-spin text-neutral-100 text-xl" />
+      <div className="flex h-screen w-screen items-center justify-center">
+        <ImSpinner2 className="animate-spin text-xl text-neutral-100" />
       </div>
     )
   }
 
   return (
-    <main className="text-neutral-100 max-w-screen-xl min-h-full mx-auto">
+    <main className="mx-auto min-h-full max-w-screen-xl text-neutral-100">
       {/** Banner */}
-      <section className="min-w-full relative mb-4">
+      <section className="relative mb-4 min-w-full">
         {/** Background */}
         {movieDetails.backdrop_path ? (
           <Image
@@ -88,9 +88,9 @@ export default async function MovieDetailsPage({ params }: MovieDetailsProps) {
         ) : (
           <Image src={placeholderBackdrop} alt="" width={1280} height={720} />
         )}
-        <div className="w-full h-full bg-transparent absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 py-8 px-4 sm:py-10 sm:px-5 md:py-16 md:px-6">
+        <div className="absolute top-1/2 left-1/2 h-full w-full -translate-x-1/2 -translate-y-1/2 bg-transparent py-8 px-4 sm:py-10 sm:px-5 md:py-16 md:px-6">
           {/** Container flex */}
-          <div className="w-full h-full bg-transparent flex items-center gap-4">
+          <div className="flex h-full w-full items-center gap-4 bg-transparent">
             {movieDetails.poster_path ? (
               <div className="flex w-[100px] sm:w-[150px] md:w-[210px] lg:w-[295px]">
                 <Image
@@ -98,7 +98,7 @@ export default async function MovieDetailsPage({ params }: MovieDetailsProps) {
                   alt=""
                   width={780}
                   height={1170}
-                  className="object-contain flex-1 shadow-neutral-300/30 border border-neutral-300/50 shadow-xl rounded overflow-hidden"
+                  className="flex-1 overflow-hidden rounded border border-neutral-300/50 object-contain shadow-xl shadow-neutral-300/30"
                 />
               </div>
             ) : (
@@ -108,7 +108,7 @@ export default async function MovieDetailsPage({ params }: MovieDetailsProps) {
                   alt=""
                   width={780}
                   height={1170}
-                  className="object-contain flex-1 shadow-neutral-300/30 border border-neutral-300/50 shadow-xl rounded overflow-hidden"
+                  className="flex-1 overflow-hidden rounded border border-neutral-300/50 object-contain shadow-xl shadow-neutral-300/30"
                 />
               </div>
             )}
@@ -116,20 +116,20 @@ export default async function MovieDetailsPage({ params }: MovieDetailsProps) {
             <div className="flex-1">
               {/** Header */}
               <div className="flex items-center gap-1">
-                <h1 className="text-neutral-100 text-sm sm:text-lg md:text-2xl lg:text-3xl font-medium">
+                <h1 className="text-sm font-medium text-neutral-100 sm:text-lg md:text-2xl lg:text-3xl">
                   {movieDetails.original_title}
                 </h1>
-                <span className="text-neutral-400 text-base sm:text-lg md:text-2xl hidden sm:block">
+                <span className="hidden text-base text-neutral-400 sm:block sm:text-lg md:text-2xl">
                   ({movieDetails.release_date.slice(0, 4)})
                 </span>
               </div>
               {/** Infos */}
-              <div className="flex flex-col sm:flex-row sm:items-center sm:gap-1 sm:mb-1">
-                <span className="text-neutral-300 text-xs sm:text-base">
+              <div className="flex flex-col sm:mb-1 sm:flex-row sm:items-center sm:gap-1">
+                <span className="text-xs text-neutral-300 sm:text-base">
                   {movieDetails.release_date}
                 </span>
-                <span className="text-lg hidden sm:block">&middot;</span>
-                <span className="text-neutral-300 text-xs sm:text-base flex gap-1 items-center">
+                <span className="hidden text-lg sm:block">&middot;</span>
+                <span className="flex items-center gap-1 text-xs text-neutral-300 sm:text-base">
                   {movieDetails.genres.map((genre, index) => (
                     <span className="underline" key={index}>
                       {genre.name}
@@ -137,7 +137,7 @@ export default async function MovieDetailsPage({ params }: MovieDetailsProps) {
                   ))}
                 </span>
                 <span className="hidden text-lg sm:block">&middot;</span>
-                <span className="hidden sm:inline-block text-neutral-300 text-xs sm:text-base">
+                <span className="hidden text-xs text-neutral-300 sm:inline-block sm:text-base">
                   {movieDetails.runtime} min
                 </span>
               </div>
@@ -148,32 +148,32 @@ export default async function MovieDetailsPage({ params }: MovieDetailsProps) {
                 movieId={movieDetails.id}
               />
               {/** Tagline */}
-              <p className="hidden sm:block text-neutral-400 text-base lg:text-lg italic mb-2">
+              <p className="mb-2 hidden text-base italic text-neutral-400 sm:block lg:text-lg">
                 {movieDetails.tagline}
               </p>
               {/** Sinopse */}
-              <div className="flex flex-col w-56 sm:w-full sm:mb-2">
-                <h2 className="text-xs sm:text-base lg:text-2xl text-neutral-200 font-medium">
+              <div className="flex w-56 flex-col sm:mb-2 sm:w-full">
+                <h2 className="text-xs font-medium text-neutral-200 sm:text-base lg:text-2xl">
                   Sinopse
                 </h2>
                 {movieDetails.overview && (
                   <p
                     title={movieDetails.overview}
-                    className="text-xs sm:text-sm lg:text-lg text-neutral-200 whitespace-nowrap sm:whitespace-normal text-ellipsis overflow-hidden"
+                    className="overflow-hidden text-ellipsis whitespace-nowrap text-xs text-neutral-200 sm:whitespace-normal sm:text-sm lg:text-lg"
                   >
                     {movieDetails.overview}
                   </p>
                 )}
               </div>
               {/** Crew */}
-              <div className="hidden md:grid grid-cols-3">
+              <div className="hidden grid-cols-3 md:grid">
                 {crew.map((item, index) => {
                   return (
                     <div key={index} className="flex flex-col items-start">
                       <span className="text-sm text-neutral-100 sm:text-base">
                         {item.original_name}
                       </span>
-                      <span className="text-sm text-neutral-400 font-medium sm:text-base">
+                      <span className="text-sm font-medium text-neutral-400 sm:text-base">
                         {item.job}
                       </span>
                     </div>
@@ -185,17 +185,17 @@ export default async function MovieDetailsPage({ params }: MovieDetailsProps) {
         </div>
       </section>
       {/* Cast carousel */}
-      <section className="px-6 mb-6">
-        <h2 className="text-lg md:text-2xl text-neutral-100 font-semibold mb-1">
+      <section className="mb-6 px-6">
+        <h2 className="mb-1 text-lg font-semibold text-neutral-100 md:text-2xl">
           Cast
         </h2>
-        <div className="flex justify-start gap-2 w-full pb-3 overflow-auto scrollbar-thin scrollbar-thumb-emerald-500 scrollbar-track-neutral-300">
+        <div className="flex w-full justify-start gap-2 overflow-auto pb-3 scrollbar-thin scrollbar-track-neutral-300 scrollbar-thumb-emerald-500">
           {cast &&
             cast.map((actor) => {
               return (
                 <div
                   key={actor.id}
-                  className="min-w-[75px] sm:min-w-[125px] flex flex-col border rounded border-transparent overflow-hidden"
+                  className="flex min-w-[75px] flex-col overflow-hidden rounded border border-transparent sm:min-w-[125px]"
                 >
                   {actor.profile_path ? (
                     <Image
@@ -211,19 +211,19 @@ export default async function MovieDetailsPage({ params }: MovieDetailsProps) {
                       alt=""
                       width={185}
                       height={278}
-                      className="object-contain flex-1"
+                      className="flex-1 object-contain"
                     />
                   )}
-                  <div className="min-h-fit py-2 px-1 flex flex-col bg-neutral-400">
+                  <div className="flex min-h-fit flex-col bg-neutral-400 py-2 px-1">
                     <span
                       title={actor.original_name}
-                      className="text-xs sm:text-base whitespace-nowrap text-ellipsis overflow-hidden text-neutral-200"
+                      className="overflow-hidden text-ellipsis whitespace-nowrap text-xs text-neutral-200 sm:text-base"
                     >
                       {actor.original_name}
                     </span>
                     <span
                       title={actor.character}
-                      className="text-xs sm:text-base whitespace-nowrap text-ellipsis overflow-hidden text-neutral-700 font-semibold"
+                      className="overflow-hidden text-ellipsis whitespace-nowrap text-xs font-semibold text-neutral-700 sm:text-base"
                     >
                       {actor.character}
                     </span>
@@ -234,42 +234,42 @@ export default async function MovieDetailsPage({ params }: MovieDetailsProps) {
         </div>
       </section>
       {/* Informations */}
-      <section className="px-6 mb-6">
-        <h2 className="text-lg md:text-2xl text-neutral-100 font-semibold mb-1">
+      <section className="mb-6 px-6">
+        <h2 className="mb-1 text-lg font-semibold text-neutral-100 md:text-2xl">
           Informations
         </h2>
         <div className="grid grid-cols-2">
           <div>
-            <h3 className="text-sm md:text-lg text-neutral-100 font-medium">
+            <h3 className="text-sm font-medium text-neutral-100 md:text-lg">
               Status
             </h3>
-            <span className="text-xs md:text-base text-neutral-300">
+            <span className="text-xs text-neutral-300 md:text-base">
               {movieDetails.status}
             </span>
           </div>
           <div>
-            <h3 className="text-sm md:text-lg text-neutral-100 font-medium">
+            <h3 className="text-sm font-medium text-neutral-100 md:text-lg">
               Original Language
             </h3>
-            <span className="text-xs md:text-base text-neutral-300">
+            <span className="text-xs text-neutral-300 md:text-base">
               {convertCodeToLang(movieDetails.original_language)}
             </span>
           </div>
           <div>
-            <h3 className="text-sm md:text-lg text-neutral-100 font-medium">
+            <h3 className="text-sm font-medium text-neutral-100 md:text-lg">
               Budget
             </h3>
-            <span className="text-xs md:text-base text-neutral-300">
+            <span className="text-xs text-neutral-300 md:text-base">
               {movieDetails.budget !== 0
                 ? `${formatCurrency(movieDetails.budget)}`
                 : '-'}
             </span>
           </div>
           <div>
-            <h3 className="text-sm md:text-lg text-neutral-100 font-medium">
+            <h3 className="text-sm font-medium text-neutral-100 md:text-lg">
               Revenue
             </h3>
-            <span className="text-xs md:text-base text-neutral-300">
+            <span className="text-xs text-neutral-300 md:text-base">
               {movieDetails.revenue !== 0
                 ? `${formatCurrency(movieDetails.revenue)}`
                 : '-'}
@@ -278,8 +278,8 @@ export default async function MovieDetailsPage({ params }: MovieDetailsProps) {
         </div>
       </section>
       {/* External links */}
-      <section className="px-6 mb-8">
-        <h2 className="text-lg md:text-2xl text-neutral-100 font-semibold mb-1">
+      <section className="mb-8 px-6">
+        <h2 className="mb-1 text-lg font-semibold text-neutral-100 md:text-2xl">
           External Links
         </h2>
         <div className="flex items-center">
@@ -317,13 +317,13 @@ export default async function MovieDetailsPage({ params }: MovieDetailsProps) {
       </section>
       {/* Separator  */}
       <section className="mb-6 px-6">
-        <div className="h-2 border-t border-emerald-500 rounded-t mx-auto"></div>
+        <div className="mx-auto h-2 rounded-t border-t border-emerald-500"></div>
       </section>
       {/* Reviews */}
-      <section className="px-6 mb-6">
-        <h2 className="text-center text-lg md:text-2xl text-neutral-100 font-semibold mb-4">
+      <section className="mb-6 px-6">
+        <h2 className="mb-4 text-center text-lg font-semibold text-neutral-100 md:text-2xl">
           Reviews
-          <span className="text-sm sm:text-base md:text-lg text-neutral-300 ml-1">
+          <span className="ml-1 text-sm text-neutral-300 sm:text-base md:text-lg">
             ({movieReviews.length})
           </span>
         </h2>
@@ -332,7 +332,7 @@ export default async function MovieDetailsPage({ params }: MovieDetailsProps) {
             movieReviews.map((review) => (
               <div
                 key={review.id}
-                className="mb-3 last:mb-0 bg-neutral-600 shadow shadow-neutral-700 rounded py-4 px-3 space-y-2"
+                className="mb-3 space-y-2 rounded bg-neutral-600 py-4 px-3 shadow shadow-neutral-700 last:mb-0"
               >
                 {/** Header */}
                 <div className="flex items-center justify-between">
@@ -344,13 +344,13 @@ export default async function MovieDetailsPage({ params }: MovieDetailsProps) {
                       width={80}
                       height={80}
                       alt=""
-                      className="w-7 h-7 rounded-full"
+                      className="h-7 w-7 rounded-full"
                     />
-                    <span className="text-sm text-neutral-200 font-semibold">
+                    <span className="text-sm font-semibold text-neutral-200">
                       {review.author}
                     </span>
                   </div>
-                  <div className="bg-neutral-700 shadow-neutral-800 shadow-md py-0 px-1 flex items-center gap-1 rounded">
+                  <div className="flex items-center gap-1 rounded bg-neutral-700 py-0 px-1 shadow-md shadow-neutral-800">
                     <AiFillStar color="yellow" />
                     <span className="text-neutral-300">
                       {review.author_details.rating
@@ -360,18 +360,18 @@ export default async function MovieDetailsPage({ params }: MovieDetailsProps) {
                   </div>
                 </div>
                 {/** Content */}
-                <p className="text-neutral-200 text-base overflow-hidden">
+                <p className="overflow-hidden text-base text-neutral-200">
                   {review.content}
                 </p>
-                <div className="text-sm text-right italic text-neutral-400">
+                <div className="text-right text-sm italic text-neutral-400">
                   {formatDate(review.created_at.slice(0, 10))}
                 </div>
               </div>
             ))
           ) : (
             <div className="flex flex-col items-center justify-center space-y-4">
-              <MdRateReview className="text-neutral-500 text-5xl" />
-              <p className="text-base text-neutral-300 font-bold">
+              <MdRateReview className="text-5xl text-neutral-500" />
+              <p className="text-base font-bold text-neutral-300">
                 There are no reviews yet!
               </p>
             </div>

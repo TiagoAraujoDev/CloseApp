@@ -9,8 +9,8 @@ export const metadata: Metadata = {
 
 export default function TvshowsPopularPage() {
   return (
-    <section className="min-h-screen max-w-5xl px-16 mx-auto">
-      <h1 className="text-neutral-100 text-xl md:text-2xl font-bold text-center my-6">
+    <section className="mx-auto min-h-screen max-w-5xl px-16">
+      <h1 className="my-6 text-center text-xl font-bold text-neutral-100 md:text-2xl">
         Popular TV Shows
       </h1>
       <PopularTvshowsContainer />

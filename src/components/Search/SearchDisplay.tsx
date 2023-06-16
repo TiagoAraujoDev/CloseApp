@@ -11,7 +11,7 @@ import { search } from '@/lib/axios/requests/search'
 
 import { MovieCard } from '@/components/MovieCard'
 import { TvShowCard } from '@/components/TvShowCard'
-import { SearchSkeleton } from '../Loading/SearchSkeleton'
+import SearchSkeleton from '@/components/Loading/SearchSkeleton'
 
 export function SearchDisplay() {
   const searchParams = useSearchParams()
@@ -63,7 +63,7 @@ export function SearchDisplay() {
       setTvshowResultCount(tvshowsQuery.data?.pages[0]?.data.total_results)
     }
     // eslint-disable-next-line
-  }, [moviesQuery, tvshowsQuery]);
+  }, [moviesQuery, tvshowsQuery])
 
   if (moviesQuery.status === 'loading' || tvshowsQuery.status === 'loading') {
     return <SearchSkeleton />
@@ -80,13 +80,13 @@ export function SearchDisplay() {
 
   return (
     <>
-      <div className="w-full md:w-80 mx-auto rounded bg-neutral-500 my-4 overflow-hidden">
-        <h2 className="bg-emerald-500 p-4 text-center text-base md:text-xl font-semibold text-white">
+      <div className="my-4 mx-auto w-full overflow-hidden rounded bg-neutral-500 md:w-80">
+        <h2 className="bg-emerald-500 p-4 text-center text-base font-semibold text-white md:text-xl">
           Search results
         </h2>
         <div className="flex flex-col py-2">
           <button
-            className={`flex items-center justify-between p-2 text-sm md:text-base text-white border-gray-300 
+            className={`flex items-center justify-between border-gray-300 p-2 text-sm text-white md:text-base 
              ${
                mediaType === 'movie'
                  ? 'bg-emerald-500 font-semibold'
@@ -96,14 +96,14 @@ export function SearchDisplay() {
           >
             Movie
             <span
-              className={`text-[10px] md:text-sm text-neutral-600 rounded bg-neutral-200 px-2 py-1 font-normal  
-               flex items-center justify-center leading-none shadow-neutral-800 shadow`}
+              className={`flex items-center justify-center rounded bg-neutral-200 px-2 py-1 text-[10px]  
+               font-normal leading-none text-neutral-600 shadow shadow-neutral-800 md:text-sm`}
             >
               {movieResultCount || '0'}
             </span>
           </button>
           <button
-            className={`flex items-center justify-between p-2 text-sm md:text-base text-white border-gray-300 
+            className={`flex items-center justify-between border-gray-300 p-2 text-sm text-white md:text-base 
              ${
                mediaType === 'tv'
                  ? 'bg-emerald-500 font-semibold'
@@ -113,8 +113,8 @@ export function SearchDisplay() {
           >
             Tv
             <span
-              className={`text-[10px] md:text-sm text-neutral-600 rounded bg-neutral-200 px-2 py-1 font-normal  
-               flex items-center justify-center leading-none shadow-neutral-800 shadow`}
+              className={`flex items-center justify-center rounded bg-neutral-200 px-2 py-1 text-[10px]  
+               font-normal leading-none text-neutral-600 shadow shadow-neutral-800 md:text-sm`}
             >
               {tvshowResultCount || '0'}
             </span>
@@ -131,7 +131,7 @@ export function SearchDisplay() {
                 ))}
               </div>
             ))}
-            <div className="w-fit mx-auto">
+            <div className="mx-auto w-fit">
               <button
                 className="my-4"
                 onClick={() => moviesQuery.fetchNextPage()}
@@ -140,11 +140,11 @@ export function SearchDisplay() {
                 }
               >
                 {moviesQuery.isFetchingNextPage ? (
-                  <ImSpinner2 className="text-emerald-500 text-3xl animate-spin" />
+                  <ImSpinner2 className="animate-spin text-3xl text-emerald-500" />
                 ) : moviesQuery.hasNextPage ? (
-                  <BsArrowDownCircle className="text-emerald-500 text-3xl animate-bounce" />
+                  <BsArrowDownCircle className="animate-bounce text-3xl text-emerald-500" />
                 ) : (
-                  <span className="text-red-500 text-base">
+                  <span className="text-base text-red-500">
                     No more results
                   </span>
                 )}
@@ -160,7 +160,7 @@ export function SearchDisplay() {
                 ))}
               </div>
             ))}
-            <div className="w-fit mx-auto">
+            <div className="mx-auto w-fit">
               <button
                 className="my-4"
                 onClick={() => tvshowsQuery.fetchNextPage()}
@@ -169,11 +169,11 @@ export function SearchDisplay() {
                 }
               >
                 {tvshowsQuery.isFetchingNextPage ? (
-                  <ImSpinner2 className="text-emerald-500 text-3xl animate-spin" />
+                  <ImSpinner2 className="animate-spin text-3xl text-emerald-500" />
                 ) : tvshowsQuery.hasNextPage ? (
-                  <BsArrowDownCircle className="text-emerald-500 text-3xl animate-bounce" />
+                  <BsArrowDownCircle className="animate-bounce text-3xl text-emerald-500" />
                 ) : (
-                  <span className="text-red-500 text-base">
+                  <span className="text-base text-red-500">
                     No more results
                   </span>
                 )}

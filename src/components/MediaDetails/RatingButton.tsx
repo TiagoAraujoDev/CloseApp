@@ -22,13 +22,13 @@ export const RatingButton = ({
       <Popover.Trigger asChild>
         <button
           title="Rate it!"
-          className="bg-neutral-700 text-xs w-4 h-4 sm:text-base sm:w-6 sm:h-6 md:text-xl md:w-8 md:h-8 rounded-full flex items-center justify-center hover:scale-110 cursor-pointer"
+          className="flex h-4 w-4 cursor-pointer items-center justify-center rounded-full bg-neutral-700 text-xs hover:scale-110 sm:h-6 sm:w-6 sm:text-base md:h-8 md:w-8 md:text-xl"
         >
-          <AiFillStar className="text-xs sm:text-base text-emerald-500" />
+          <AiFillStar className="text-xs text-emerald-500 sm:text-base" />
         </button>
       </Popover.Trigger>
       <Popover.Portal>
-        <Popover.Content className="bg-neutral-600 p-2 rounded border border-emerald-500 outline-transparent">
+        <Popover.Content className="rounded border border-emerald-500 bg-neutral-600 p-2 outline-transparent">
           {sessionId ? (
             <RatingStars
               mediaType={mediaType}

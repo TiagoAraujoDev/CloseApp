@@ -31,33 +31,33 @@ export function Interactables({
     return (
       <div className="flex items-center gap-2 sm:mb-2">
         <div className="flex items-center gap-1">
-          <AiFillStar className="text-xs sm:text-base text-yellow-400 md:text-lg flex items-center justify-center" />
-          <span className="text-xs sm:text-base md:text-lg flex items-center justify-center">
+          <AiFillStar className="flex items-center justify-center text-xs text-yellow-400 sm:text-base md:text-lg" />
+          <span className="flex items-center justify-center text-xs sm:text-base md:text-lg">
             {voteAverage.toFixed(2)}
           </span>
           <span className="text-lg">&middot;</span>
-          <span className="text-xs sm:text-base md:text-lg flex items-center justify-center">
+          <span className="flex items-center justify-center text-xs sm:text-base md:text-lg">
             {voteCount} votes
           </span>
         </div>
         <div className="flex items-center gap-2">
           <button
             title="Add to watchlist!"
-            className="bg-neutral-700 text-xs w-4 h-4 sm:text-base sm:w-6 sm:h-6 md:text-xl md:w-8 md:h-8 rounded-full flex items-center justify-center hover:scale-110 cursor-pointer"
+            className="flex h-4 w-4 cursor-pointer items-center justify-center rounded-full bg-neutral-700 text-xs hover:scale-110 sm:h-6 sm:w-6 sm:text-base md:h-8 md:w-8 md:text-xl"
           >
-            <BsBookmark className="text-xs sm:text-sm text-emerald-500" />
+            <BsBookmark className="text-xs text-emerald-500 sm:text-sm" />
           </button>
           <button
             title="Mark as favorite!"
-            className="bg-neutral-700 text-xs w-4 h-4 sm:text-base sm:w-6 sm:h-6 md:text-xl md:w-8 md:h-8 rounded-full flex items-center justify-center hover:scale-110  cursor-pointer"
+            className="flex h-4 w-4 cursor-pointer items-center justify-center rounded-full bg-neutral-700 text-xs hover:scale-110 sm:h-6 sm:w-6 sm:text-base md:h-8 md:w-8 md:text-xl"
           >
-            <AiOutlineHeart className="text-xs sm:text-base text-emerald-500" />
+            <AiOutlineHeart className="text-xs text-emerald-500 sm:text-base" />
           </button>
           <button
             title="Rate it!"
-            className="bg-neutral-700 text-xs w-4 h-4 sm:text-base sm:w-6 sm:h-6 md:text-xl md:w-8 md:h-8 rounded-full flex items-center justify-center hover:scale-110 cursor-pointer"
+            className="flex h-4 w-4 cursor-pointer items-center justify-center rounded-full bg-neutral-700 text-xs hover:scale-110 sm:h-6 sm:w-6 sm:text-base md:h-8 md:w-8 md:text-xl"
           >
-            <AiFillStar className="text-xs sm:text-base text-emerald-500" />
+            <AiFillStar className="text-xs text-emerald-500 sm:text-base" />
           </button>
         </div>
       </div>
@@ -67,12 +67,12 @@ export function Interactables({
   return (
     <div className="flex items-center gap-2 sm:mb-2">
       <div className="flex items-center gap-1">
-        <AiFillStar className="text-xs sm:text-base text-yellow-400 md:text-lg flex items-center justify-center" />
-        <span className="text-xs sm:text-base md:text-lg flex items-center justify-center">
+        <AiFillStar className="flex items-center justify-center text-xs text-yellow-400 sm:text-base md:text-lg" />
+        <span className="flex items-center justify-center text-xs sm:text-base md:text-lg">
           {voteAverage.toFixed(2)}
         </span>
         <span className="text-lg">&middot;</span>
-        <span className="text-xs sm:text-base md:text-lg flex items-center justify-center">
+        <span className="flex items-center justify-center text-xs sm:text-base md:text-lg">
           {voteCount} votes
         </span>
       </div>

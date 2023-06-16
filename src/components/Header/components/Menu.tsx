@@ -1,10 +1,11 @@
 'use client'
 
-import { AuthContext } from '@/context/AuthContext'
 import * as DropDownMenu from '@radix-ui/react-dropdown-menu'
 import Link from 'next/link'
-import { CaretRight, List } from 'phosphor-react'
 import { useContext } from 'react'
+import { CaretRight, List } from 'phosphor-react'
+
+import { AuthContext } from '@/context/AuthContext'
 
 export const Menu = () => {
   const { sessionId } = useContext(AuthContext)
@@ -18,11 +19,11 @@ export const Menu = () => {
       <DropDownMenu.Portal className="z-20">
         <DropDownMenu.Content
           sideOffset={5}
-          className="bg-neutral-500 border border-emerald-500 rounded-md z-20 py-2 w-32"
+          className="z-20 w-32 rounded-md border border-emerald-500 bg-neutral-500 py-2"
         >
           <DropDownMenu.Arrow className="fill-emerald-500" />
           <DropDownMenu.Sub>
-            <DropDownMenu.SubTrigger className="flex items-center justify-between hover:text-emerald-500  text-neutral-100 outline-none hover:bg-neutral-600 p-2 cursor-pointer">
+            <DropDownMenu.SubTrigger className="flex cursor-pointer items-center justify-between p-2 text-neutral-100 outline-none hover:bg-neutral-600 hover:text-emerald-500">
               Movies
               <span>
                 <CaretRight />
@@ -31,26 +32,26 @@ export const Menu = () => {
             <DropDownMenu.Portal>
               <DropDownMenu.SubContent
                 sideOffset={5}
-                className="bg-neutral-500 z-20 py-2 w-32 rounded-md border border-emerald-500"
+                className="z-20 w-32 rounded-md border border-emerald-500 bg-neutral-500 py-2"
               >
                 <DropDownMenu.Arrow className="fill-emerald-500" />
                 <Link href={'/movies/popular'}>
-                  <DropDownMenu.Item className="p-2 outline-none cursor-pointer hover:bg-neutral-600 text-neutral-100 hover:text-emerald-500">
+                  <DropDownMenu.Item className="cursor-pointer p-2 text-neutral-100 outline-none hover:bg-neutral-600 hover:text-emerald-500">
                     Popular
                   </DropDownMenu.Item>
                 </Link>
                 <Link href={'/movies/now_playing'}>
-                  <DropDownMenu.Item className="p-2 outline-none cursor-pointer hover:bg-neutral-600 text-neutral-100 hover:text-emerald-500">
+                  <DropDownMenu.Item className="cursor-pointer p-2 text-neutral-100 outline-none hover:bg-neutral-600 hover:text-emerald-500">
                     Now playing
                   </DropDownMenu.Item>
                 </Link>
                 <Link href={'/movies/upcoming'}>
-                  <DropDownMenu.Item className="p-2 outline-none cursor-pointer hover:bg-neutral-600 text-neutral-100 hover:text-emerald-500">
+                  <DropDownMenu.Item className="cursor-pointer p-2 text-neutral-100 outline-none hover:bg-neutral-600 hover:text-emerald-500">
                     Upcoming
                   </DropDownMenu.Item>
                 </Link>
                 <Link href={'/movies/top_rated'}>
-                  <DropDownMenu.Item className="p-2 outline-none cursor-pointer hover:bg-neutral-600 text-neutral-100 hover:text-emerald-500">
+                  <DropDownMenu.Item className="cursor-pointer p-2 text-neutral-100 outline-none hover:bg-neutral-600 hover:text-emerald-500">
                     Top rated
                   </DropDownMenu.Item>
                 </Link>
@@ -58,7 +59,7 @@ export const Menu = () => {
             </DropDownMenu.Portal>
           </DropDownMenu.Sub>
           <DropDownMenu.Sub>
-            <DropDownMenu.SubTrigger className="flex items-center justify-between hover:text-emerald-500 text-neutral-100 outline-none hover:bg-neutral-600 p-2 cursor-pointer">
+            <DropDownMenu.SubTrigger className="flex cursor-pointer items-center justify-between p-2 text-neutral-100 outline-none hover:bg-neutral-600 hover:text-emerald-500">
               TV shows
               <span>
                 <CaretRight />
@@ -67,26 +68,26 @@ export const Menu = () => {
             <DropDownMenu.Portal>
               <DropDownMenu.SubContent
                 sideOffset={5}
-                className="bg-neutral-500 z-20 py-2 w-32 rounded-md border border-emerald-500"
+                className="z-20 w-32 rounded-md border border-emerald-500 bg-neutral-500 py-2"
               >
                 <DropDownMenu.Arrow className="fill-emerald-500" />
                 <Link href={'/tvshows/popular'}>
-                  <DropDownMenu.Item className="p-2 outline-none cursor-pointer hover:bg-neutral-600 text-neutral-100 hover:text-emerald-500">
+                  <DropDownMenu.Item className="cursor-pointer p-2 text-neutral-100 outline-none hover:bg-neutral-600 hover:text-emerald-500">
                     Popular
                   </DropDownMenu.Item>
                 </Link>
                 <Link href={'/tvshows/airing_today'}>
-                  <DropDownMenu.Item className="p-2 outline-none cursor-pointer hover:bg-neutral-600 text-neutral-100 hover:text-emerald-500">
+                  <DropDownMenu.Item className="cursor-pointer p-2 text-neutral-100 outline-none hover:bg-neutral-600 hover:text-emerald-500">
                     Airing today
                   </DropDownMenu.Item>
                 </Link>
                 <Link href={'/tvshows/on_the_air'}>
-                  <DropDownMenu.Item className="p-2 outline-none cursor-pointer hover:bg-neutral-600 text-neutral-100 hover:text-emerald-500">
+                  <DropDownMenu.Item className="cursor-pointer p-2 text-neutral-100 outline-none hover:bg-neutral-600 hover:text-emerald-500">
                     On the air
                   </DropDownMenu.Item>
                 </Link>
                 <Link href={'/tvshows/top_rated'}>
-                  <DropDownMenu.Item className="p-2 outline-none cursor-pointer hover:bg-neutral-600 text-neutral-100 hover:text-emerald-500">
+                  <DropDownMenu.Item className="cursor-pointer p-2 text-neutral-100 outline-none hover:bg-neutral-600 hover:text-emerald-500">
                     Top rated
                   </DropDownMenu.Item>
                 </Link>
@@ -97,14 +98,14 @@ export const Menu = () => {
             <>
               <DropDownMenu.Sub>
                 <Link href={'/favorites'}>
-                  <DropDownMenu.SubTrigger className="flex items-center justify-between hover:text-emerald-500 text-neutral-100 outline-none hover:bg-neutral-600 p-2 cursor-pointer">
+                  <DropDownMenu.SubTrigger className="flex cursor-pointer items-center justify-between p-2 text-neutral-100 outline-none hover:bg-neutral-600 hover:text-emerald-500">
                     Favorites
                   </DropDownMenu.SubTrigger>
                 </Link>
               </DropDownMenu.Sub>
               <DropDownMenu.Sub>
                 <Link href={'/watchlist'}>
-                  <DropDownMenu.SubTrigger className="flex items-center justify-between hover:text-emerald-500 text-neutral-100 outline-none hover:bg-neutral-600 p-2 cursor-pointer">
+                  <DropDownMenu.SubTrigger className="flex cursor-pointer items-center justify-between p-2 text-neutral-100 outline-none hover:bg-neutral-600 hover:text-emerald-500">
                     Watchlist
                   </DropDownMenu.SubTrigger>
                 </Link>

@@ -18,13 +18,13 @@ export default function SessionApprovedPage() {
   }
 
   return (
-    <section className="max-w-5xl myMinHeight flex items-center justify-center m-auto my-8 px-4">
-      <div className="flex flex-col justify-between gap-6 items-center">
-        <h1 className="text-4xl text-emerald-500 font-bold text-center">
+    <section className="myMinHeight m-auto my-8 flex max-w-5xl items-center justify-center px-4">
+      <div className="flex flex-col items-center justify-between gap-6">
+        <h1 className="text-center text-4xl font-bold text-emerald-500">
           Loggin Approved
         </h1>
         <button
-          className="text-2xl text-neutral-50 hover:shadow-lg hover:shadow-green-800 hover:bg-emerald-500 border border-emerald-500 rounded p-3 transition-all"
+          className="rounded border border-emerald-500 p-3 text-2xl text-neutral-50 transition-all hover:bg-emerald-500 hover:shadow-lg hover:shadow-green-800"
           onClick={() => handleLogginInSession(token)}
         >
           Start navigation

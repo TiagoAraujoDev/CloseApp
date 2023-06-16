@@ -7,17 +7,17 @@ import { SessionButton } from '@/components/Header/components/SessionButton'
 
 export function Header() {
   return (
-    <header className="h-16 bg-neutral-700 sticky top-0 z-10 p-4">
-      <div className="max-w-5xl mx-auto flex items-center justify-around sm:justify-between gap-4">
+    <header className="sticky top-0 z-10 h-16 bg-neutral-700 p-4">
+      <div className="mx-auto flex max-w-5xl items-center justify-around gap-4 sm:justify-between">
         <Link
           href="/"
           title="Home"
-          className="text-emerald-500 font-bold text-xl flex items-center justify-center gap-1"
+          className="flex items-center justify-center gap-1 text-xl font-bold text-emerald-500"
         >
           <span>CloseApp</span>
           <MdLocalMovies />
         </Link>
-        <div className="hidden sm:block flex-1">
+        <div className="hidden flex-1 sm:block">
           <SearchInput />
         </div>
         <nav className="flex items-center justify-between gap-2">

@@ -1,6 +1,6 @@
 import { memo } from 'react'
 
-export function SearchSkeleton() {
+function SearchSkeleton() {
   return (
     <>
       <div className="mx-auto my-4 w-full overflow-hidden rounded bg-neutral-500 md:w-80">

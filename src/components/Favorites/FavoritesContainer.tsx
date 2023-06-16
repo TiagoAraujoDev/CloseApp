@@ -7,8 +7,8 @@ import { MdFavorite } from 'react-icons/md'
 import { getAccountFavorites } from '@/lib/axios/requests/interactions'
 
 import { MovieCard } from '@/components/MovieCard'
-import { CardsSkeleton } from '@/components/Loading/CardsSkeleton'
 import { TvShowCard } from '@/components/TvShowCard'
+import CardsSkeleton from '@/components/Loading/CardsSkeleton'
 
 interface FavoritesContainerProps {
   sessionId: string
@@ -48,8 +48,8 @@ export const FavoritesContainer = ({
           <TvShowCard key={tvshow.id} tvshow={tvshow} />
         ))}
       {isSuccess && favorites.length === 0 && (
-        <div className="flex flex-col items-center justify-center flex-1">
-          <MdFavorite size={96} className="text-neutral-400 mb-4" />
+        <div className="flex flex-1 flex-col items-center justify-center">
+          <MdFavorite size={96} className="mb-4 text-neutral-400" />
           <h1 className="text-xl text-neutral-300">
             You haven&apos;t added any favorite{' '}
             {mediaType === 'movies' ? 'movies' : 'Tv shows'}.

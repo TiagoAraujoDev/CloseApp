@@ -9,7 +9,7 @@ export const metadata: Metadata = {
 
 export default async function SearchPage() {
   return (
-    <main className="max-w-5xl myMinHeight px-16 my-8 mx-auto">
+    <main className="myMinHeight my-8 mx-auto max-w-5xl px-16">
       <SearchDisplay />
     </main>
   )

@@ -1,16 +1,15 @@
 'use client'
 
-import { useInfiniteQuery } from 'react-query'
-
 import { Movie } from 'types'
 import React from 'react'
 import { ImSpinner2 } from 'react-icons/im'
+import { useInfiniteQuery } from 'react-query'
 import { BsArrowDownCircle } from 'react-icons/bs'
 
 import { getMovies } from '@/lib/axios/requests/movies'
 
 import { MovieCard } from '@/components/MovieCard'
-import { CardsSkeleton } from '../Loading/CardsSkeleton'
+import CardsSkeleton from '@/components/Loading/CardsSkeleton'
 
 export function NowPlayingMoviesContainer() {
   const moviesQuery = useInfiniteQuery(
@@ -47,18 +46,18 @@ export function NowPlayingMoviesContainer() {
           ))}
         </React.Fragment>
       ))}
-      <div className="w-fit mx-auto">
+      <div className="mx-auto w-fit">
         <button
           className="my-4"
           onClick={() => moviesQuery.fetchNextPage()}
           disabled={!moviesQuery.hasNextPage || moviesQuery.isFetchingNextPage}
         >
           {moviesQuery.isFetchingNextPage ? (
-            <ImSpinner2 className="text-emerald-500 text-3xl animate-spin" />
+            <ImSpinner2 className="animate-spin text-3xl text-emerald-500" />
           ) : moviesQuery.hasNextPage ? (
-            <BsArrowDownCircle className="text-emerald-500 text-3xl animate-bounce" />
+            <BsArrowDownCircle className="animate-bounce text-3xl text-emerald-500" />
           ) : (
-            <span className="text-red-500 text-base">No more results</span>
+            <span className="text-base text-red-500">No more results</span>
           )}
         </button>
       </div>

@@ -46,7 +46,7 @@ export const RatingStars = ({
     return (
       <div className="flex items-center justify-center space-x-2">
         {[1, 2, 3, 4, 5].map((starNumber) => (
-          <span key={starNumber} className="hover:scale-110 cursor-pointer">
+          <span key={starNumber} className="cursor-pointer hover:scale-110">
             <AiOutlineStar color="yellow" size={18} />
           </span>
         ))}
@@ -59,7 +59,7 @@ export const RatingStars = ({
       {[1, 2, 3, 4, 5].map((starNumber) => (
         <span
           key={starNumber}
-          className="hover:scale-110 cursor-pointer"
+          className="cursor-pointer hover:scale-110"
           onClick={() => handleStarClick(starNumber)}
         >
           {starNumber <= prevRating! ? (
