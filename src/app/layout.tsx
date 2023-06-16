@@ -39,7 +39,7 @@ export default async function RootLayout({ children }: LayoutProps) {
         />
         <link rel="manifest" href="favicon_io/site.webmanifest" />
       </head>
-      <body className="text-white bg-neutral-900 scrollbar-thin scrollbar-thumb-emerald-500 scrollbar-track-neutral-300">
+      <body className="bg-neutral-900 text-white overflow-x-hidden scrollbar-thin scrollbar-track-neutral-300 scrollbar-thumb-emerald-500">
         <Providers>
           <Header />
           {children}
