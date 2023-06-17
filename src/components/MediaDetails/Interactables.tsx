@@ -1,14 +1,14 @@
-'use client'
+"use client";
 
-import { useContext } from 'react'
-import { BsBookmark } from 'react-icons/bs'
-import { AiFillStar, AiOutlineHeart } from 'react-icons/ai'
+import { useContext } from "react";
+import { BsBookmark } from "react-icons/bs";
+import { AiFillStar, AiOutlineHeart } from "react-icons/ai";
 
-import { AuthContext } from '@/context/AuthContext'
+import { AuthContext } from "@/context/AuthContext";
 
-import { RatingButton } from '@/components/MediaDetails/RatingButton'
-import { WatchlistButton } from '@/components/MediaDetails/WatchlistButton'
-import { FavoriteButton } from '@/components/MediaDetails/FavoriteButton'
+import { RatingButton } from "@/components/MediaDetails/RatingButton";
+import { WatchlistButton } from "@/components/MediaDetails/WatchlistButton";
+import { FavoriteButton } from "@/components/MediaDetails/FavoriteButton";
 
 interface InteractableProps {
   voteAverage: number
@@ -23,9 +23,9 @@ export function Interactables({
   movieId,
   tvshowId,
 }: InteractableProps) {
-  const { sessionId } = useContext(AuthContext)
-  const mediaType = movieId ? 'movie' : 'tv'
-  const id = movieId || tvshowId
+  const { sessionId } = useContext(AuthContext);
+  const mediaType = movieId ? "movie" : "tv";
+  const id = movieId || tvshowId;
 
   if (!sessionId) {
     return (
@@ -61,7 +61,7 @@ export function Interactables({
           </button>
         </div>
       </div>
-    )
+    );
   }
 
   return (
@@ -94,5 +94,5 @@ export function Interactables({
         />
       </div>
     </div>
-  )
+  );
 }

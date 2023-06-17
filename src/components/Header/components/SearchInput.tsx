@@ -1,24 +1,24 @@
-'use client'
+"use client";
 
-import { useSearchParams, useRouter } from 'next/navigation'
-import React, { useCallback, useState } from 'react'
-import { RxMagnifyingGlass } from 'react-icons/rx'
+import { useSearchParams, useRouter } from "next/navigation";
+import React, { useCallback, useState } from "react";
+import { RxMagnifyingGlass } from "react-icons/rx";
 
 export function SearchInput() {
-  const searchParams = useSearchParams()!
-  const router = useRouter()
+  const searchParams = useSearchParams();
+  const router = useRouter();
 
-  const [searchValue, setSearchValue] = useState('')
+  const [searchValue, setSearchValue] = useState("");
 
   const createQueryString = useCallback(
     (name: string, value: string) => {
-      const params = new URLSearchParams(searchParams)
-      params.set(name, value)
+      const params = new URLSearchParams(searchParams);
+      params.set(name, value);
 
-      return params.toString()
+      return params.toString();
     },
     [searchParams],
-  )
+  );
 
   const handleSearch = useCallback(
     (
@@ -26,16 +26,16 @@ export function SearchInput() {
       isClickEvent: boolean,
       event?: React.KeyboardEvent,
     ) => {
-      if (!searchValue) return
+      if (!searchValue) return;
 
-      if (event?.key === 'Enter') {
-        router.push('/search' + '?' + createQueryString('terms', searchValue))
+      if (event?.key === "Enter") {
+        router.push("/search" + "?" + createQueryString("terms", searchValue));
       } else if (isClickEvent) {
-        router.push('/search' + '?' + createQueryString('terms', searchValue))
+        router.push("/search" + "?" + createQueryString("terms", searchValue));
       }
     },
     [createQueryString, router],
-  )
+  );
 
   return (
     <div className="mx-auto flex h-9 flex-grow items-center justify-between rounded-full bg-neutral-800 py-2 px-4 shadow-lg shadow-neutral-900 focus:border focus:border-emerald-500 sm:max-w-xs md:max-w-xl">
@@ -54,5 +54,5 @@ export function SearchInput() {
         <RxMagnifyingGlass className="text-2xl text-emerald-500" />
       </button>
     </div>
-  )
+  );
 }

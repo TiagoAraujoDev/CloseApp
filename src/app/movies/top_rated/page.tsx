@@ -1,11 +1,11 @@
-import type { Metadata } from 'next'
+import type { Metadata } from "next";
 
-import { TopRatedMoviesContainer } from '@/components/Movies/TopRatedContainer'
+import { TopRatedMoviesContainer } from "@/components/Movies/TopRatedContainer";
 
 export const metadata: Metadata = {
-  title: 'Movies | Top Rated',
-  description: 'Page with the best rated movies',
-}
+  title: "Movies | Top Rated",
+  description: "Page with the best rated movies",
+};
 
 export default function MoviesTopRatedPage() {
   return (
@@ -15,5 +15,5 @@ export default function MoviesTopRatedPage() {
       </h1>
       <TopRatedMoviesContainer />
     </section>
-  )
+  );
 }

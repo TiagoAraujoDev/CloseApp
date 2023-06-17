@@ -1,7 +1,7 @@
-import { memo } from 'react'
-import { Movie, TvShow } from 'types'
+import { memo } from "react";
+import { Movie, TvShow } from "types";
 
-import Card from './Card'
+import Card from "./Card";
 
 interface CarouselProps {
   movies?: Movie[]
@@ -13,14 +13,14 @@ function Carousel({ movies, tvshows }: CarouselProps) {
     <div className="flex w-full justify-between gap-2 overflow-auto pb-3 scrollbar-thin scrollbar-track-neutral-300 scrollbar-thumb-emerald-500">
       {movies &&
         movies.map((movie) => {
-          return <Card key={movie.id} movie={movie} />
+          return <Card key={movie.id} movie={movie} />;
         })}
       {tvshows &&
         tvshows.map((tvshow) => {
-          return <Card key={tvshow.id} tvshow={tvshow} />
+          return <Card key={tvshow.id} tvshow={tvshow} />;
         })}
     </div>
-  )
+  );
 }
 
-export default memo(Carousel)
+export default memo(Carousel);

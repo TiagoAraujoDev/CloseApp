@@ -1,13 +1,13 @@
-'use client'
+"use client";
 
-import { useMutation, useQuery } from 'react-query'
-import { BsBookmark, BsBookmarkFill } from 'react-icons/bs'
+import { useMutation, useQuery } from "react-query";
+import { BsBookmark, BsBookmarkFill } from "react-icons/bs";
 
 import {
   addToWatchList,
   getAccountState,
-} from '@/lib/axios/requests/interactions'
-import { queryClient } from '@/lib/ReactQuery'
+} from "@/lib/axios/requests/interactions";
+import { queryClient } from "@/lib/ReactQuery";
 
 interface MutationParams {
   mediaType: string
@@ -30,22 +30,22 @@ export const WatchlistButton = ({
   const { data: isInWatchlist, isLoading } = useQuery(
     `${mediaType}_${mediaId}_watchlist`,
     async () => {
-      const response = await getAccountState({ mediaId, mediaType, sessionId })
+      const response = await getAccountState({ mediaId, mediaType, sessionId });
 
-      return response?.data.watchlist
+      return response?.data.watchlist;
     },
     { initialData: false },
-  )
+  );
 
   const { mutate: mutateWatchlist } = useMutation({
     mutationFn: (media: MutationParams) => addToWatchList(media),
-    onSuccess: (_data, variables, _context) => {
+    onSuccess: (_data, variables) => {
       queryClient.setQueryData(
         `${mediaType}_${mediaId}_watchlist`,
         variables.isInWatchlist,
-      )
+      );
     },
-  })
+  });
 
   const handleAddToWatchlist = () => {
     const media = {
@@ -53,10 +53,10 @@ export const WatchlistButton = ({
       mediaId,
       sessionId,
       isInWatchlist: !isInWatchlist,
-    }
+    };
 
-    mutateWatchlist(media)
-  }
+    mutateWatchlist(media);
+  };
 
   if (isLoading) {
     return (
@@ -67,7 +67,7 @@ export const WatchlistButton = ({
       >
         <BsBookmark className="text-xs text-emerald-500 sm:text-base" />
       </button>
-    )
+    );
   }
 
   return (
@@ -93,5 +93,5 @@ export const WatchlistButton = ({
         </button>
       )}
     </>
-  )
-}
+  );
+};

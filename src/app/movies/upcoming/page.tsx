@@ -1,11 +1,11 @@
-import type { Metadata } from 'next'
+import type { Metadata } from "next";
 
-import { UpcomingMoviesContainer } from '@/components/Movies/UpcomingContainer'
+import { UpcomingMoviesContainer } from "@/components/Movies/UpcomingContainer";
 
 export const metadata: Metadata = {
-  title: 'Movies | Upcoming',
-  description: 'Page with the upcoming movies',
-}
+  title: "Movies | Upcoming",
+  description: "Page with the upcoming movies",
+};
 
 export default function MoviesUpcomingPage() {
   return (
@@ -15,5 +15,5 @@ export default function MoviesUpcomingPage() {
       </h1>
       <UpcomingMoviesContainer />
     </section>
-  )
+  );
 }

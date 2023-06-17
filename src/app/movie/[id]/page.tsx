@@ -1,31 +1,31 @@
-import type { Metadata } from 'next'
-import Image from 'next/image'
-import Link from 'next/link'
+import type { Metadata } from "next";
+import Image from "next/image";
+import Link from "next/link";
 import {
   AiFillFacebook,
   AiFillInstagram,
   AiFillStar,
   AiFillTwitterSquare,
-} from 'react-icons/ai'
-import { ImSpinner2 } from 'react-icons/im'
-import { MdRateReview } from 'react-icons/md'
-import { Actor, Crew, ExternalIds, MovieDetails, Review } from 'types'
+} from "react-icons/ai";
+import { ImSpinner2 } from "react-icons/im";
+import { MdRateReview } from "react-icons/md";
+import { Actor, Crew, ExternalIds, MovieDetails, Review } from "types";
 
-import { formatDate } from '@/utils/formatDate'
+import { formatDate } from "@/utils/formatDate";
 import {
   getMovieCredits,
   getMovieDetails,
   getMovieExternalIds,
   getMovieReviews,
-} from '@/lib/axios/requests/movies'
-import { treatAvatarPath } from '@/utils/treatReviewAuthorAvatarPath'
-import { convertCodeToLang } from '@/utils/convertCodeToLang'
-import { formatCurrency } from '@/utils/formatCurrency'
+} from "@/lib/axios/requests/movies";
+import { treatAvatarPath } from "@/utils/treatReviewAuthorAvatarPath";
+import { convertCodeToLang } from "@/utils/convertCodeToLang";
+import { formatCurrency } from "@/utils/formatCurrency";
 
-import { Interactables } from '@/components/MediaDetails/Interactables'
+import { Interactables } from "@/components/MediaDetails/Interactables";
 
-import placeholderBackdrop from '../../../../public/placeholderBackdrop.png'
-import placeholderPoster from '../../../../public/placeholderPoster.png'
+import placeholderBackdrop from "../../../../public/placeholderBackdrop.png";
+import placeholderPoster from "../../../../public/placeholderPoster.png";
 
 interface MovieDetailsProps {
   params: {
@@ -36,10 +36,10 @@ interface MovieDetailsProps {
 export async function generateMetadata({
   params,
 }: MovieDetailsProps): Promise<Metadata> {
-  const movieDetailsResponse = await getMovieDetails(params.id)
-  const title = movieDetailsResponse?.data.title
+  const movieDetailsResponse = await getMovieDetails(params.id);
+  const title = movieDetailsResponse?.data.title;
 
-  return { title: `Movie | ${title}` }
+  return { title: `Movie | ${title}` };
 }
 
 export default async function MovieDetailsPage({ params }: MovieDetailsProps) {
@@ -53,23 +53,23 @@ export default async function MovieDetailsPage({ params }: MovieDetailsProps) {
     getMovieCredits(params.id),
     getMovieExternalIds(params.id),
     getMovieReviews(params.id),
-  ])
+  ]);
 
-  const movieDetails: MovieDetails = movieDetailsResponse?.data
-  const externalIds: ExternalIds = movieExternalIdsResponse?.data
-  const movieReviews: Review[] = movieReviewsResponse?.data.results
-  const cast: Actor[] = movieCreditsResponse?.data.cast
-  const crew: Crew[] = movieCreditsResponse?.data.crew
+  const movieDetails: MovieDetails = movieDetailsResponse?.data;
+  const externalIds: ExternalIds = movieExternalIdsResponse?.data;
+  const movieReviews: Review[] = movieReviewsResponse?.data.results;
+  const cast: Actor[] = movieCreditsResponse?.data.cast;
+  const crew: Crew[] = movieCreditsResponse?.data.crew;
 
-  if (crew) crew.length = 5
-  if (cast) cast.length = 10
+  if (crew) crew.length = 5;
+  if (cast) cast.length = 10;
 
   if (!movieDetails || !movieReviews || !externalIds || !cast || !crew) {
     return (
       <div className="flex h-screen w-screen items-center justify-center">
         <ImSpinner2 className="animate-spin text-xl text-neutral-100" />
       </div>
-    )
+    );
   }
 
   return (
@@ -177,7 +177,7 @@ export default async function MovieDetailsPage({ params }: MovieDetailsProps) {
                         {item.job}
                       </span>
                     </div>
-                  )
+                  );
                 })}
               </div>
             </div>
@@ -229,7 +229,7 @@ export default async function MovieDetailsPage({ params }: MovieDetailsProps) {
                     </span>
                   </div>
                 </div>
-              )
+              );
             })}
         </div>
       </section>
@@ -262,7 +262,7 @@ export default async function MovieDetailsPage({ params }: MovieDetailsProps) {
             <span className="text-xs text-neutral-300 md:text-base">
               {movieDetails.budget !== 0
                 ? `${formatCurrency(movieDetails.budget)}`
-                : '-'}
+                : "-"}
             </span>
           </div>
           <div>
@@ -272,7 +272,7 @@ export default async function MovieDetailsPage({ params }: MovieDetailsProps) {
             <span className="text-xs text-neutral-300 md:text-base">
               {movieDetails.revenue !== 0
                 ? `${formatCurrency(movieDetails.revenue)}`
-                : '-'}
+                : "-"}
             </span>
           </div>
         </div>
@@ -285,7 +285,7 @@ export default async function MovieDetailsPage({ params }: MovieDetailsProps) {
         <div className="flex items-center">
           {externalIds.facebook_id ? (
             <Link
-              target={'_blank'}
+              target={"_blank"}
               href={`https://www.facebook.com/${externalIds.facebook_id}`}
             >
               <AiFillFacebook size={24} className="cursor-pointer" />
@@ -295,7 +295,7 @@ export default async function MovieDetailsPage({ params }: MovieDetailsProps) {
           )}
           {externalIds.instagram_id ? (
             <Link
-              target={'_blank'}
+              target={"_blank"}
               href={`https://www.instagram.com/${externalIds.instagram_id}`}
             >
               <AiFillInstagram size={24} className="cursor-pointer" />
@@ -305,7 +305,7 @@ export default async function MovieDetailsPage({ params }: MovieDetailsProps) {
           )}
           {externalIds.twitter_id ? (
             <Link
-              target={'_blank'}
+              target={"_blank"}
               href={`https://www.twitter.com/${externalIds.twitter_id}`}
             >
               <AiFillTwitterSquare size={24} className="cursor-pointer" />
@@ -355,7 +355,7 @@ export default async function MovieDetailsPage({ params }: MovieDetailsProps) {
                     <span className="text-neutral-300">
                       {review.author_details.rating
                         ? review.author_details.rating
-                        : '-'}
+                        : "-"}
                     </span>
                   </div>
                 </div>
@@ -379,5 +379,5 @@ export default async function MovieDetailsPage({ params }: MovieDetailsProps) {
         </div>
       </section>
     </main>
-  )
+  );
 }

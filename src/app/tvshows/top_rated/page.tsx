@@ -1,11 +1,11 @@
-import type { Metadata } from 'next'
+import type { Metadata } from "next";
 
-import { TopRatedTvshowsContainer } from '@/components/Tvshows/TopRatedContainer'
+import { TopRatedTvshowsContainer } from "@/components/Tvshows/TopRatedContainer";
 
 export const metadata: Metadata = {
-  title: 'Tvshows | Top rated',
-  description: 'Page with the top rated TV shows',
-}
+  title: "Tvshows | Top rated",
+  description: "Page with the top rated TV shows",
+};
 
 export default function TvshowsTopRatedPage() {
   return (
@@ -15,5 +15,5 @@ export default function TvshowsTopRatedPage() {
       </h1>
       <TopRatedTvshowsContainer />
     </section>
-  )
+  );
 }

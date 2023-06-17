@@ -1,16 +1,16 @@
-import { Metadata } from 'next'
-import { ReactNode } from 'react'
+import { Metadata } from "next";
+import { ReactNode } from "react";
 
-import { Header } from '@/components/Header'
-import { Footer } from '@/components/Footer'
-import { Providers } from '@/Providers'
+import { Header } from "@/components/Header";
+import { Footer } from "@/components/Footer";
+import { Providers } from "@/Providers";
 
-import './globals.css'
+import "./globals.css";
 
 export const metadata: Metadata = {
-  title: 'CloseApp',
-  description: 'The movies and TV shows most popular',
-}
+  title: "CloseApp",
+  description: "The movies and TV shows most popular",
+};
 
 interface LayoutProps {
   children: ReactNode
@@ -47,5 +47,5 @@ export default async function RootLayout({ children }: LayoutProps) {
         </Providers>
       </body>
     </html>
-  )
+  );
 }

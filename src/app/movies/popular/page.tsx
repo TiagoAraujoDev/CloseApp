@@ -1,11 +1,11 @@
-import type { Metadata } from 'next'
+import type { Metadata } from "next";
 
-import { PopularMoviesContainer } from '@/components/Movies/PopularContainer'
+import { PopularMoviesContainer } from "@/components/Movies/PopularContainer";
 
 export const metadata: Metadata = {
-  title: 'Movies | Popular',
-  description: 'Page with the most popular movies',
-}
+  title: "Movies | Popular",
+  description: "Page with the most popular movies",
+};
 
 export default function MoviesPopularPage() {
   return (
@@ -15,5 +15,5 @@ export default function MoviesPopularPage() {
       </h1>
       <PopularMoviesContainer />
     </section>
-  )
+  );
 }

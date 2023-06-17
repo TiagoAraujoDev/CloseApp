@@ -1,11 +1,11 @@
-'use client'
+"use client";
 
-import { ReactNode } from 'react'
-import { QueryClientProvider } from 'react-query'
-import { ReactQueryDevtools } from 'react-query/devtools'
+import { ReactNode } from "react";
+import { QueryClientProvider } from "react-query";
+import { ReactQueryDevtools } from "react-query/devtools";
 
-import { queryClient } from '@/lib/ReactQuery'
-import { AuthContextProvider } from '@/context/AuthContext'
+import { queryClient } from "@/lib/ReactQuery";
+import { AuthContextProvider } from "@/context/AuthContext";
 
 interface ProvidersProps {
   children: ReactNode
@@ -17,5 +17,5 @@ export function Providers({ children }: ProvidersProps) {
       <AuthContextProvider>{children}</AuthContextProvider>
       <ReactQueryDevtools initialIsOpen={false} />
     </QueryClientProvider>
-  )
+  );
 }

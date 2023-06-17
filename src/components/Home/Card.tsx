@@ -1,11 +1,11 @@
-import { memo } from 'react'
-import Image from 'next/image'
-import Link from 'next/link'
-import { Movie, TvShow } from 'types'
+import { memo } from "react";
+import Image from "next/image";
+import Link from "next/link";
+import { Movie, TvShow } from "types";
 
-import { formatDate } from '@/utils/formatDate'
+import { formatDate } from "@/utils/formatDate";
 
-import placeholderPoster from '../../../public/placeholderPoster.png'
+import placeholderPoster from "../../../public/placeholderPoster.png";
 
 interface CardProps {
   movie?: Movie
@@ -93,7 +93,7 @@ function Card({ movie, tvshow }: CardProps) {
         </div>
       )}
     </>
-  )
+  );
 }
 
-export default memo(Card)
+export default memo(Card);

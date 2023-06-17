@@ -1,4 +1,4 @@
-import { memo } from 'react'
+import { memo } from "react";
 
 function CardsSkeleton() {
   return (
@@ -20,7 +20,7 @@ function CardsSkeleton() {
         </div>
       ))}
     </>
-  )
+  );
 }
 
-export default memo(CardsSkeleton)
+export default memo(CardsSkeleton);

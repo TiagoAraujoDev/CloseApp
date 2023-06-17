@@ -1,41 +1,41 @@
-'use client'
+"use client";
 
-import { useInfiniteQuery } from 'react-query'
+import { useInfiniteQuery } from "react-query";
 
-import { TvShow } from 'types'
-import React from 'react'
-import { ImSpinner2 } from 'react-icons/im'
-import { BsArrowDownCircle } from 'react-icons/bs'
+import { TvShow } from "types";
+import React from "react";
+import { ImSpinner2 } from "react-icons/im";
+import { BsArrowDownCircle } from "react-icons/bs";
 
-import { getTvShows } from '@/lib/axios/requests/tvshows'
+import { getTvShows } from "@/lib/axios/requests/tvshows";
 
-import { TvShowCard } from '@/components/TvShowCard'
-import CardsSkeleton from '@/components/Loading/CardsSkeleton'
+import { TvShowCard } from "@/components/TvShowCard";
+import CardsSkeleton from "@/components/Loading/CardsSkeleton";
 
 export function OnTheAirTvshowsContainer() {
   const tvshowsQuery = useInfiniteQuery(
-    'on_the_air_tvshows_main',
+    "on_the_air_tvshows_main",
     async ({ pageParam = 1 }) => {
-      const response = await getTvShows('on_the_air', pageParam)
+      const response = await getTvShows("on_the_air", pageParam);
 
-      return response
+      return response;
     },
     {
-      getNextPageParam: (lastPage, _pages) =>
+      getNextPageParam: (lastPage) =>
         lastPage?.data.page < lastPage?.data.total_pages
           ? lastPage?.data.page + 1
           : null,
     },
-  )
+  );
 
-  if (tvshowsQuery.status === 'loading') {
-    return <CardsSkeleton />
-  } else if (tvshowsQuery.status === 'error') {
+  if (tvshowsQuery.status === "loading") {
+    return <CardsSkeleton />;
+  } else if (tvshowsQuery.status === "error") {
     return (
       <div>
         Error: <span>{String(tvshowsQuery.error)}</span>
       </div>
-    )
+    );
   }
 
   return (
@@ -65,5 +65,5 @@ export function OnTheAirTvshowsContainer() {
         </button>
       </div>
     </div>
-  )
+  );
 }

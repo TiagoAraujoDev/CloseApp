@@ -1,7 +1,7 @@
-import { memo } from 'react'
-import * as ToogleGroup from '@radix-ui/react-toggle-group'
+import { memo } from "react";
+import * as ToogleGroup from "@radix-ui/react-toggle-group";
 
-import { formatLabel } from '@/utils/formatLabel'
+import { formatLabel } from "@/utils/formatLabel";
 
 interface ToggleCarouselProps {
   onToggleChange: (label: string) => void
@@ -20,7 +20,7 @@ const ToggleCarousel = ({
       type="single"
       defaultValue={currentLabel}
       onValueChange={(value) => {
-        if (value) onToggleChange(value)
+        if (value) onToggleChange(value);
       }}
     >
       {labels.map((label, index) => {
@@ -32,10 +32,10 @@ const ToggleCarousel = ({
           >
             {formatLabel(label)}
           </ToogleGroup.Item>
-        )
+        );
       })}
     </ToogleGroup.Root>
-  )
-}
+  );
+};
 
-export default memo(ToggleCarousel)
+export default memo(ToggleCarousel);

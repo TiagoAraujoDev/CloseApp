@@ -1,43 +1,43 @@
-'use client'
+"use client";
 
-import { memo, useCallback, useState } from 'react'
-import { useQuery } from 'react-query'
+import { memo, useCallback, useState } from "react";
+import { useQuery } from "react-query";
 
-import { getTvShows } from '@/lib/axios/requests/tvshows'
+import { getTvShows } from "@/lib/axios/requests/tvshows";
 
-import Carousel from '@/components/Home/Carousel'
-import CarouselSkeleton from '@/components/Loading/CarouselSkeleton'
-import ToggleCarousel from '@/components/Home/ToggleCarousel'
+import Carousel from "@/components/Home/Carousel";
+import CarouselSkeleton from "@/components/Loading/CarouselSkeleton";
+import ToggleCarousel from "@/components/Home/ToggleCarousel";
 
 interface TvShowsProps {
   labels: string[]
 }
 
 function TvShowsSection({ labels }: TvShowsProps) {
-  const [label, setLabel] = useState(labels[0])
+  const [label, setLabel] = useState(labels[0]);
 
-  const queryKey = `${label}_tvshows`
+  const queryKey = `${label}_tvshows`;
 
   const { data, isLoading } = useQuery(
     queryKey,
     async () => {
-      const response = await getTvShows(label)
-      const tvshows = response?.data.results
+      const response = await getTvShows(label);
+      const tvshows = response?.data.results;
 
-      return tvshows
+      return tvshows;
     },
     {
       refetchOnMount: false,
       staleTime: 60 * 60 * 2, // 2 hours
     },
-  )
+  );
 
   const handleToggleClick = useCallback((label: string) => {
-    setLabel(label)
-  }, [])
+    setLabel(label);
+  }, []);
 
   if (isLoading) {
-    return <CarouselSkeleton labels={labels} label={label} title="TV Shows" />
+    return <CarouselSkeleton labels={labels} label={label} title="TV Shows" />;
   }
 
   return (
@@ -54,7 +54,7 @@ function TvShowsSection({ labels }: TvShowsProps) {
       </div>
       {data && <Carousel tvshows={data} />}
     </section>
-  )
+  );
 }
 
-export default memo(TvShowsSection)
+export default memo(TvShowsSection);

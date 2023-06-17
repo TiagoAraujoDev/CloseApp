@@ -1,81 +1,81 @@
-'use client'
+"use client";
 
-import React, { useEffect, useState } from 'react'
-import { Movie, TvShow } from 'types'
-import { useInfiniteQuery } from 'react-query'
-import { useSearchParams } from 'next/navigation'
-import { ImSpinner2 } from 'react-icons/im'
-import { BsArrowDownCircle } from 'react-icons/bs'
+import { useEffect, useState } from "react";
+import { Movie, TvShow } from "types";
+import { useInfiniteQuery } from "react-query";
+import { useSearchParams } from "next/navigation";
+import { ImSpinner2 } from "react-icons/im";
+import { BsArrowDownCircle } from "react-icons/bs";
 
-import { search } from '@/lib/axios/requests/search'
+import { search } from "@/lib/axios/requests/search";
 
-import { MovieCard } from '@/components/MovieCard'
-import { TvShowCard } from '@/components/TvShowCard'
-import SearchSkeleton from '@/components/Loading/SearchSkeleton'
+import { MovieCard } from "@/components/MovieCard";
+import { TvShowCard } from "@/components/TvShowCard";
+import SearchSkeleton from "@/components/Loading/SearchSkeleton";
 
 export function SearchDisplay() {
-  const searchParams = useSearchParams()
+  const searchParams = useSearchParams();
 
-  const [mediaType, setMediaType] = useState('movie')
-  const [movieResultCount, setMovieResultCount] = useState(0)
-  const [tvshowResultCount, setTvshowResultCount] = useState(0)
-  const [query, setQuery] = useState<string | null>('')
+  const [mediaType, setMediaType] = useState("movie");
+  const [movieResultCount, setMovieResultCount] = useState(0);
+  const [tvshowResultCount, setTvshowResultCount] = useState(0);
+  const [query, setQuery] = useState<string | null>("");
 
-  const searchQuery = searchParams ? searchParams.get('terms') : null
+  const searchQuery = searchParams ? searchParams.get("terms") : null;
 
   useEffect(() => {
-    setQuery(searchQuery)
-  }, [searchQuery])
+    setQuery(searchQuery);
+  }, [searchQuery]);
 
   const moviesQuery = useInfiniteQuery(
-    'movies_search_' + query,
+    "movies_search_" + query,
     async ({ pageParam = 1 }) => {
-      const response = await search(query, 'movie', pageParam)
+      const response = await search(query, "movie", pageParam);
 
-      return response
+      return response;
     },
     {
-      getNextPageParam: (lastPage, _pages) =>
+      getNextPageParam: (lastPage) =>
         lastPage?.data.page < lastPage?.data.total_pages
           ? lastPage?.data.page + 1
           : null,
     },
-  )
+  );
 
   const tvshowsQuery = useInfiniteQuery(
-    'tvshows_search_' + query,
+    "tvshows_search_" + query,
     async ({ pageParam = 1 }) => {
-      const response = await search(query, 'tv', pageParam)
+      const response = await search(query, "tv", pageParam);
 
-      return response
+      return response;
     },
     {
-      getNextPageParam: (lastPage, _pages) =>
+      getNextPageParam: (lastPage) =>
         lastPage?.data.page < lastPage?.data.total_pages
           ? lastPage?.data.page + 1
           : null,
     },
-  )
+  );
 
   useEffect(() => {
     if (moviesQuery.isSuccess && tvshowsQuery.isSuccess) {
-      setMovieResultCount(moviesQuery.data?.pages[0]?.data.total_results)
-      setTvshowResultCount(tvshowsQuery.data?.pages[0]?.data.total_results)
+      setMovieResultCount(moviesQuery.data?.pages[0]?.data.total_results);
+      setTvshowResultCount(tvshowsQuery.data?.pages[0]?.data.total_results);
     }
     // eslint-disable-next-line
   }, [moviesQuery, tvshowsQuery])
 
-  if (moviesQuery.status === 'loading' || tvshowsQuery.status === 'loading') {
-    return <SearchSkeleton />
+  if (moviesQuery.status === "loading" || tvshowsQuery.status === "loading") {
+    return <SearchSkeleton />;
   } else if (
-    moviesQuery.status === 'error' ||
-    tvshowsQuery.status === 'error'
+    moviesQuery.status === "error" ||
+    tvshowsQuery.status === "error"
   ) {
     return (
       <div>
         Error: <span>{String(moviesQuery.error || tvshowsQuery.error)}</span>
       </div>
-    )
+    );
   }
 
   return (
@@ -88,41 +88,41 @@ export function SearchDisplay() {
           <button
             className={`flex items-center justify-between border-gray-300 p-2 text-sm text-white md:text-base 
              ${
-               mediaType === 'movie'
-                 ? 'bg-emerald-500 font-semibold'
-                 : 'hover:bg-neutral-600'
-             }`}
-            onClick={() => setMediaType('movie')}
+    mediaType === "movie"
+      ? "bg-emerald-500 font-semibold"
+      : "hover:bg-neutral-600"
+    }`}
+            onClick={() => setMediaType("movie")}
           >
             Movie
             <span
               className={`flex items-center justify-center rounded bg-neutral-200 px-2 py-1 text-[10px]  
                font-normal leading-none text-neutral-600 shadow shadow-neutral-800 md:text-sm`}
             >
-              {movieResultCount || '0'}
+              {movieResultCount || "0"}
             </span>
           </button>
           <button
             className={`flex items-center justify-between border-gray-300 p-2 text-sm text-white md:text-base 
              ${
-               mediaType === 'tv'
-                 ? 'bg-emerald-500 font-semibold'
-                 : 'hover:bg-neutral-600'
-             }`}
-            onClick={() => setMediaType('tv')}
+    mediaType === "tv"
+      ? "bg-emerald-500 font-semibold"
+      : "hover:bg-neutral-600"
+    }`}
+            onClick={() => setMediaType("tv")}
           >
             Tv
             <span
               className={`flex items-center justify-center rounded bg-neutral-200 px-2 py-1 text-[10px]  
                font-normal leading-none text-neutral-600 shadow shadow-neutral-800 md:text-sm`}
             >
-              {tvshowResultCount || '0'}
+              {tvshowResultCount || "0"}
             </span>
           </button>
         </div>
       </div>
       <>
-        {mediaType === 'movie' ? (
+        {mediaType === "movie" ? (
           <>
             {moviesQuery.data?.pages.map((group, i) => (
               <div className="w-full" key={i}>
@@ -183,5 +183,5 @@ export function SearchDisplay() {
         )}
       </>
     </>
-  )
+  );
 }

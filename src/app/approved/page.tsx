@@ -1,21 +1,21 @@
-'use client'
+"use client";
 
-import { useContext } from 'react'
-import { useRouter, useSearchParams } from 'next/navigation'
+import { useContext } from "react";
+import { useRouter, useSearchParams } from "next/navigation";
 
-import { AuthContext } from '@/context/AuthContext'
+import { AuthContext } from "@/context/AuthContext";
 
 export default function SessionApprovedPage() {
-  const { createSessionId } = useContext(AuthContext)
-  const searchParams = useSearchParams()
-  const router = useRouter()
+  const { createSessionId } = useContext(AuthContext);
+  const searchParams = useSearchParams();
+  const router = useRouter();
 
-  const token = searchParams.get('request_token')
+  const token = searchParams.get("request_token");
 
   const handleLogginInSession = async (token: string | null) => {
-    if (token) await createSessionId(token)
-    router.push('/')
-  }
+    if (token) await createSessionId(token);
+    router.push("/");
+  };
 
   return (
     <section className="myMinHeight m-auto my-8 flex max-w-5xl items-center justify-center px-4">
@@ -31,5 +31,5 @@ export default function SessionApprovedPage() {
         </button>
       </div>
     </section>
-  )
+  );
 }

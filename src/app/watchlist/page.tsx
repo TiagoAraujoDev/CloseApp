@@ -1,16 +1,16 @@
-'use client'
+"use client";
 
-import { useContext, useState } from 'react'
-import * as ToggleGroup from '@radix-ui/react-toggle-group'
+import { useContext, useState } from "react";
+import * as ToggleGroup from "@radix-ui/react-toggle-group";
 
-import { AuthContext } from '@/context/AuthContext'
+import { AuthContext } from "@/context/AuthContext";
 
-import CardsSkeleton from '@/components/Loading/CardsSkeleton'
-import { WatchlistContainer } from '@/components/Watchlist/WatchlistContainer'
+import CardsSkeleton from "@/components/Loading/CardsSkeleton";
+import { WatchlistContainer } from "@/components/Watchlist/WatchlistContainer";
 
 export default function WatchlistPage() {
-  const { sessionId } = useContext(AuthContext)
-  const [mediaType, setMediaType] = useState('movies')
+  const { sessionId } = useContext(AuthContext);
+  const [mediaType, setMediaType] = useState("movies");
 
   if (!sessionId)
     return (
@@ -39,7 +39,7 @@ export default function WatchlistPage() {
         </div>
         <CardsSkeleton />
       </section>
-    )
+    );
 
   return (
     <section className="myMinHeight my-8 mx-auto flex max-w-5xl flex-col items-center justify-center px-16">
@@ -69,5 +69,5 @@ export default function WatchlistPage() {
         <WatchlistContainer mediaType={mediaType} sessionId={sessionId} />
       )}
     </section>
-  )
+  );
 }

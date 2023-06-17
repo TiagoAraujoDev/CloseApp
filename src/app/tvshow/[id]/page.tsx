@@ -1,30 +1,30 @@
-import type { Metadata } from 'next'
-import Link from 'next/link'
-import Image from 'next/image'
-import { Actor, Crew, ExternalIds, Review, TvShowDetails } from 'types'
+import type { Metadata } from "next";
+import Link from "next/link";
+import Image from "next/image";
+import { Actor, Crew, ExternalIds, Review, TvShowDetails } from "types";
 import {
   AiFillFacebook,
   AiFillInstagram,
   AiFillTwitterSquare,
   AiFillStar,
-} from 'react-icons/ai'
-import { ImSpinner2 } from 'react-icons/im'
-import { MdRateReview } from 'react-icons/md'
+} from "react-icons/ai";
+import { ImSpinner2 } from "react-icons/im";
+import { MdRateReview } from "react-icons/md";
 
 import {
   getTvShowCredits,
   getTvShowExternalIds,
   getTvShowReviews,
   getTvShowsDetails,
-} from '@/lib/axios/requests/tvshows'
-import { formatDate } from '@/utils/formatDate'
-import { convertCodeToLang } from '@/utils/convertCodeToLang'
-import { treatAvatarPath } from '@/utils/treatReviewAuthorAvatarPath'
+} from "@/lib/axios/requests/tvshows";
+import { formatDate } from "@/utils/formatDate";
+import { convertCodeToLang } from "@/utils/convertCodeToLang";
+import { treatAvatarPath } from "@/utils/treatReviewAuthorAvatarPath";
 
-import { Interactables } from '@/components/MediaDetails/Interactables'
+import { Interactables } from "@/components/MediaDetails/Interactables";
 
-import placeholderBackdrop from '../../../../public/placeholderBackdrop.png'
-import placeholderPoster from '../../../../public/placeholderPoster.png'
+import placeholderBackdrop from "../../../../public/placeholderBackdrop.png";
+import placeholderPoster from "../../../../public/placeholderPoster.png";
 
 interface TvshowDetailsProps {
   params: {
@@ -35,10 +35,10 @@ interface TvshowDetailsProps {
 export async function generateMetadata({
   params,
 }: TvshowDetailsProps): Promise<Metadata> {
-  const tvshowDetailsResponse = await getTvShowsDetails(params.id)
-  const title = tvshowDetailsResponse?.data.original_name
+  const tvshowDetailsResponse = await getTvShowsDetails(params.id);
+  const title = tvshowDetailsResponse?.data.original_name;
 
-  return { title: `Tvshow | ${title}` }
+  return { title: `Tvshow | ${title}` };
 }
 
 export default async function TvShowDetailsPage({
@@ -54,22 +54,22 @@ export default async function TvShowDetailsPage({
     getTvShowCredits(params.id),
     getTvShowExternalIds(params.id),
     getTvShowReviews(params.id),
-  ])
+  ]);
 
-  const tvShowDetails: TvShowDetails = tvShowDetailsResponse?.data
-  const tvShowExternalIds: ExternalIds = tvShowExternalIdsResponse?.data
-  const tvShowReviews: Review[] = tvShowReviewsResponse?.data.results
-  const crew: Crew[] = tvShowCreditsResponse?.data.crew
-  const cast: Actor[] = tvShowCreditsResponse?.data.cast
+  const tvShowDetails: TvShowDetails = tvShowDetailsResponse?.data;
+  const tvShowExternalIds: ExternalIds = tvShowExternalIdsResponse?.data;
+  const tvShowReviews: Review[] = tvShowReviewsResponse?.data.results;
+  const crew: Crew[] = tvShowCreditsResponse?.data.crew;
+  const cast: Actor[] = tvShowCreditsResponse?.data.cast;
 
-  if (crew) crew.length = 6
+  if (crew) crew.length = 6;
 
   if (!tvShowDetails) {
     return (
       <div className="flex h-screen w-screen items-center justify-center">
         <ImSpinner2 className="animate-spin text-xl text-neutral-100" />
       </div>
-    )
+    );
   }
 
   return (
@@ -140,7 +140,7 @@ export default async function TvShowDetailsPage({
                 <span className="hidden text-xs text-neutral-300 sm:inline-block sm:text-base">
                   {tvShowDetails.episode_run_time.length > 0
                     ? `${tvShowDetails.episode_run_time[0]} min`
-                    : ''}
+                    : ""}
                 </span>
               </div>
               {/** Intaractive: ClientComponent */}
@@ -179,7 +179,7 @@ export default async function TvShowDetailsPage({
                         {item.job}
                       </span>
                     </div>
-                  )
+                  );
                 })}
               </div>
             </div>
@@ -231,7 +231,7 @@ export default async function TvShowDetailsPage({
                     </span>
                   </div>
                 </div>
-              )
+              );
             })}
         </div>
       </section>
@@ -264,7 +264,7 @@ export default async function TvShowDetailsPage({
             <span className="text-xs text-neutral-300 md:text-base">
               {tvShowDetails.number_of_seasons !== 0
                 ? tvShowDetails.number_of_seasons
-                : '-'}
+                : "-"}
             </span>
           </div>
           <div>
@@ -274,7 +274,7 @@ export default async function TvShowDetailsPage({
             <span className="text-xs text-neutral-300 md:text-base">
               {tvShowDetails.last_episode_to_air.id
                 ? tvShowDetails.last_episode_to_air.name
-                : '-'}
+                : "-"}
             </span>
           </div>
         </div>
@@ -287,7 +287,7 @@ export default async function TvShowDetailsPage({
         <div className="flex items-center">
           {tvShowExternalIds.facebook_id ? (
             <Link
-              target={'_blank'}
+              target={"_blank"}
               href={`https://www.facebook.com/${tvShowExternalIds.facebook_id}`}
             >
               <AiFillFacebook size={24} className="cursor-pointer" />
@@ -297,7 +297,7 @@ export default async function TvShowDetailsPage({
           )}
           {tvShowExternalIds.instagram_id ? (
             <Link
-              target={'_blank'}
+              target={"_blank"}
               href={`https://www.instagram.com/${tvShowExternalIds.instagram_id}`}
             >
               <AiFillInstagram size={24} className="cursor-pointer" />
@@ -307,7 +307,7 @@ export default async function TvShowDetailsPage({
           )}
           {tvShowExternalIds.twitter_id ? (
             <Link
-              target={'_blank'}
+              target={"_blank"}
               href={`https://www.twitter.com/${tvShowExternalIds.twitter_id}`}
             >
               <AiFillTwitterSquare size={24} className="cursor-pointer" />
@@ -357,7 +357,7 @@ export default async function TvShowDetailsPage({
                     <span className="text-neutral-300">
                       {review.author_details.rating
                         ? review.author_details.rating
-                        : '-'}
+                        : "-"}
                     </span>
                   </div>
                 </div>
@@ -381,5 +381,5 @@ export default async function TvShowDetailsPage({
         </div>
       </section>
     </main>
-  )
+  );
 }

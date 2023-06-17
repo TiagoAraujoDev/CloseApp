@@ -1,13 +1,13 @@
-'use client'
+"use client";
 
-import { memo, useCallback, useState } from 'react'
-import { useQuery } from 'react-query'
+import { memo, useCallback, useState } from "react";
+import { useQuery } from "react-query";
 
-import { getTrending } from '@/lib/axios/requests/trending'
+import { getTrending } from "@/lib/axios/requests/trending";
 
-import Carousel from '@/components/Home/Carousel'
-import CarouselSkeleton from '@/components/Loading/CarouselSkeleton'
-import ToggleCarousel from '@/components/Home/ToggleCarousel'
+import Carousel from "@/components/Home/Carousel";
+import CarouselSkeleton from "@/components/Loading/CarouselSkeleton";
+import ToggleCarousel from "@/components/Home/ToggleCarousel";
 
 interface TrendingProps {
   variant: string
@@ -15,32 +15,32 @@ interface TrendingProps {
 }
 
 function TrendingSection({ variant, periods }: TrendingProps) {
-  const [period, setPeriod] = useState(periods[0])
+  const [period, setPeriod] = useState(periods[0]);
 
-  const sectionTitle = variant === 'movie' ? 'Trending movies' : 'Trending TV'
+  const sectionTitle = variant === "movie" ? "Trending movies" : "Trending TV";
 
-  const queryKey = `${variant}_${period}`
+  const queryKey = `${variant}_${period}`;
 
   const { data, isLoading } = useQuery(
     queryKey,
     async () => {
-      const response = await getTrending(variant, period)
-      return response?.data.results
+      const response = await getTrending(variant, period);
+      return response?.data.results;
     },
     {
       refetchOnMount: false,
       staleTime: 60 * 60 * 2, // 2 hours
     },
-  )
+  );
 
   const handleToggleChange = useCallback((period: string) => {
-    setPeriod(period)
-  }, [])
+    setPeriod(period);
+  }, []);
 
   if (isLoading) {
     return (
       <CarouselSkeleton labels={periods} label={period} title={sectionTitle} />
-    )
+    );
   }
 
   return (
@@ -55,13 +55,13 @@ function TrendingSection({ variant, periods }: TrendingProps) {
           onToggleChange={handleToggleChange}
         />
       </div>
-      {variant === 'movie' ? (
+      {variant === "movie" ? (
         <Carousel movies={data} />
       ) : (
         <Carousel tvshows={data} />
       )}
     </section>
-  )
+  );
 }
 
-export default memo(TrendingSection)
+export default memo(TrendingSection);

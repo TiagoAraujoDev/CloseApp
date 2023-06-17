@@ -1,8 +1,8 @@
 export const treatAvatarPath = (path: string): string => {
-  if (!path) return ''
+  if (!path) return "";
 
-  const pathArr = path.split('/')
-  const avatarPath = pathArr[pathArr.length - 1]
+  const pathArr = path.split("/");
+  const avatarPath = pathArr[pathArr.length - 1];
 
-  return `/${avatarPath}`
-}
+  return `/${avatarPath}`;
+};

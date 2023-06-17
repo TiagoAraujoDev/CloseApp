@@ -1,12 +1,12 @@
-import Link from 'next/link'
-import Image from 'next/image'
-import { TvShow } from 'types'
-import { AiFillStar } from 'react-icons/ai'
+import Link from "next/link";
+import Image from "next/image";
+import { TvShow } from "types";
+import { AiFillStar } from "react-icons/ai";
 
-import { shortenText } from '@/utils/shortenText'
-import { formatDate } from '@/utils/formatDate'
+import { shortenText } from "@/utils/shortenText";
+import { formatDate } from "@/utils/formatDate";
 
-import placeholderPoster from '../../public/placeholderPoster.png'
+import placeholderPoster from "../../public/placeholderPoster.png";
 
 interface TvShowCardProps {
   tvshow: TvShow
@@ -59,5 +59,5 @@ export function TvShowCard({ tvshow }: TvShowCardProps) {
         </div>
       </div>
     </Link>
-  )
+  );
 }

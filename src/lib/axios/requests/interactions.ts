@@ -1,8 +1,8 @@
-import { AxiosError, AxiosResponse } from 'axios'
+import { AxiosError, AxiosResponse } from "axios";
 
-import { api } from '@/lib/axios/index'
+import { api } from "@/lib/axios/index";
 
-const apiKey = process.env.NEXT_PUBLIC_API_KEY
+const apiKey = process.env.NEXT_PUBLIC_API_KEY;
 
 interface AddToWatchListParams {
   mediaType: string
@@ -52,25 +52,25 @@ export const addToWatchList = async ({
       media_type: mediaType,
       media_id: mediaId,
       watchlist: isInWatchlist,
-    }
+    };
     const config = {
       headers: {
-        'Content-Type': 'application/json',
+        "Content-Type": "application/json",
       },
-    }
-    const accountId = await getAccountId(sessionId as string)
+    };
+    const accountId = await getAccountId(sessionId as string);
 
     await api.post(
       `account/${accountId}/watchlist?api_key=${apiKey}&session_id=${sessionId}`,
       body,
       config,
-    )
+    );
   } catch (error) {
     if (error instanceof AxiosError) {
-      console.log('response error', error.response?.data)
+      console.log("response error", error.response?.data);
     }
   }
-}
+};
 
 export const setAsFavorite = async ({
   sessionId,
@@ -83,26 +83,26 @@ export const setAsFavorite = async ({
       media_type: mediaType,
       media_id: mediaId,
       favorite: isFavorite,
-    }
+    };
     const config = {
       headers: {
-        'Content-Type': 'application/json',
+        "Content-Type": "application/json",
       },
-    }
+    };
 
-    const accountId = await getAccountId(sessionId as string)
+    const accountId = await getAccountId(sessionId as string);
 
     await api.post(
       `account/${accountId}/favorite?api_key=${apiKey}&session_id=${sessionId}`,
       body,
       config,
-    )
+    );
   } catch (error) {
     if (error instanceof AxiosError) {
-      console.log(error.response?.data)
+      console.log(error.response?.data);
     }
   }
-}
+};
 
 export const rateMedia = async ({
   sessionId,
@@ -113,24 +113,24 @@ export const rateMedia = async ({
   try {
     const body = {
       value: rating * 2,
-    }
+    };
     const config = {
       headers: {
-        'Content-Type': 'application/json',
+        "Content-Type": "application/json",
       },
-    }
+    };
 
     await api.post(
       `${mediaType}/${mediaId}/rating?api_key=${apiKey}&session_id=${sessionId}`,
       body,
       config,
-    )
+    );
   } catch (error) {
     if (error instanceof AxiosError) {
-      console.log(error.response?.data)
+      console.log(error.response?.data);
     }
   }
-}
+};
 
 export const getAccountState = async ({
   mediaId,
@@ -140,56 +140,56 @@ export const getAccountState = async ({
   try {
     const response = await api.get(
       `${mediaType}/${mediaId}/account_states?api_key=${apiKey}&session_id=${sessionId}`,
-    )
+    );
 
-    return response
+    return response;
   } catch (error) {
     if (error instanceof AxiosError) {
-      console.log(error.response?.data)
+      console.log(error.response?.data);
     }
   }
-}
+};
 
 export const getAccountFavorites = async ({
   mediaType,
   sessionId,
 }: GetFavoritesParams): Promise<AxiosResponse | undefined> => {
   try {
-    const accountId = await getAccountId(sessionId as string)
+    const accountId = await getAccountId(sessionId as string);
     const response = await api.get(
       `account/${accountId}/favorite/${mediaType}?api_key=${apiKey}&session_id=${sessionId}`,
-    )
+    );
 
-    return response
+    return response;
   } catch (error) {
     if (error instanceof AxiosError) {
-      console.log(error.response?.data)
+      console.log(error.response?.data);
     }
   }
-}
+};
 
 export const getAccountWatchlist = async ({
   mediaType,
   sessionId,
 }: GetWatchlistParams): Promise<AxiosResponse | undefined> => {
   try {
-    const accountId = await getAccountId(sessionId as string)
+    const accountId = await getAccountId(sessionId as string);
     const response = await api.get(
       `account/${accountId}/watchlist/${mediaType}?api_key=${apiKey}&session_id=${sessionId}`,
-    )
+    );
 
-    return response
+    return response;
   } catch (error) {
     if (error instanceof AxiosError) {
-      console.log(error.response?.data)
+      console.log(error.response?.data);
     }
   }
-}
+};
 
 const getAccountId = async (sessionId: string) => {
   const response = await api.get(
     `account?api_key=${apiKey}&session_id=${sessionId}`,
-  )
+  );
 
-  return response.data.id
-}
+  return response.data.id;
+};

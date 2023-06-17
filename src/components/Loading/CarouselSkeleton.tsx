@@ -1,7 +1,7 @@
-import { memo } from 'react'
-import * as ToogleGroup from '@radix-ui/react-toggle-group'
+import { memo } from "react";
+import * as ToogleGroup from "@radix-ui/react-toggle-group";
 
-import { formatLabel } from '@/utils/formatLabel'
+import { formatLabel } from "@/utils/formatLabel";
 
 interface CarouselSkeletonProps {
   labels: string[]
@@ -31,7 +31,7 @@ function CarouselSkeleton({ labels, label, title }: CarouselSkeletonProps) {
               >
                 {formatLabel(label)}
               </ToogleGroup.Item>
-            )
+            );
           })}
         </ToogleGroup.Root>
       </div>
@@ -48,11 +48,11 @@ function CarouselSkeleton({ labels, label, title }: CarouselSkeletonProps) {
                 <span className="h-5 w-2/3 rounded bg-neutral-600"></span>
               </div>
             </div>
-          )
+          );
         })}
       </div>
     </div>
-  )
+  );
 }
 
-export default memo(CarouselSkeleton)
+export default memo(CarouselSkeleton);

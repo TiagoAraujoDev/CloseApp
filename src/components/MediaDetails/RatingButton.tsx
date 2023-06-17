@@ -1,15 +1,15 @@
-'use client'
+"use client";
 
-import { AiFillStar } from 'react-icons/ai'
-import * as Popover from '@radix-ui/react-popover'
+import { AiFillStar } from "react-icons/ai";
+import * as Popover from "@radix-ui/react-popover";
 
-import { RatingStars } from '@/components/MediaDetails/RatingStars'
-import { SessionButton } from '@/components/Header/components/SessionButton'
+import { RatingStars } from "@/components/MediaDetails/RatingStars";
+import { SessionButton } from "@/components/Header/components/SessionButton";
 
 interface RatingButtonProps {
-  mediaId: number | undefined
-  mediaType: string
-  sessionId: string | undefined
+  mediaId: number | undefined;
+  mediaType: string;
+  sessionId: string | undefined;
 }
 
 export const RatingButton = ({
@@ -17,6 +17,9 @@ export const RatingButton = ({
   mediaType,
   sessionId,
 }: RatingButtonProps) => {
+  
+  console.log(sessionId);
+
   return (
     <Popover.Root>
       <Popover.Trigger asChild>
@@ -45,5 +48,5 @@ export const RatingButton = ({
         </Popover.Content>
       </Popover.Portal>
     </Popover.Root>
-  )
-}
+  );
+};

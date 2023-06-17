@@ -1,9 +1,9 @@
-import Link from 'next/link'
-import { MdLocalMovies } from 'react-icons/md'
+import Link from "next/link";
+import { MdLocalMovies } from "react-icons/md";
 
-import { Menu } from '@/components/Header/components/Menu'
-import { SearchInput } from '@/components/Header/components/SearchInput'
-import { SessionButton } from '@/components/Header/components/SessionButton'
+import { Menu } from "@/components/Header/components/Menu";
+import { SearchInput } from "@/components/Header/components/SearchInput";
+import { SessionButton } from "@/components/Header/components/SessionButton";
 
 export function Header() {
   return (
@@ -26,5 +26,5 @@ export function Header() {
         </nav>
       </div>
     </header>
-  )
+  );
 }

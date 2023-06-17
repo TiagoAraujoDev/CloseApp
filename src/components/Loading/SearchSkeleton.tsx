@@ -1,4 +1,4 @@
-import { memo } from 'react'
+import { memo } from "react";
 
 function SearchSkeleton() {
   return (
@@ -35,7 +35,7 @@ function SearchSkeleton() {
         </div>
       ))}
     </>
-  )
+  );
 }
 
-export default memo(SearchSkeleton)
+export default memo(SearchSkeleton);

@@ -1,43 +1,43 @@
-'use client'
+"use client";
 
-import { memo, useCallback, useState } from 'react'
-import { useQuery } from 'react-query'
+import { memo, useCallback, useState } from "react";
+import { useQuery } from "react-query";
 
-import { getMovies } from '@/lib/axios/requests/movies'
+import { getMovies } from "@/lib/axios/requests/movies";
 
-import Carousel from '@/components/Home/Carousel'
-import CarouselSkeleton from '@/components/Loading/CarouselSkeleton'
-import ToggleCarousel from '@/components/Home/ToggleCarousel'
+import Carousel from "@/components/Home/Carousel";
+import CarouselSkeleton from "@/components/Loading/CarouselSkeleton";
+import ToggleCarousel from "@/components/Home/ToggleCarousel";
 
 export interface MoviesProps {
   labels: string[]
 }
 
 function MovieSection({ labels }: MoviesProps) {
-  const [label, setLabel] = useState(labels[0])
+  const [label, setLabel] = useState(labels[0]);
 
-  const queryKey = `${label}_movies`
+  const queryKey = `${label}_movies`;
 
   const { data, isLoading } = useQuery(
     queryKey,
     async () => {
-      const response = await getMovies(label)
-      const movies = response?.data.results
+      const response = await getMovies(label);
+      const movies = response?.data.results;
 
-      return movies
+      return movies;
     },
     {
       refetchOnMount: false,
       staleTime: 60 * 60 * 2, // 2 hours
     },
-  )
+  );
 
   const handleToggleClick = useCallback((label: string) => {
-    setLabel(label)
-  }, [])
+    setLabel(label);
+  }, []);
 
   if (isLoading) {
-    return <CarouselSkeleton labels={labels} label={label} title="Movies" />
+    return <CarouselSkeleton labels={labels} label={label} title="Movies" />;
   }
 
   return (
@@ -54,7 +54,7 @@ function MovieSection({ labels }: MoviesProps) {
       </div>
       {data && <Carousel movies={data} />}
     </section>
-  )
+  );
 }
 
-export default memo(MovieSection)
+export default memo(MovieSection);

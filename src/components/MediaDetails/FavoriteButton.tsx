@@ -1,13 +1,13 @@
-'use client'
+"use client";
 
-import { AiFillHeart, AiOutlineHeart } from 'react-icons/ai'
-import { useMutation, useQuery } from 'react-query'
+import { AiFillHeart, AiOutlineHeart } from "react-icons/ai";
+import { useMutation, useQuery } from "react-query";
 
 import {
   getAccountState,
   setAsFavorite,
-} from '@/lib/axios/requests/interactions'
-import { queryClient } from '@/lib/ReactQuery'
+} from "@/lib/axios/requests/interactions";
+import { queryClient } from "@/lib/ReactQuery";
 
 interface MutationParams {
   mediaType: string
@@ -30,23 +30,22 @@ export const FavoriteButton = ({
   const { data: isFavorite, isLoading } = useQuery(
     `${mediaType}_${mediaId}_fav`,
     async () => {
-      const response = await getAccountState({ mediaId, mediaType, sessionId })
+      const response = await getAccountState({ mediaId, mediaType, sessionId });
 
-      return response?.data.favorite
+      return response?.data.favorite;
     },
     { initialData: false },
-  )
+  );
 
   const { mutate: mutateFavorite } = useMutation({
     mutationFn: (media: MutationParams) => setAsFavorite(media),
-    onSuccess: (_data, variables, _context) => {
-      console.log(variables)
+    onSuccess: (_data, variables) => {
       queryClient.setQueryData(
         `${mediaType}_${mediaId}_fav`,
         variables.isFavorite,
-      )
+      );
     },
-  })
+  });
 
   const handleAddAsFavorite = () => {
     const media = {
@@ -54,9 +53,9 @@ export const FavoriteButton = ({
       mediaId,
       sessionId,
       isFavorite: !isFavorite,
-    }
-    mutateFavorite(media)
-  }
+    };
+    mutateFavorite(media);
+  };
 
   if (isLoading) {
     return (
@@ -66,7 +65,7 @@ export const FavoriteButton = ({
       >
         <AiOutlineHeart className="text-xs text-emerald-500 sm:text-base" />
       </button>
-    )
+    );
   }
 
   return (
@@ -92,5 +91,5 @@ export const FavoriteButton = ({
         </button>
       )}
     </>
-  )
-}
+  );
+};
