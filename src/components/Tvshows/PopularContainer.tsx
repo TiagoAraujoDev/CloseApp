@@ -1,9 +1,8 @@
 "use client";
 
-import { useInfiniteQuery } from "react-query";
-
 import { TvShow } from "types";
 import React from "react";
+import { useInfiniteQuery } from "react-query";
 import { ImSpinner2 } from "react-icons/im";
 import { BsArrowDownCircle } from "react-icons/bs";
 
