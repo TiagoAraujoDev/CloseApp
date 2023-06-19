@@ -3,7 +3,7 @@
 import { AiFillStar } from "react-icons/ai";
 import * as Popover from "@radix-ui/react-popover";
 
-import { RatingStars } from "@/components/MediaDetails/RatingStars";
+import { RatingStars } from "./RatingStars";
 import { SessionButton } from "@/components/Header/components/SessionButton";
 
 interface RatingButtonProps {
@@ -17,9 +17,6 @@ export const RatingButton = ({
   mediaType,
   sessionId,
 }: RatingButtonProps) => {
-  
-  console.log(sessionId);
-
   return (
     <Popover.Root>
       <Popover.Trigger asChild>

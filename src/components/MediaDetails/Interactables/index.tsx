@@ -6,9 +6,9 @@ import { AiFillStar, AiOutlineHeart } from "react-icons/ai";
 
 import { AuthContext } from "@/context/AuthContext";
 
-import { RatingButton } from "@/components/MediaDetails/RatingButton";
-import { WatchlistButton } from "@/components/MediaDetails/WatchlistButton";
-import { FavoriteButton } from "@/components/MediaDetails/FavoriteButton";
+import { RatingButton } from "@/components/MediaDetails/Interactables/RatingButton";
+import { WatchlistButton } from "@/components/MediaDetails/Interactables/WatchlistButton";
+import { FavoriteButton } from "@/components/MediaDetails/Interactables/FavoriteButton";
 
 interface InteractableProps {
   voteAverage: number
@@ -27,6 +27,7 @@ export function Interactables({
   const mediaType = movieId ? "movie" : "tv";
   const id = movieId || tvshowId;
 
+  //  BUG: When out of session return this. With the new token estrategy it'll be fixed!
   if (!sessionId) {
     return (
       <div className="flex items-center gap-2 sm:mb-2">
