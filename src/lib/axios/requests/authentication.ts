@@ -4,11 +4,11 @@ import { api } from "@/lib/axios/index";
 
 const apiKey = process.env.NEXT_PUBLIC_API_KEY;
 
-export const authToken = async (): Promise<AxiosResponse | undefined> => {
+export const getRequestToken = async (): Promise<AxiosResponse | undefined> => {
   try {
     const response = await api.get(`authentication/token/new?api_key=${apiKey}`);
 
-    return response;
+    return response.data.request_token;
   } catch (error) {
     if (error instanceof AxiosError) {
       console.log(error);

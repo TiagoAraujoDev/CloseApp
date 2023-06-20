@@ -1,4 +1,5 @@
 import { ExternalIds } from "types";
+import { memo } from "react";
 import Link from "next/link";
 import {
   AiFillFacebook,
@@ -10,7 +11,7 @@ interface MediaExternalLinksProps {
   externalIds: ExternalIds;
 }
 
-const MediaExternalLinks = ({ externalIds }: MediaExternalLinksProps) => {
+const MediaExternalLinksComponent = ({ externalIds }: MediaExternalLinksProps) => {
   return (
     <section className="mb-8 px-6">
       <h2 className="mb-1 text-lg font-semibold text-neutral-100 md:text-2xl">
@@ -51,5 +52,7 @@ const MediaExternalLinks = ({ externalIds }: MediaExternalLinksProps) => {
     </section>
   );
 };
+
+const MediaExternalLinks = memo(MediaExternalLinksComponent);
 
 export { MediaExternalLinks };

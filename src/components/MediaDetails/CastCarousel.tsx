@@ -1,4 +1,5 @@
 import { Actor } from "types";
+import { memo } from "react";
 import Image from "next/image";
 
 import placeholderPoster from "../../../public/placeholderPoster.png";
@@ -6,7 +7,8 @@ import placeholderPoster from "../../../public/placeholderPoster.png";
 interface CastCarouselProps {
   cast: Actor[];
 }
-const CastCarousel = ({ cast }: CastCarouselProps) => {
+
+const CastCarouselComponent = ({ cast }: CastCarouselProps) => {
   return (
     <section className="mb-6 px-6">
       <h2 className="mb-1 text-lg font-semibold text-neutral-100 md:text-2xl">
@@ -59,4 +61,5 @@ const CastCarousel = ({ cast }: CastCarouselProps) => {
   );
 };
 
+const CastCarousel = memo(CastCarouselComponent);
 export { CastCarousel };

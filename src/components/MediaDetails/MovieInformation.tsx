@@ -1,4 +1,5 @@
 import { MovieDetails } from "types";
+import { memo } from "react";
 
 import { convertCodeToLang } from "@/utils/convertCodeToLang";
 import { formatCurrency } from "@/utils/formatCurrency";
@@ -7,7 +8,7 @@ interface MovieInformationProps {
   movieDetails: MovieDetails;
 }
 
-const MovieInformation = ({ movieDetails }: MovieInformationProps) => {
+const MovieInformationComponent = ({ movieDetails }: MovieInformationProps) => {
   return (
     <section className="mb-6 px-6">
       <h2 className="mb-1 text-lg font-semibold text-neutral-100 md:text-2xl">
@@ -55,4 +56,5 @@ const MovieInformation = ({ movieDetails }: MovieInformationProps) => {
   );
 };
 
+const MovieInformation = memo(MovieInformationComponent);
 export { MovieInformation };

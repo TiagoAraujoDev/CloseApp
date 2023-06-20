@@ -10,19 +10,19 @@ import {
 import { queryClient } from "@/lib/ReactQuery";
 
 interface MutationParams {
-  mediaType: string
-  mediaId: number | undefined
-  sessionId: string | undefined
-  isFavorite: boolean
+  mediaType: string;
+  mediaId: number | undefined;
+  sessionId: string | undefined;
+  isFavorite: boolean;
 }
 
 interface FavoriteButtonProps {
-  mediaId: number | undefined
-  mediaType: string
-  sessionId: string | undefined
+  mediaId: number | undefined;
+  mediaType: string;
+  sessionId: string | undefined;
 }
 
-export const FavoriteButton = ({
+const FavoriteButton = ({
   mediaType,
   mediaId,
   sessionId,
@@ -69,27 +69,18 @@ export const FavoriteButton = ({
   }
 
   return (
-    <>
-      {sessionId ? (
-        <button
-          onClick={handleAddAsFavorite}
-          title="Mark as favorite!"
-          className="flex h-4 w-4 cursor-pointer items-center justify-center rounded-full bg-neutral-700 text-xs hover:scale-110 sm:h-6 sm:w-6 sm:text-base md:h-8 md:w-8 md:text-xl"
-        >
-          {isFavorite ? (
-            <AiFillHeart className="text-xs text-emerald-500 sm:text-base" />
-          ) : (
-            <AiOutlineHeart className="text-xs text-emerald-500 sm:text-base" />
-          )}
-        </button>
+    <button
+      onClick={handleAddAsFavorite}
+      title="Mark as favorite!"
+      className="flex h-4 w-4 cursor-pointer items-center justify-center rounded-full bg-neutral-700 text-xs hover:scale-110 sm:h-6 sm:w-6 sm:text-base md:h-8 md:w-8 md:text-xl"
+    >
+      {isFavorite ? (
+        <AiFillHeart className="text-xs text-emerald-500 sm:text-base" />
       ) : (
-        <button
-          title="Loggin to interact!"
-          className="flex h-4 w-4 cursor-pointer items-center justify-center rounded-full bg-neutral-700 text-xs hover:scale-110 sm:h-6 sm:w-6 sm:text-base md:h-8 md:w-8 md:text-xl"
-        >
-          <AiOutlineHeart className="text-xs text-emerald-500 sm:text-base" />
-        </button>
+        <AiOutlineHeart className="text-xs text-emerald-500 sm:text-base" />
       )}
-    </>
+    </button>
   );
 };
+
+export { FavoriteButton };

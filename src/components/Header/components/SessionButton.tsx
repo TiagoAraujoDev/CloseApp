@@ -1,41 +1,62 @@
 "use client";
 
-import { useContext } from "react";
+import { useEffect, useState } from "react";
 import { useRouter } from "next/navigation";
 import { CiLogin, CiLogout } from "react-icons/ci";
+import Cookies from "js-cookie";
 
-import { AuthContext } from "@/context/AuthContext";
+import {
+  getRequestToken,
+  deleteSessionId,
+} from "@/lib/axios/requests/authentication";
 
 export const SessionButton = () => {
-  const { getRequestToken, sessionId, logoutSession } = useContext(AuthContext);
+  const token = Cookies.get("token");
+  const [sessionId, setSessionId] = useState<string | undefined>();
   const router = useRouter();
+  
+  useEffect(() => {
+    setSessionId(token);
+  }, [setSessionId, token]);
 
   const redirectUrl =
     process.env.NODE_ENV === "production"
-      ? "https://close-app.vercel.app/approved"
-      : "http://localhost:3000/approved";
+      ? "https://close-app.vercel.app/api/callback"
+      : "http://localhost:3000/api/callback";
 
-  const handleLoggin = async () => {
-    const token = await getRequestToken();
+  const handleLogin = async () => {
+    const requestToken = await getRequestToken();
     router.push(
-      `https://www.themoviedb.org/authenticate/${token}?redirect_to=${redirectUrl}`,
+      `https://www.themoviedb.org/authenticate/${requestToken}?redirect_to=${redirectUrl}`,
     );
   };
 
   const handleLogout = async () => {
-    logoutSession();
-    router.push("/");
+    if (sessionId) {
+      await deleteSessionId(sessionId);
+      Cookies.remove("token");
+      setSessionId(undefined);
+      router.push("/");
+    }
   };
 
   return (
     <>
       {sessionId ? (
-        <button className="disabled:cursor-not-allowed" onClick={handleLogout}>
-          <CiLogout title="Logout" className="text-2xl text-emerald-500" />
+        <button
+          title="Logout"
+          className="disabled:cursor-not-allowed"
+          onClick={handleLogout}
+        >
+          <CiLogout className="text-2xl text-emerald-500" />
         </button>
       ) : (
-        <button className="disabled:cursor-not-allowed" onClick={handleLoggin}>
-          <CiLogin title="Loggin" className="text-2xl text-emerald-500" />
+        <button
+          title="Login"
+          className="disabled:cursor-not-allowed"
+          onClick={handleLogin}
+        >
+          <CiLogin className="text-2xl text-emerald-500" />
         </button>
       )}
     </>

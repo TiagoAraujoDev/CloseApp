@@ -12,7 +12,7 @@ interface RatingButtonProps {
   sessionId: string | undefined;
 }
 
-export const RatingButton = ({
+const RatingButton = ({
   mediaId,
   mediaType,
   sessionId,
@@ -47,3 +47,5 @@ export const RatingButton = ({
     </Popover.Root>
   );
 };
+
+export { RatingButton };

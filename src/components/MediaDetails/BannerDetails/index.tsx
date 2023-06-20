@@ -1,4 +1,5 @@
 import { Crew, MovieDetails } from "types";
+import { memo } from "react";
 import Image from "next/image";
 
 import { Interactables } from "../Interactables";
@@ -11,7 +12,7 @@ interface BannerDetailsProps {
   crew: Crew[];
 }
 
-const BannerDetails = ({ movieDetails, crew }: BannerDetailsProps) => {
+const BannerDetailsComponent = ({ movieDetails, crew }: BannerDetailsProps) => {
   //  NOTE: Extract into smallest components
   return (
     <section className="relative mb-4 min-w-full">
@@ -126,4 +127,5 @@ const BannerDetails = ({ movieDetails, crew }: BannerDetailsProps) => {
   );
 };
 
+const BannerDetails = memo(BannerDetailsComponent);
 export { BannerDetails };

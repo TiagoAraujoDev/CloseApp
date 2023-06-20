@@ -1,4 +1,5 @@
 import { Review } from "types";
+import { memo } from "react";
 import Image from "next/image";
 import {
   AiFillStar,
@@ -12,7 +13,7 @@ interface ReviewsProps {
   mediaReviews: Review[];
 }
 
-const Reviews = ({ mediaReviews }: ReviewsProps) => {
+const ReviewsComponent = ({ mediaReviews }: ReviewsProps) => {
   //  NOTE: See if it makes sense to break down into smaller components
   return (
     <section className="mb-6 px-6">
@@ -76,4 +77,5 @@ const Reviews = ({ mediaReviews }: ReviewsProps) => {
   );
 };
 
+const Reviews = memo(ReviewsComponent);
 export { Reviews };

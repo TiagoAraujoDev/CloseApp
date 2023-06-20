@@ -19,7 +19,7 @@ interface MutationParams {
   rating: number;
 }
 
-export const RatingStars = ({
+const RatingStars = ({
   sessionId,
   mediaType,
   mediaId,
@@ -78,3 +78,5 @@ export const RatingStars = ({
     </div>
   );
 };
+
+export { RatingStars };
