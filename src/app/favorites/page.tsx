@@ -1,45 +1,14 @@
 "use client";
 
-import { useContext, useState } from "react";
+import Cookies from "js-cookie";
+import { useState } from "react";
 import * as ToggleGroup from "@radix-ui/react-toggle-group";
 
-import { AuthContext } from "@/context/AuthContext";
-
-import CardsSkeleton from "@/components/Loading/CardsSkeleton";
 import { FavoritesContainer } from "@/components/Favorites/FavoritesContainer";
 
 export default function FavoritePage() {
-  const { sessionId } = useContext(AuthContext);
+  const sessionId = Cookies.get("token");
   const [mediaType, setMediaType] = useState("movies");
-
-  if (!sessionId)
-    return (
-      <section className="myMinHeight my-8 mx-auto max-w-5xl px-16">
-        <div className="mb-4 flex min-w-full items-end justify-between">
-          <h1 className="text-base font-bold md:text-lg">MyFavorites</h1>
-          <ToggleGroup.Root
-            type="single"
-            defaultValue="movies"
-            className="space-x-2 rounded text-sm"
-            disabled={true}
-          >
-            <ToggleGroup.Item
-              value="movies"
-              className="radix-state-on:border-b radix-state-on:border-emerald-500"
-            >
-              Movies
-            </ToggleGroup.Item>
-            <ToggleGroup.Item
-              value="tv"
-              className="radix-state-on:border-b radix-state-on:border-emerald-500"
-            >
-              Tvshows
-            </ToggleGroup.Item>
-          </ToggleGroup.Root>
-        </div>
-        <CardsSkeleton />
-      </section>
-    );
 
   return (
     <section className="myMinHeight my-8 mx-auto flex max-w-5xl flex-col items-center justify-center px-16">

@@ -24,6 +24,15 @@ const Interactables = async ({
   const mediaType = movieId ? "movie" : "tv";
   const id = movieId || tvshowId;
 
+  //  TODO: Use this request to pass the info as props
+  const accountState = await getAccountState({
+    sessionId,
+    mediaType,
+    mediaId: id,
+  });
+
+  console.log(accountState?.data);
+
   return (
     <div className="flex items-center gap-2 sm:mb-2">
       <div className="flex items-center gap-1">

@@ -2,13 +2,12 @@
 
 import * as DropDownMenu from "@radix-ui/react-dropdown-menu";
 import Link from "next/link";
-import { useContext } from "react";
 import { CaretRight, List } from "phosphor-react";
-
-import { AuthContext } from "@/context/AuthContext";
+import Cookies from "js-cookie";
 
 export const Menu = () => {
-  const { sessionId } = useContext(AuthContext);
+  const sessionId = Cookies.get("token");
+  
   return (
     <DropDownMenu.Root>
       <DropDownMenu.Trigger asChild>
