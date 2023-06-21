@@ -1,4 +1,4 @@
-import { Crew, MovieDetails } from "types";
+import { Crew, MovieDetails, TvShowDetails } from "types";
 import { memo } from "react";
 import Image from "next/image";
 
@@ -8,18 +8,25 @@ import placeholderBackdrop from "../../../../public/placeholderBackdrop.png";
 import placeholderPoster from "../../../../public/placeholderPoster.png";
 
 interface BannerDetailsProps {
-  movieDetails: MovieDetails;
+  movieDetails?: MovieDetails;
+  tvshowDetails?: TvShowDetails;
   crew: Crew[];
 }
 
-const BannerDetailsComponent = ({ movieDetails, crew }: BannerDetailsProps) => {
+const BannerDetailsComponent = ({
+  movieDetails,
+  tvshowDetails,
+  crew,
+}: BannerDetailsProps) => {
   //  NOTE: Extract into smallest components
   return (
     <section className="relative mb-4 min-w-full">
       {/** Background */}
-      {movieDetails.backdrop_path ? (
+      {movieDetails?.backdrop_path || tvshowDetails?.backdrop_path ? (
         <Image
-          src={`https://www.themoviedb.org/t/p/w1280${movieDetails.backdrop_path}`}
+          src={`https://www.themoviedb.org/t/p/w1280${
+            movieDetails?.backdrop_path || tvshowDetails?.backdrop_path
+          }`}
           alt=""
           width={1280}
           height={720}
@@ -31,10 +38,12 @@ const BannerDetailsComponent = ({ movieDetails, crew }: BannerDetailsProps) => {
       <div className="absolute top-1/2 left-1/2 h-full w-full -translate-x-1/2 -translate-y-1/2 bg-transparent py-8 px-4 sm:py-10 sm:px-5 md:py-16 md:px-6">
         {/** Container flex */}
         <div className="flex h-full w-full items-center gap-4 bg-transparent">
-          {movieDetails.poster_path ? (
+          {movieDetails?.poster_path || tvshowDetails?.backdrop_path ? (
             <div className="flex w-[100px] sm:w-[150px] md:w-[210px] lg:w-[295px]">
               <Image
-                src={`https://www.themoviedb.org/t/p/w780${movieDetails.poster_path}`}
+                src={`https://www.themoviedb.org/t/p/w780${
+                  movieDetails?.poster_path || tvshowDetails?.poster_path
+                }`}
                 alt=""
                 width={780}
                 height={1170}
@@ -57,51 +66,76 @@ const BannerDetailsComponent = ({ movieDetails, crew }: BannerDetailsProps) => {
             {/** Header */}
             <div className="flex items-center gap-1">
               <h1 className="text-sm font-medium text-neutral-100 sm:text-lg md:text-2xl lg:text-3xl">
-                {movieDetails.original_title}
+                {movieDetails?.original_title || tvshowDetails?.original_name}
               </h1>
               <span className="hidden text-base text-neutral-400 sm:block sm:text-lg md:text-2xl">
-                ({movieDetails.release_date.slice(0, 4)})
+                (
+                {movieDetails?.release_date.slice(0, 4) ||
+                  tvshowDetails?.first_air_date.slice(0, 4)}
+                )
               </span>
             </div>
             {/** Infos */}
             <div className="flex flex-col sm:mb-1 sm:flex-row sm:items-center sm:gap-1">
               <span className="text-xs text-neutral-300 sm:text-base">
-                {movieDetails.release_date}
+                {movieDetails?.release_date || tvshowDetails?.first_air_date}
               </span>
               <span className="hidden text-lg sm:block">&middot;</span>
               <span className="flex items-center gap-1 text-xs text-neutral-300 sm:text-base">
-                {movieDetails.genres.map((genre, index) => (
-                  <span className="underline" key={index}>
-                    {genre.name}
-                  </span>
-                ))}
+                {movieDetails
+                  ? movieDetails.genres.map((genre, index) => (
+                    <span className="underline" key={index}>
+                      {genre.name}
+                    </span>
+                  ))
+                  : tvshowDetails?.genres.map((genre, index) => (
+                    <span className="underline" key={index}>
+                      {genre.name}
+                    </span>
+                  ))}
               </span>
               <span className="hidden text-lg sm:block">&middot;</span>
               <span className="hidden text-xs text-neutral-300 sm:inline-block sm:text-base">
-                {movieDetails.runtime} min
+                {movieDetails?.runtime || tvshowDetails?.episode_run_time} min
               </span>
             </div>
             {/** Intaractive: ClientComponent */}
-            <Interactables
-              voteAverage={movieDetails.vote_average}
-              voteCount={movieDetails.vote_count}
-              movieId={movieDetails.id}
-            />
+            {movieDetails ? (
+              <Interactables
+                voteAverage={movieDetails.vote_average}
+                voteCount={movieDetails.vote_count}
+                movieId={movieDetails.id}
+              />
+            ) : (
+              <Interactables
+                voteAverage={tvshowDetails?.vote_average}
+                voteCount={tvshowDetails?.vote_count}
+                tvshowId={tvshowDetails?.id}
+              />
+            )}
             {/** Tagline */}
             <p className="mb-2 hidden text-base italic text-neutral-400 sm:block lg:text-lg">
-              {movieDetails.tagline}
+              {movieDetails?.tagline || tvshowDetails?.tagline}
             </p>
             {/** Sinopse */}
             <div className="flex w-56 flex-col sm:mb-2 sm:w-full">
               <h2 className="text-xs font-medium text-neutral-200 sm:text-base lg:text-2xl">
                 Sinopse
               </h2>
-              {movieDetails.overview && (
+              {movieDetails && movieDetails.overview && (
                 <p
                   title={movieDetails.overview}
                   className="overflow-hidden text-ellipsis whitespace-nowrap text-xs text-neutral-200 sm:whitespace-normal sm:text-sm lg:text-lg"
                 >
                   {movieDetails.overview}
+                </p>
+              )}
+              {tvshowDetails && tvshowDetails.overview && (
+                <p
+                  title={tvshowDetails.overview}
+                  className="overflow-hidden text-ellipsis whitespace-nowrap text-xs text-neutral-200 sm:whitespace-normal sm:text-sm lg:text-lg"
+                >
+                  {tvshowDetails.overview}
                 </p>
               )}
             </div>

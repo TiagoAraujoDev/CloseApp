@@ -8,8 +8,8 @@ import { FavoriteButton } from "@/components/MediaDetails/Interactables/Favorite
 import { getAccountState } from "@/lib/axios/requests/interactions";
 
 interface InteractableProps {
-  voteAverage: number;
-  voteCount: number;
+  voteAverage: number | undefined;
+  voteCount: number | undefined;
   movieId?: number;
   tvshowId?: number;
 }
@@ -38,7 +38,7 @@ const Interactables = async ({
       <div className="flex items-center gap-1">
         <AiFillStar className="flex items-center justify-center text-xs text-yellow-400 sm:text-base md:text-lg" />
         <span className="flex items-center justify-center text-xs sm:text-base md:text-lg">
-          {voteAverage.toFixed(2)}
+          {voteAverage?.toFixed(2)}
         </span>
         <span className="text-lg">&middot;</span>
         <span className="flex items-center justify-center text-xs sm:text-base md:text-lg">

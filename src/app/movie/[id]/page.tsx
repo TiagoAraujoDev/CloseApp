@@ -11,15 +11,15 @@ import {
 
 import { BannerDetails } from "@/components/MediaDetails/BannerDetails";
 import { CastCarousel } from "@/components/MediaDetails/CastCarousel";
-import { MovieInformation } from "@/components/MediaDetails/MovieInformation";
+import { MediaInformation } from "@/components/MediaDetails/MediaInformation";
 import { MediaExternalLinks } from "@/components/MediaDetails/MediaExternalLinks";
 import { SeparatorLine } from "@/components/UI";
 import { Reviews } from "@/components/MediaDetails/Reviews";
 
 interface MovieDetailsProps {
   params: {
-    id: number
-  }
+    id: number;
+  };
 }
 
 export async function generateMetadata({
@@ -46,14 +46,14 @@ export default async function MovieDetailsPage({ params }: MovieDetailsProps) {
 
   const movieDetails: MovieDetails = movieDetailsResponse?.data;
   const externalIds: ExternalIds = movieExternalIdsResponse?.data;
-  const movieReviews: Review[] = movieReviewsResponse?.data.results;
+  const reviews: Review[] = movieReviewsResponse?.data.results;
   const cast: Actor[] = movieCreditsResponse?.data.cast;
   const crew: Crew[] = movieCreditsResponse?.data.crew;
 
   if (crew) crew.length = 5;
   if (cast) cast.length = 10;
 
-  if (!movieDetails || !movieReviews || !externalIds || !cast || !crew) {
+  if (!movieDetails) {
     return (
       <div className="flex h-screen w-screen items-center justify-center">
         <ImSpinner2 className="animate-spin text-xl text-neutral-100" />
@@ -68,13 +68,13 @@ export default async function MovieDetailsPage({ params }: MovieDetailsProps) {
       {/* Cast carousel */}
       <CastCarousel cast={cast} />
       {/* Informations */}
-      <MovieInformation movieDetails={movieDetails} />
+      <MediaInformation movieDetails={movieDetails} />
       {/* External links */}
       <MediaExternalLinks externalIds={externalIds} />
       {/* Separator  */}
       <SeparatorLine />
       {/* Reviews */}
-      <Reviews mediaReviews={movieReviews} />
+      <Reviews mediaReviews={reviews} />
     </main>
   );
 }
