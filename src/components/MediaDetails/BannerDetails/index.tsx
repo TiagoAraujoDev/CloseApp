@@ -84,16 +84,17 @@ const BannerDetailsComponent = ({
               <span className="flex items-center gap-1 text-xs text-neutral-300 sm:text-base">
                 {movieDetails
                   ? movieDetails.genres.map((genre, index) => (
-                    <span className="underline" key={index}>
-                      {genre.name}
-                    </span>
-                  ))
+                      <span className="underline" key={index}>
+                        {genre.name}
+                      </span>
+                    ))
                   : tvshowDetails?.genres.map((genre, index) => (
-                    <span className="underline" key={index}>
-                      {genre.name}
-                    </span>
-                  ))}
+                      <span className="underline" key={index}>
+                        {genre.name}
+                      </span>
+                    ))}
               </span>
+              {/*  FIX: remove dot and "min" when time isn't provide */}
               <span className="hidden text-lg sm:block">&middot;</span>
               <span className="hidden text-xs text-neutral-300 sm:inline-block sm:text-base">
                 {movieDetails?.runtime || tvshowDetails?.episode_run_time} min
