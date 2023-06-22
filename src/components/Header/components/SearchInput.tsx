@@ -38,7 +38,7 @@ export function SearchInput() {
   );
 
   return (
-    <div className="mx-auto flex h-9 flex-grow items-center justify-between rounded-full bg-neutral-800 py-2 px-4 shadow-lg shadow-neutral-900 focus:border focus:border-emerald-500 sm:max-w-xs md:max-w-xl">
+    <div className="mx-auto flex h-9 flex-grow items-center justify-between rounded-full bg-neutral-800 py-2 px-4 shadow-lg shadow-neutral-900 sm:max-w-xs md:max-w-xl">
       <input
         onKeyDown={(e) => handleSearch(searchValue, false, e)}
         onChange={(e) => setSearchValue(e.target.value)}

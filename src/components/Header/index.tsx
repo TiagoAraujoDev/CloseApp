@@ -7,7 +7,7 @@ import { SessionButton } from "@/components/Header/components/SessionButton";
 
 export function Header() {
   return (
-    <header className="sticky top-0 z-10 h-16 bg-neutral-700 p-4">
+    <header className="sticky top-0 z-10 h-18 bg-neutral-700 p-4">
       <div className="mx-auto flex max-w-5xl items-center justify-around gap-4 sm:justify-between">
         <Link
           href="/"
