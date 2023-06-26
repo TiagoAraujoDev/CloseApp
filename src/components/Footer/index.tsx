@@ -1,6 +1,7 @@
 import Link from "next/link";
 
-import { BlogSVG, GithubSVG, LinkedInSVG } from "../Icons";
+import { AiFillGithub, AiFillLinkedin } from "react-icons/ai";
+import { FaBloggerB } from "react-icons/fa";
 
 export function Footer() {
   return (
@@ -8,16 +9,16 @@ export function Footer() {
       <span className="text-neutral-400">Made by Tiago Araujo &copy; 2023</span>
       <span className="flex items-center gap-2">
         <Link target="_blank" href="https://github.com/TiagoAraujoDev">
-          <GithubSVG />
+          <AiFillGithub />
         </Link>
         <Link
           target="_blank"
           href="https://www.linkedin.com/in/tiago-muniz-de-araujo-2b5b8a89/"
         >
-          <LinkedInSVG />
+          <AiFillLinkedin />
         </Link>
         <Link target="_blank" href="https://technewsblog.vercel.app/">
-          <BlogSVG />
+          <FaBloggerB />
         </Link>
       </span>
     </footer>
