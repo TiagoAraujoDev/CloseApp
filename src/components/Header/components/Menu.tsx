@@ -2,17 +2,17 @@
 
 import * as DropDownMenu from "@radix-ui/react-dropdown-menu";
 import Link from "next/link";
-import { CaretRight, List } from "phosphor-react";
+import { AiFillCaretRight, AiOutlineMenu } from "react-icons/ai";
 import Cookies from "js-cookie";
 
 export const Menu = () => {
   const sessionId = Cookies.get("token");
-  
+
   return (
     <DropDownMenu.Root>
       <DropDownMenu.Trigger asChild>
         <button>
-          <List size={24} color="#10b981" />
+          <AiOutlineMenu size={24} color="#10b981" />
         </button>
       </DropDownMenu.Trigger>
       <DropDownMenu.Portal className="z-20">
@@ -25,7 +25,7 @@ export const Menu = () => {
             <DropDownMenu.SubTrigger className="flex cursor-pointer items-center justify-between p-2 text-neutral-100 outline-none hover:bg-neutral-600 hover:text-emerald-500">
               Movies
               <span>
-                <CaretRight />
+                <AiFillCaretRight />
               </span>
             </DropDownMenu.SubTrigger>
             <DropDownMenu.Portal>
@@ -61,7 +61,7 @@ export const Menu = () => {
             <DropDownMenu.SubTrigger className="flex cursor-pointer items-center justify-between p-2 text-neutral-100 outline-none hover:bg-neutral-600 hover:text-emerald-500">
               TV shows
               <span>
-                <CaretRight />
+                <AiFillCaretRight />
               </span>
             </DropDownMenu.SubTrigger>
             <DropDownMenu.Portal>

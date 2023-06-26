@@ -5,7 +5,6 @@ import { BsBookmark } from "react-icons/bs";
 import { RatingButton } from "@/components/MediaDetails/Interactables/RatingButton";
 import { WatchlistButton } from "@/components/MediaDetails/Interactables/WatchlistButton";
 import { FavoriteButton } from "@/components/MediaDetails/Interactables/FavoriteButton";
-import { getAccountState } from "@/lib/axios/requests/interactions";
 
 interface InteractableProps {
   voteAverage: number | undefined;
@@ -23,15 +22,6 @@ const Interactables = async ({
   const sessionId = cookies().get("token")?.value;
   const mediaType = movieId ? "movie" : "tv";
   const id = movieId || tvshowId;
-
-  //  TODO: Use this request to pass the info as props
-  const accountState = await getAccountState({
-    sessionId,
-    mediaType,
-    mediaId: id,
-  });
-
-  console.log(accountState?.data);
 
   return (
     <div className="flex items-center gap-2 sm:mb-2">
