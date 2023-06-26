@@ -1,17 +1,22 @@
 "use client";
 
 import Cookies from "js-cookie";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import * as ToggleGroup from "@radix-ui/react-toggle-group";
 
-import { FavoritesContainer } from "@/components/Favorites/FavoritesContainer";
+import { FavoritesContainer } from "@/components/FavoritesAndWatchlist/Favorites/FavoritesContainer";
 
 export default function FavoritePage() {
-  const sessionId = Cookies.get("token");
+  const [sessionId, setSessionId] = useState<string | undefined>();
   const [mediaType, setMediaType] = useState("movies");
 
+  useEffect(() => {
+    const sessionId = Cookies.get("token");
+    setSessionId(sessionId);
+  }, [sessionId]);
+
   return (
-    <section className="myMinHeight my-8 mx-auto flex max-w-5xl flex-col items-center justify-center px-16">
+    <section className="myMinHeight my-8 mx-auto max-w-5xl px-16">
       <div className="mb-4 flex min-w-full items-end justify-between">
         <h1 className="text-base font-bold md:text-lg">MyFavorites</h1>
         <ToggleGroup.Root

@@ -11,8 +11,8 @@ import { TvShowCard } from "@/components/TvShowCard";
 import CardsSkeleton from "@/components/Loading/CardsSkeleton";
 
 interface FavoritesContainerProps {
-  sessionId: string
-  mediaType: string
+  sessionId: string;
+  mediaType: string;
 }
 
 export const FavoritesContainer = ({
@@ -48,9 +48,9 @@ export const FavoritesContainer = ({
           <TvShowCard key={tvshow.id} tvshow={tvshow} />
         ))}
       {isSuccess && favorites.length === 0 && (
-        <div className="flex flex-1 flex-col items-center justify-center">
-          <MdFavorite size={96} className="mb-4 text-neutral-400" />
-          <h1 className="text-xl text-neutral-300">
+        <div className="m-auto w-2/3">
+          <MdFavorite size={96} className="mx-auto mb-4 text-neutral-400" />
+          <h1 className="text-center text-xl text-neutral-300">
             You haven&apos;t added any favorite{" "}
             {mediaType === "movies" ? "movies" : "Tv shows"}.
           </h1>
