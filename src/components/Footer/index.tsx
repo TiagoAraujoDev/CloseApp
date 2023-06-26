@@ -9,16 +9,16 @@ export function Footer() {
       <span className="text-neutral-400">Made by Tiago Araujo &copy; 2023</span>
       <span className="flex items-center gap-2">
         <Link target="_blank" href="https://github.com/TiagoAraujoDev">
-          <AiFillGithub />
+          <AiFillGithub className="h-6 w-6 hover:text-green-500" />
         </Link>
         <Link
           target="_blank"
           href="https://www.linkedin.com/in/tiago-muniz-de-araujo-2b5b8a89/"
         >
-          <AiFillLinkedin />
+          <AiFillLinkedin className="h-6 w-6 hover:text-green-500" />
         </Link>
         <Link target="_blank" href="https://technewsblog.vercel.app/">
-          <FaBloggerB />
+          <FaBloggerB className="h-6 w-6 hover:text-green-500" />
         </Link>
       </span>
     </footer>
