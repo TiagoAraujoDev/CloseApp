@@ -63,7 +63,7 @@ export function SearchDisplay() {
       setTvshowResultCount(tvshowsQuery.data?.pages[0]?.data.total_results);
     }
     // eslint-disable-next-line
-  }, [moviesQuery, tvshowsQuery])
+  }, [moviesQuery, tvshowsQuery]);
 
   if (moviesQuery.status === "loading" || tvshowsQuery.status === "loading") {
     return <SearchSkeleton />;
